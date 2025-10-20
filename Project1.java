@@ -34,16 +34,16 @@ public class Project1 {
             String choice = SC.nextLine().trim().toUpperCase();
             switch (choice) {
                 case "A":
-                    submenuPrimary();
+                    subMenuPrimary();
                     break;
                 case "B":
-                    submenuSecondary();
+                    subMenuSecondary();
                     break;
                 case "C":
-                    submenuHighSchool();
+                    subMenuHighSchool();
                     break;
                 case "D":
-                    submenuUniversity();
+                    connectFour();
                     break;
                 case "E":
                     System.out.println("Terminating... Goodbye!");
@@ -64,6 +64,69 @@ public class Project1 {
         System.out.println("[D] University");
         System.out.println("[E] Terminate");
         System.out.print("Choice: ");
+    }
+
+    public static void subMenuPrimary() {
+        clearScreen();
+        System.out.println("Sub Menu - Primary School - Select an option:");
+        System.out.println("[A] Age and Zodiac Sign Detection");
+        System.out.println("[B] Reverse the Words");
+        System.out.println("[C] Return to the Main Menu");
+        System.out.print("Choice: ");
+    }
+
+    public static void subMenuSecondary() {
+        clearScreen();
+        System.out.println("Sub Menu - Secondary School - Select an option:");
+        System.out.println("[A] Prime Numbers");
+        System.out.println("[B] Step by Step Evaluation of Expression");
+        System.out.println("[C] Return to Main Menu");
+        System.out.print("Choice: ");
+    }
+
+    public static void subMenuHighSchool() {
+        clearScreen();
+        System.out.println("Sub Menu - High School - Select an option:");
+        System.out.println("[A] Statistical Information About an Array");
+        System.out.println("[B] Distance Between Two Arrays");
+        System.out.println("[C] Return to Main Menu");
+        System.out.print("Choice: ");
+    }
+
+    public static void subMenuUniversity() {
+        clearScreen();
+        System.out.println("Welcome to the Connect Four Game! - Select the Board Size and then the Game Mode to Start:");
+        System.out.println("Board Size Options:%n[A] 5x4%n[B] 6x5%n[C] 7x6");
+        System.out.println("Game Mode Options:%n[A] single-player vs computer%n[B] two-players");
+        System.out.print("Choice: ");
+    }
+
+    public static void ageZodiac(int day, int month, int year) {
+
+    }
+
+    public static void reverseWords(String text) {
+        
+    }
+
+    public static void primeNumbers(int number) {
+        
+    }
+    
+    public static void evalExpression(String expression) {
+        
+    }
+
+    public static void arrayStat(int arraySize, int[] elements) {
+        
+    }
+
+    public static void arraysDistance(int arrayDimension, int[] array1Elements, int[] array2Elements) {
+        
+    }
+    
+    public static void connectFour(int rows, int columns, String gameMode) {
+        
     }
 
     public static void clearScreen() {
