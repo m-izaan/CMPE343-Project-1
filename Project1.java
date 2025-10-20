@@ -15,14 +15,13 @@ public class Project1 {
     public static void showWelcome() {
         clearScreen();
         System.out.println("################################################################");
-        System.out.println("#  #");
-        System.out.println("#       ");
-        System.out.println("#      ");
-        System.out.println("#      ");
-        System.out.println("#    ");
         System.out.println("#                                                              #");
-        System.out.println("#   CMPE343 - Fundamentals of Java Programming - Project #1     #");
-        System.out.println("#   Team:                                 #");
+        System.out.println("#                                                              #");
+        System.out.println("#                                                              #");
+        System.out.println("#   CMPE343 - Fundamentals of Java Programming - Project #1    #");
+        System.out.println("#   Team: Team Jarvis                                          #");
+        System.out.println("#                                                              #");
+        System.out.println("#                                                              #");
         System.out.println("#                                                              #");
         System.out.println("################################################################\n");
     }
@@ -43,7 +42,7 @@ public class Project1 {
                     subMenuHighSchool();
                     break;
                 case "D":
-                    connectFour();
+                    subMenuUniversity();
                     break;
                 case "E":
                     System.out.println("Terminating... Goodbye!");
@@ -56,7 +55,7 @@ public class Project1 {
     }
 
     public static void printMainMenu() {
-        clearScreen();
+        // clearScreen();
         System.out.println("Main Menu - Select an option:");
         System.out.println("[A] Primary School");
         System.out.println("[B] Secondary School");
