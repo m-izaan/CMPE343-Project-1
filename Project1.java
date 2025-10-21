@@ -1,5 +1,6 @@
 import java.util.Random;
 import java.util.Scanner;
+import java.time.LocalDate;
 
 public class Project1 {
 
@@ -14,16 +15,28 @@ public class Project1 {
     // ===================== UI & Helpers =====================
     public static void showWelcome() {
         clearScreen();
-        System.out.println("################################################################");
-        System.out.println("#                                                              #");
-        System.out.println("#                                                              #");
-        System.out.println("#                                                              #");
-        System.out.println("#   CMPE343 - Fundamentals of Java Programming - Project #1    #");
-        System.out.println("#   Team: Team Jarvis                                          #");
-        System.out.println("#                                                              #");
-        System.out.println("#                                                              #");
-        System.out.println("#                                                              #");
-        System.out.println("################################################################\n");
+        System.out.println("                            .--.");
+        System.out.println("                           /  ..\\");
+        System.out.println("                      ____.'  _o/");
+        System.out.println("       .--.          '--.     |.__");
+        System.out.println("      /..  \\         _.-'     /--'");
+        System.out.println("      \\ o  /    _.--'        /");
+        System.out.println("      /    \\   ~'--....___.-'");
+        System.out.println("     /      \\");
+        System.out.println("    (/      \\)      ,_");
+        System.out.println("     |      \\        |`\\");
+        System.out.println("      \\      '._     \\  `'-._");
+        System.out.println("       '._      '-.   \\      '-._/)");
+        System.out.println("          `'- ,~- _.`  '.        '.--.");
+        System.out.println("jgs                      `-.,    / ..`\\");
+        System.out.println("       .--.                 //'-.   o /");
+        System.out.println("      /..  \\               (/     '--'");
+        System.out.println("      \\o _ (____");
+        System.out.println("    __.|    .--'");
+        System.out.println("   '---\\    '.         ,");
+        System.out.println("        '.    '-.___.-'/");
+        System.out.println("          '-.__     _.'");
+        System.out.println("               `````");
     }
 
     public static void mainLoop() {
@@ -64,8 +77,50 @@ public class Project1 {
         System.out.println("[E] Terminate");
         System.out.print("Choice: ");
     }
+        // ---------- Primary School ----------
+    public static void primarySchoolMenuLoop() 
+    {
+        boolean back = false;
+        while (!back) 
+        {
+            subMenuPrimary();
+            String subChoice = SC.nextLine().trim().toUpperCase();
+            switch (subChoice) 
+            {
+                case "A":
+                    try 
+                        {
+                        System.out.print("Enter day of birth: ");
+                        int day = Integer.parseInt(SC.nextLine());
+                        System.out.print("Enter month of birth: ");
+                        int month = Integer.parseInt(SC.nextLine());
+                        System.out.print("Enter year of birth: ");
+                        int year = Integer.parseInt(SC.nextLine());
+                        ageZodiac(day, month, year);
+                        } 
+                    catch (Exception e) 
+                        {
+                        System.out.println("Invalid input! Please enter valid numbers.");
+                        }    
+                    break;
+                case "B":
+                    System.out.print("Enter a sentence: ");
+                    String text = SC.nextLine();
+                    String reversed = reverseWords(text);
+                    System.out.println("\nReversed Sentence:\n" + reversed + "\n");
+                    break;
+                case "C":
+                    back = true;
+                    clearScreen();
+                    break;
+                default:
+                    System.out.println("Invalid choice. Try again.");
+            }
+        }
+    }
 
-    public static void subMenuPrimary() {
+    public static void subMenuPrimary() 
+    {
         clearScreen();
         System.out.println("Sub Menu - Primary School - Select an option:");
         System.out.println("[A] Age and Zodiac Sign Detection");
@@ -234,4 +289,5 @@ public class Project1 {
         System.out.flush();
     }
 }
+
 
