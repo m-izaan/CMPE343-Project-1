@@ -33,7 +33,7 @@ public class OptionC {
         }
     }
 
-    /* ==================== [C-1] DİZİ İSTATİSTİKLERİ ==================== */
+
 
     private static void doArrayStatistics(Scanner sc) {
         printlnBold(">>> [C-1] Dizi Hakkında İstatistiksel Bilgiler");
@@ -43,8 +43,8 @@ public class OptionC {
 
         double med = median(arr);
         double mean = arithmeticMean(arr);
-        Double gmean = geometricMeanOrNull(arr);   // null => tanımsız
-        Double hmean = harmonicMeanOrNull(arr);    // null => tanımsız (0 içerirse)
+        Double gmean = geometricMeanOrNull(arr);   // null  tanımsız
+        Double hmean = harmonicMeanOrNull(arr);    // null  tanımsız (0 içerirse)
 
         System.out.println();
         printTable(
@@ -211,7 +211,7 @@ public class OptionC {
         return dot / (Math.sqrt(na2) * Math.sqrt(nb2));
     }
 
-    /* ============================ I/O YARDIMCI ============================ */
+    
 
     private static int readPositiveInt(Scanner sc, String prompt) {
         return readIntByRule(sc, prompt, x -> x > 0, "Pozitif bir tamsayı giriniz.");
@@ -297,10 +297,10 @@ public class OptionC {
     private static String repeat(String s, int n){ StringBuilder b=new StringBuilder(); for(int i=0;i<n;i++) b.append(s); return b.toString(); }
     private static String fmt(double v){ if (Double.isNaN(v)||Double.isInfinite(v)) return String.valueOf(v); return String.format(Locale.US,"%.10g",v); }
 
-    /* ============================= LOKAL TEST ============================= */
 
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
-        handleCMenu(sc);   // Sadece C partı çalışır.
+        handleCMenu(sc);   
     }
 }
+
