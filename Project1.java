@@ -100,23 +100,123 @@ public class Project1 {
         System.out.print("Choice: ");
     }
 
-    public static void ageZodiac(int day, int month, int year) {
+    public static void ageZodiac(int day, int month, int year) 
+    {
+        clearScreen();
+        LocalDate now = LocalDate.now();
+
+        int currentDay = now.getDayOfMonth();
+        int currentMonth = now.getMonthValue();
+        int currentYear = now.getYear();
+
+        int d = currentDay - day;
+        int m = currentMonth - month;
+        int y = currentYear - year;
+
+        // Borrow days if needed
+        if (d < 0) 
+        {
+            m--;
+            d += daysInMonth((month == 12) ? 1 : month);
+        }
+        // Borrow months if needed
+        if (m < 0) 
+        {
+            y--;
+            m += 12;
+        }
+
+        System.out.printf("You are %d years, %d months, and %d days old.%n", y, m, d);
+
+        String zodiac = getZodiacSign(day, month);
+        System.out.println("Your Zodiac sign is: " + zodiac + "\n");
 
     }
+     private static int daysInMonth(int month) 
+    {
+        switch (month) 
+        {
+            case 1, 3, 5, 7, 8, 10, 12:
+                return 31;
+            case 4, 6, 9, 11:
+                return 30;
+            case 2:
+                return 28;
+            default:
+                return 30;
+        }
+    }
+    private static String getZodiacSign(int day, int month) 
+    {
+        return switch (month) 
+        {
+            case 1 -> (day <= 19) ? "Capricorn" : "Aquarius";
+            case 2 -> (day <= 18) ? "Aquarius" : "Pisces";
+            case 3 -> (day <= 20) ? "Pisces" : "Aries";
+            case 4 -> (day <= 19) ? "Aries" : "Taurus";
+            case 5 -> (day <= 20) ? "Taurus" : "Gemini";
+            case 6 -> (day <= 20) ? "Gemini" : "Cancer";
+            case 7 -> (day <= 22) ? "Cancer" : "Leo";
+            case 8 -> (day <= 22) ? "Leo" : "Virgo";
+            case 9 -> (day <= 22) ? "Virgo" : "Libra";
+            case 10 -> (day <= 22) ? "Libra" : "Scorpio";
+            case 11 -> (day <= 21) ? "Scorpio" : "Sagittarius";
+            case 12 -> (day <= 21) ? "Sagittarius" : "Capricorn";
+            default -> "Unknown";
+        };
+    }
+      // Recursive reverse function
+    public static String reverseWords(String text) 
+    {
+        StringBuilder result = new StringBuilder();
+        StringBuilder word = new StringBuilder();
 
-    public static void reverseWords(String text) {
-        
+        for (int i = 0; i < text.length(); i++) 
+        {
+            char c = text.charAt(i);
+            if (Character.isLetter(c)) 
+            {
+                word.append(c);
+            } 
+            else 
+            {
+                if (word.length() > 1) 
+                {
+                    result.append(reverseRecursive(word.toString()));
+                } 
+                else 
+                {
+                    result.append(word);
+                }
+                word.setLength(0);
+                result.append(c);
+            }
+         }
+
+        // Handle last word if sentence ends with a letter
+        if (word.length() > 1) result.append(reverseRecursive(word.toString()));
+        else result.append(word);
+
+        return result.toString();
     }
 
-    public static void primeNumbers(int number) {
+    private static String reverseRecursive(String s) 
+    {
+        if (s.isEmpty()) return s;
+        return reverseRecursive(s.substring(1)) + s.charAt(0);
+    }
+    public static void primeNumbers(int number) 
+    {
         
     }
     
-    public static void evalExpression(String expression) {
+    public static void evalExpression(String expression) 
+    {
         
     }
 
-    public static void arrayStat(int arraySize, int[] elements) {
+    public static void arrayStat(int arraySize, int[] elements) 
+    {
         
     }
 
@@ -134,3 +234,4 @@ public class Project1 {
         System.out.flush();
     }
 }
+
