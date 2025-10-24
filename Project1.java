@@ -94,12 +94,12 @@ public class Project1 {
     }
     public static void selectMenuPrimarySchool()
     {
-        boolean back = false;
-        while (!back)
+        boolean running = true;
+        while (running)
         {
             System.out.print("Choice: ");
-            String subChoice = SC.nextLine().trim().toUpperCase();
-            switch (subChoice)
+            String choice = SC.nextLine().trim().toUpperCase();
+            switch (choice)
             {
                 case "A":
                     try {
@@ -121,8 +121,9 @@ public class Project1 {
                     System.out.println("\nReversed Sentence:\n" + reversed + "\n");
                     break;
                 case "C":
-                    back = true;
-                    clearScreen();
+                    System.out.println("Terminating... Goodbye!");
+                    running = false;
+                    // clearScreen();
                     break;
                 default:
                     System.out.println("Invalid choice. Try again.");
