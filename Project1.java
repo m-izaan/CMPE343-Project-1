@@ -112,9 +112,11 @@ public class Project1 {
         {
             case "A":
                 ageZodiac();
+                waitBeforeProceed();
                 break;
             case "B":
                 reverseWords();
+                waitBeforeProceed();
                 break;
             case "C":
                 System.out.println("Returning to main menu...");
@@ -124,7 +126,6 @@ public class Project1 {
                 System.out.println("Invalid option. Please select A, B, or C.");
         }
 
-        waitBeforeProceed();
         return true;
     }
 
@@ -151,9 +152,11 @@ public class Project1 {
         {
             case "A":
                 primeNumbers();
+                waitBeforeProceed();
                 break;
             case "B":
                 evalExpression();
+                waitBeforeProceed();
                 break;
             case "C":
                 System.out.println("Returning to Main Menu");
@@ -163,7 +166,6 @@ public class Project1 {
                 System.out.println("Invalid option. Please select A, B, or C.");
         }
 
-        waitBeforeProceed();
         return true;
     }
 
@@ -190,9 +192,11 @@ public class Project1 {
         {
             case "A":
                 arrayStat();
+                waitBeforeProceed();
                 break;
             case "B":
                 arraysDistance();
+                waitBeforeProceed();
                 break;
             case "C":
                 System.out.println("Returning to main menu...");
@@ -202,7 +206,6 @@ public class Project1 {
                 System.out.println("Invalid option. Please select A, B, or C.");
         }
 
-        waitBeforeProceed();
         return true;
     }
 
@@ -228,9 +231,11 @@ public class Project1 {
         {
             case "A":
                 connectFour();
+                waitBeforeProceed();
                 break;
             case "B":
                 //something about case b
+                waitBeforeProceed();
                 break;
             case "C":
                 System.out.println("Returning to main menu...");
@@ -240,7 +245,6 @@ public class Project1 {
                 System.out.println("Invalid option. Please select A, B, or C.");
         }
 
-        waitBeforeProceed();
         return true;
     }
     // ----------------------------------------------------------------------------------------------------------------
