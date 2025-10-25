@@ -1,8 +1,8 @@
-import java.nio.charset.StandardCharsets;
+import java.nio.charset.StandardCharsets; //needed to scan for strings.
 import java.time.LocalDate;
 import java.util.Random;
 import java.util.Scanner;
-import java.io.IOException; //needed for the method waitForProceed()
+import java.io.IOException; //needed for the method waitForProceed().
 
 public class Project1 {
     private static final Scanner SC = new Scanner(System.in, StandardCharsets.UTF_8);
@@ -11,6 +11,7 @@ public class Project1 {
 
     public static void main(String[] args) {
         menuMain();
+        clearScreen();
     }
 
     public static void menuMain() {
