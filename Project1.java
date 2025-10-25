@@ -2,11 +2,12 @@ import java.nio.charset.StandardCharsets;
 import java.time.LocalDate;
 import java.util.Random;
 import java.util.Scanner;
-import java.util.concurrent.TimeUnit;
+import java.io.IOException; //needed for the method waitForProceed()
 
 public class Project1 {
     private static final Scanner SC = new Scanner(System.in, StandardCharsets.UTF_8);
     private static final Random RAND = new Random();
+    private static final long delayAmount = 500;
 
     public static void main(String[] args) {
         menuMain();
@@ -15,12 +16,18 @@ public class Project1 {
     public static void menuMain() {
         boolean running = true;
         while (running) {
-            showMenuMain();
+            showInitialScreen();
             running = selectMenuMain();
         }
     }
-    public static void showMenuMain() {
+
+    public static void showInitialScreen() {
         clearScreen();
+        showWelcome();
+        showMenuMain();
+    }
+
+    public static void showWelcome() {
         System.out.println("                            .--.");
         System.out.println("                           /  ..\\");
         System.out.println("                      ____.'  _o/");
@@ -43,6 +50,9 @@ public class Project1 {
         System.out.println("        '.    '-.___.-'/");
         System.out.println("          '-.__     _.'");
         System.out.println("               `````");
+    }
+
+    public static void showMenuMain() {
         System.out.println("Main Menu - Select an option:");
         System.out.println("[A] Primary School");
         System.out.println("[B] Secondary School");
@@ -50,30 +60,30 @@ public class Project1 {
         System.out.println("[D] University");
         System.out.println("[E] Terminate");
     }
+
     public static boolean selectMenuMain() {
-            System.out.print("Choice: ");
-            String choice = SC.nextLine().trim().toUpperCase();
-            switch (choice) {
-                case "A":
-                    menuPrimarySchool();
-                    break;
-                case "B":
-                    menuSecondarySchool();
-                    break;
-                case "C":
-                    menuHighSchool();
-                    break;
-                case "D":
-                    menuUniversity();
-                    break;
-                case "E":
-                    System.out.println("Terminating... Goodbye!");
-                    wait(1);
-                    return false;
-                default:
-                    System.out.println("Invalid option. Please select A, B, C, D or E.");
+        System.out.print("Choice: ");
+        String choice = SC.nextLine().trim().toUpperCase();
+        switch (choice) {
+            case "A":
+                menuPrimarySchool();
+                break;
+            case "B":
+                menuSecondarySchool();
+                break;
+            case "C":
+                menuHighSchool();
+                break;
+            case "D":
+                menuUniversity();
+                break;
+            case "E":
+                System.out.println("Terminating... Goodbye!");
+                waitMillis(delayAmount);
+                return false;
+            default:
+                System.out.println("Invalid option. Please select A, B, C, D or E.");
         }
-        wait(1);
         return true;
     }
 
@@ -84,6 +94,7 @@ public class Project1 {
             running = selectMenuPrimarySchool();
         }
     }
+
     public static void showMenuPrimarySchool()
     {
         clearScreen();
@@ -92,6 +103,7 @@ public class Project1 {
         System.out.println("[B] Reverse the Words");
         System.out.println("[C] Return to the Main Menu");
     }
+
     public static boolean selectMenuPrimarySchool()
     {
         System.out.print("Choice: ");
@@ -106,12 +118,13 @@ public class Project1 {
                 break;
             case "C":
                 System.out.println("Returning to main menu...");
-                wait(1);
+                waitMillis(delayAmount);
                 return false;
             default:
-                System.out.println("Invalid choice. Try again.");
+                System.out.println("Invalid option. Please select A, B, or C.");
         }
-        wait(1);
+
+        waitBeforeProceed();
         return true;
     }
 
@@ -122,6 +135,7 @@ public class Project1 {
             running = selectMenuSecondarySchool();
         }
     }
+
     public static void showMenuSecondarySchool() {
         clearScreen();
         System.out.println("Sub Menu - Secondary School - Select an option:");
@@ -129,6 +143,7 @@ public class Project1 {
         System.out.println("[B] Step by Step Evaluation of Expression");
         System.out.println("[C] Return to Main Menu");
     }
+
     public static boolean selectMenuSecondarySchool() {
         System.out.print("Choice: ");
         String choice = SC.nextLine().trim().toUpperCase();
@@ -142,12 +157,13 @@ public class Project1 {
                 break;
             case "C":
                 System.out.println("Returning to Main Menu");
-                wait(1);
+                waitMillis(delayAmount);
                 return false;
             default:
-                System.out.println("Invalid choice. Try again.");
+                System.out.println("Invalid option. Please select A, B, or C.");
         }
-        wait(1);
+
+        waitBeforeProceed();
         return true;
     }
 
@@ -158,6 +174,7 @@ public class Project1 {
             running = selectMenuHighSchool();
         }
     }
+
     public static void showMenuHighSchool() {
         clearScreen();
         System.out.println("Sub Menu - High School - Select an option:");
@@ -165,6 +182,7 @@ public class Project1 {
         System.out.println("[B] Distance Between Two Arrays");
         System.out.println("[C] Return to Main Menu");
     }
+
     public static boolean selectMenuHighSchool() {
         System.out.print("Choice: ");
         String choice = SC.nextLine().trim().toUpperCase();
@@ -178,12 +196,13 @@ public class Project1 {
                 break;
             case "C":
                 System.out.println("Returning to main menu...");
-                wait(1);
+                waitMillis(delayAmount);
                 return false;
             default:
-                System.out.println("Invalid choice. Try again.");
+                System.out.println("Invalid option. Please select A, B, or C.");
         }
-        wait(1);
+
+        waitBeforeProceed();
         return true;
     }
 
@@ -194,12 +213,14 @@ public class Project1 {
             running = selectMenuUniversity();
         }
     }
+
     public static void showMenuUniversity() {
         clearScreen();
         System.out.println("Welcome to the Connect Four Game! - Select the Board Size and then the Game Mode to Start:");
         System.out.println("Board Size Options:%n[A] 5x4%n[B] 6x5%n[C] 7x6");
         System.out.println("Game Mode Options:%n[A] single-player vs computer%n[B] two-players");
     }
+
     public static boolean selectMenuUniversity() {
         System.out.print("Choice: ");
         String choice = SC.nextLine().trim().toUpperCase();
@@ -213,12 +234,13 @@ public class Project1 {
                 break;
             case "C":
                 System.out.println("Returning to main menu...");
-                wait(1);
+                waitMillis(delayAmount);
                 return false;
             default:
-                System.out.println("Invalid choice. Try again.");
+                System.out.println("Invalid option. Please select A, B, or C.");
         }
-        wait(1);
+
+        waitBeforeProceed();
         return true;
     }
     // ----------------------------------------------------------------------------------------------------------------
@@ -231,7 +253,7 @@ public class Project1 {
     // Hadi's Part
    public static void ageZodiac()
     {
-        // Get the birth date from user
+        // Get the birthdate from user
         int year = getYear();
         int month = getMonth(year);
         int day = getDay(month, year);
@@ -549,7 +571,7 @@ public class Project1 {
         return reverseRecursive(s.substring(1)) + s.charAt(0);
     }
     // ----------------------------------------------------------------------------------------------------------------
-    // Izaan's Part:
+    // Muhammed's Part:
     public static void primeNumbers()
     {
         
@@ -582,12 +604,35 @@ public class Project1 {
         System.out.flush();
     }
 
-    public static void wait(int period) {
+    public static void waitMillis(long periodMillis) {
         try {
-            TimeUnit.SECONDS.sleep(period);
+            // Thread.sleep() accepts the period in milliseconds (long type)
+            Thread.sleep(periodMillis); 
         } catch (InterruptedException e) {
+            // Always reset the interrupt status when catching InterruptedException
             Thread.currentThread().interrupt();
         }
     }
-}
 
+    public static void waitBeforeProceed() {
+        boolean proceed = false;
+        
+        while (!proceed) {
+            System.out.print("Press enter when you want to proceed.");
+
+            // The part that handles the Enter key press
+            try {
+                // System.in.read() waits for the next byte of input, 
+                // which is often the newline character ('\n') generated by Enter.
+                System.in.read(); 
+                proceed = true; // Set flag to exit the loop
+            } catch (IOException e) {
+                // Handle potential input/output errors
+                System.out.println("An input error occurred: " + e.getMessage());
+                // You might want to handle the loop exit differently here, 
+                // but setting proceed = true is a simple exit strategy.
+                proceed = true;
+            }
+        }
+    }
+}
