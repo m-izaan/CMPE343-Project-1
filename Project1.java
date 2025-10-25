@@ -1,3 +1,4 @@
+import java.awt.desktop.ScreenSleepEvent;
 import java.nio.charset.StandardCharsets;
 import java.time.LocalDate;
 import java.util.Random;
@@ -12,7 +13,6 @@ public class Project1 {
         menuMain();
     }
 
-    // ===================== UI & Helpers =====================
     public static void showWelcome() {
         clearScreen();
         System.out.println("                            .--.");
@@ -40,8 +40,11 @@ public class Project1 {
     }
 
     public static void menuMain() {
-        showMenuMain();
-        selectMenuMain();
+        boolean running = true;
+        while (running) {
+            showMenuMain();
+            running = selectMenuMain();
+        }
     }
     public static void showMenuMain() {
         clearScreen();
@@ -52,9 +55,7 @@ public class Project1 {
         System.out.println("[D] University");
         System.out.println("[E] Terminate");
     }
-    public static void selectMenuMain() {
-        boolean running = true;
-        while (running) {
+    public static boolean selectMenuMain() {
             System.out.print("Choice: ");
             String choice = SC.nextLine().trim().toUpperCase();
             switch (choice) {
@@ -72,17 +73,19 @@ public class Project1 {
                     break;
                 case "E":
                     System.out.println("Terminating... Goodbye!");
-                    running = false;
-                    break;
+                    return false;
                 default:
                     System.out.println("Invalid option. Please select A, B, C, D or E.");
-            }
         }
+        return true;
     }
 
     public static void menuPrimarySchool() {
-        showMenuPrimarySchool();
-        selectMenuPrimarySchool();
+        boolean running = true;
+        while (running) {
+            showMenuPrimarySchool();
+            running = selectMenuPrimarySchool();
+        }
     }
     public static void showMenuPrimarySchool()
     {
@@ -92,48 +95,46 @@ public class Project1 {
         System.out.println("[B] Reverse the Words");
         System.out.println("[C] Return to the Main Menu");
     }
-    public static void selectMenuPrimarySchool()
+    public static boolean selectMenuPrimarySchool()
     {
-        boolean running = true;
-        while (running)
+        System.out.print("Choice: ");
+        String choice = SC.nextLine().trim().toUpperCase();
+        switch (choice)
         {
-            System.out.print("Choice: ");
-            String choice = SC.nextLine().trim().toUpperCase();
-            switch (choice)
-            {
-                case "A":
-                    try {
-                        System.out.print("Enter day of birth: ");
-                        int day = Integer.parseInt(SC.nextLine());
-                        System.out.print("Enter month of birth: ");
-                        int month = Integer.parseInt(SC.nextLine());
-                        System.out.print("Enter year of birth: ");
-                        int year = Integer.parseInt(SC.nextLine());
-                        ageZodiac(day, month, year);
-                    } catch (Exception e) {
-                        System.out.println("Invalid input! Please enter valid numbers.");
-                    }
-                    break;
-                case "B":
-                    System.out.print("Enter a sentence: ");
-                    String text = SC.nextLine();
-                    String reversed = reverseWords(text);
-                    System.out.println("\nReversed Sentence:\n" + reversed + "\n");
-                    break;
-                case "C":
-                    System.out.println("Terminating... Goodbye!");
-                    running = false;
-                    // clearScreen();
-                    break;
-                default:
-                    System.out.println("Invalid choice. Try again.");
-            }
+            case "A":
+                try {
+                    System.out.print("Enter day of birth: ");
+                    int day = Integer.parseInt(SC.nextLine());
+                    System.out.print("Enter month of birth: ");
+                    int month = Integer.parseInt(SC.nextLine());
+                    System.out.print("Enter year of birth: ");
+                    int year = Integer.parseInt(SC.nextLine());
+                    ageZodiac(day, month, year);
+                } catch (Exception e) {
+                    System.out.println("Invalid input! Please enter valid numbers.");
+                }
+                break;
+            case "B":
+                System.out.print("Enter a sentence: ");
+                String text = SC.nextLine();
+                String reversed = reverseWords(text);
+                System.out.println("\nReversed Sentence:\n" + reversed + "\n");
+                break;
+            case "C":
+                System.out.println("Terminating... Goodbye!");
+                return false;
+            default:
+                System.out.println("Invalid choice. Try again.");
         }
+        return true;
     }
 
     public static void menuSecondarySchool() {
-        showMenuSecondarySchool();
-        selectMenuSecondarySchool();
+        boolean running = true;
+        while (running) {
+            showMenuSecondarySchool();
+            running = selectMenuSecondarySchool();
+        }
     }
     public static void showMenuSecondarySchool() {
         clearScreen();
@@ -141,15 +142,33 @@ public class Project1 {
         System.out.println("[A] Prime Numbers");
         System.out.println("[B] Step by Step Evaluation of Expression");
         System.out.println("[C] Return to Main Menu");
-        System.out.print("Choice: ");
     }
-    public static void selectMenuSecondarySchool() {
-
+    public static boolean selectMenuSecondarySchool() {
+        System.out.print("Choice: ");
+        String choice = SC.nextLine().trim().toUpperCase();
+        switch (choice)
+        {
+            case "A":
+                //something about case a
+                break;
+            case "B":
+                //something about case b
+                break;
+            case "C":
+                System.out.println("Returning to Main Menu");
+                return false;
+            default:
+                System.out.println("Invalid choice. Try again.");
+        }
+        return true;
     }
 
     public static void menuHighSchool() {
-        showMenuHighSchool();
-        selectMenuHighSchool();
+        boolean running = true;
+        while (running) {
+            showMenuHighSchool();
+            running = selectMenuHighSchool();
+        }
     }
     public static void showMenuHighSchool() {
         clearScreen();
@@ -157,27 +176,68 @@ public class Project1 {
         System.out.println("[A] Statistical Information About an Array");
         System.out.println("[B] Distance Between Two Arrays");
         System.out.println("[C] Return to Main Menu");
-        System.out.print("Choice: ");
     }
-    public static void selectMenuHighSchool() {
-
+    public static boolean selectMenuHighSchool() {
+        System.out.print("Choice: ");
+        String choice = SC.nextLine().trim().toUpperCase();
+        switch (choice)
+        {
+            case "A":
+                //something about case a
+                break;
+            case "B":
+                //something about case b
+                break;
+            case "C":
+                System.out.println("Terminating... Goodbye!");
+                return false;
+            default:
+                System.out.println("Invalid choice. Try again.");
+        }
+        return true;
     }
 
     public static void menuUniversity() {
-        showMenuUniversity();
-        selectMenuUniversity();
+        boolean running = true;
+        while (running) {
+            showMenuUniversity();
+            running = selectMenuUniversity();
+        }
     }
     public static void showMenuUniversity() {
         clearScreen();
         System.out.println("Welcome to the Connect Four Game! - Select the Board Size and then the Game Mode to Start:");
         System.out.println("Board Size Options:%n[A] 5x4%n[B] 6x5%n[C] 7x6");
         System.out.println("Game Mode Options:%n[A] single-player vs computer%n[B] two-players");
+    }
+    public static boolean selectMenuUniversity() {
         System.out.print("Choice: ");
+        String choice = SC.nextLine().trim().toUpperCase();
+        switch (choice)
+        {
+            case "A":
+                //something about case a
+                break;
+            case "B":
+                //something about case b
+                break;
+            case "C":
+                System.out.println("Terminating... Goodbye!");
+                return false;
+            default:
+                System.out.println("Invalid choice. Try again.");
+        }
+        return true;
     }
-    public static void selectMenuUniversity() {
 
-    }
-
+    /*
+     *
+     *
+     *
+     *
+     *
+     * all the methods necessary for executing the selected selections within the submenus
+     */
     public static void ageZodiac(int day, int month, int year)
     {
         clearScreen();
