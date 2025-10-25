@@ -1,19 +1,25 @@
-import java.awt.desktop.ScreenSleepEvent;
 import java.nio.charset.StandardCharsets;
 import java.time.LocalDate;
 import java.util.Random;
 import java.util.Scanner;
+import java.util.concurrent.TimeUnit;
 
 public class Project1 {
     private static final Scanner SC = new Scanner(System.in, StandardCharsets.UTF_8);
     private static final Random RAND = new Random();
 
     public static void main(String[] args) {
-        showWelcome();
         menuMain();
     }
 
-    public static void showWelcome() {
+    public static void menuMain() {
+        boolean running = true;
+        while (running) {
+            showMenuMain();
+            running = selectMenuMain();
+        }
+    }
+    public static void showMenuMain() {
         clearScreen();
         System.out.println("                            .--.");
         System.out.println("                           /  ..\\");
@@ -37,17 +43,6 @@ public class Project1 {
         System.out.println("        '.    '-.___.-'/");
         System.out.println("          '-.__     _.'");
         System.out.println("               `````");
-    }
-
-    public static void menuMain() {
-        boolean running = true;
-        while (running) {
-            showMenuMain();
-            running = selectMenuMain();
-        }
-    }
-    public static void showMenuMain() {
-        clearScreen();
         System.out.println("Main Menu - Select an option:");
         System.out.println("[A] Primary School");
         System.out.println("[B] Secondary School");
@@ -73,10 +68,12 @@ public class Project1 {
                     break;
                 case "E":
                     System.out.println("Terminating... Goodbye!");
+                    wait(1);
                     return false;
                 default:
                     System.out.println("Invalid option. Please select A, B, C, D or E.");
         }
+        wait(1);
         return true;
     }
 
@@ -102,30 +99,19 @@ public class Project1 {
         switch (choice)
         {
             case "A":
-                try {
-                    System.out.print("Enter day of birth: ");
-                    int day = Integer.parseInt(SC.nextLine());
-                    System.out.print("Enter month of birth: ");
-                    int month = Integer.parseInt(SC.nextLine());
-                    System.out.print("Enter year of birth: ");
-                    int year = Integer.parseInt(SC.nextLine());
-                    ageZodiac(day, month, year);
-                } catch (Exception e) {
-                    System.out.println("Invalid input! Please enter valid numbers.");
-                }
+                ageZodiac();
                 break;
             case "B":
-                System.out.print("Enter a sentence: ");
-                String text = SC.nextLine();
-                String reversed = reverseWords(text);
-                System.out.println("\nReversed Sentence:\n" + reversed + "\n");
+                reverseWords();
                 break;
             case "C":
-                System.out.println("Terminating... Goodbye!");
+                System.out.println("Returning to main menu...");
+                wait(1);
                 return false;
             default:
                 System.out.println("Invalid choice. Try again.");
         }
+        wait(1);
         return true;
     }
 
@@ -149,17 +135,19 @@ public class Project1 {
         switch (choice)
         {
             case "A":
-                //something about case a
+                primeNumbers();
                 break;
             case "B":
-                //something about case b
+                evalExpression();
                 break;
             case "C":
                 System.out.println("Returning to Main Menu");
+                wait(1);
                 return false;
             default:
                 System.out.println("Invalid choice. Try again.");
         }
+        wait(1);
         return true;
     }
 
@@ -183,17 +171,19 @@ public class Project1 {
         switch (choice)
         {
             case "A":
-                //something about case a
+                arrayStat();
                 break;
             case "B":
-                //something about case b
+                arraysDistance();
                 break;
             case "C":
-                System.out.println("Terminating... Goodbye!");
+                System.out.println("Returning to main menu...");
+                wait(1);
                 return false;
             default:
                 System.out.println("Invalid choice. Try again.");
         }
+        wait(1);
         return true;
     }
 
@@ -216,37 +206,40 @@ public class Project1 {
         switch (choice)
         {
             case "A":
-                //something about case a
+                connectFour();
                 break;
             case "B":
                 //something about case b
                 break;
             case "C":
-                System.out.println("Terminating... Goodbye!");
+                System.out.println("Returning to main menu...");
+                wait(1);
                 return false;
             default:
                 System.out.println("Invalid choice. Try again.");
         }
+        wait(1);
         return true;
     }
-
+    // ----------------------------------------------------------------------------------------------------------------
     /*
-     *
-     *
-     *
-     *
-     *
-     * all the methods necessary for executing the selected selections within the submenus
+    THE PARTS BELOW UNTIL THE NEXT CAPITALIZED COMMENT WILL BE HANDLED BY THE GROUP MEMBERS. THE ABOVE IS NOT IMPORTANT, AND ALREADY IS MOSTLY DONE.
+    Group members don't have to think about how the menus work, and inside the methods below, you don't need to insert messages or anything related to the main menu and the submenus.
+    Getting the arguments methods need to work is also to be handled within another methods to be declared below as you wish, because inside whatever above is only the logic of the menus, and calling these methods.
      */
-    public static void ageZodiac(int day, int month, int year)
+    // ----------------------------------------------------------------------------------------------------------------
+    // Hadi's Part
+    public static void ageZodiac()
     {
-        clearScreen();
+        int day = getDay();
+        int month = getMonth();
+        int year = getYear();
+
         LocalDate now = LocalDate.now();
 
         int currentDay = now.getDayOfMonth();
         int currentMonth = now.getMonthValue();
         int currentYear = now.getYear();
-
         int d = currentDay - day;
         int m = currentMonth - month;
         int y = currentYear - year;
@@ -269,6 +262,33 @@ public class Project1 {
         String zodiac = getZodiacSign(day, month);
         System.out.println("Your Zodiac sign is: " + zodiac + "\n");
 
+    }
+    private static int getDay() {
+        try {
+            System.out.print("Enter day of birth: ");
+            return Integer.parseInt(SC.nextLine());
+        } catch (Exception e) {
+            System.out.println("Invalid input! Please enter valid numbers.");
+        }
+        return 0;
+    }
+    private static int getMonth() {
+        try {
+            System.out.print("Enter month of birth: ");
+            return Integer.parseInt(SC.nextLine());
+        } catch (Exception e) {
+            System.out.println("Invalid input! Please enter valid numbers.");
+        }
+        return 0;
+    }
+    private static int getYear() {
+        try {
+            System.out.print("Enter year of birth: ");
+            return Integer.parseInt(SC.nextLine());
+        } catch (Exception e) {
+            System.out.println("Invalid input! Please enter valid numbers.");
+        }
+        return 0;
     }
     private static int daysInMonth(int month)
     {
@@ -304,8 +324,11 @@ public class Project1 {
         };
     }
     // Recursive reverse function
-    public static String reverseWords(String text) 
+    public static void reverseWords()
     {
+        System.out.print("Enter a sentence: ");
+        String text = SC.nextLine();
+
         StringBuilder result = new StringBuilder();
         StringBuilder word = new StringBuilder();
 
@@ -335,34 +358,39 @@ public class Project1 {
         if (word.length() > 1) result.append(reverseRecursive(word.toString()));
         else result.append(word);
 
-        return result.toString();
+        String reversed = result.toString();
+        System.out.println("\nReversed Sentence:\n" + reversed + "\n");
     }
     private static String reverseRecursive(String s)
     {
         if (s.isEmpty()) return s;
         return reverseRecursive(s.substring(1)) + s.charAt(0);
     }
-
-    public static void primeNumbers(int number) 
+    // ----------------------------------------------------------------------------------------------------------------
+    // Izaan's Part:
+    public static void primeNumbers()
     {
         
     }
 
-    public static void evalExpression(String expression)
+    public static void evalExpression()
+    {
+        
+    }
+    // ----------------------------------------------------------------------------------------------------------------
+    // Sena's Part:
+    public static void arrayStat()
     {
         
     }
 
-    public static void arrayStat(int arraySize, int[] elements) 
-    {
+    public static void arraysDistance() {
         
     }
+    // ----------------------------------------------------------------------------------------------------------------
+    // THANK YOU GUYS.
 
-    public static void arraysDistance(int arrayDimension, int[] array1Elements, int[] array2Elements) {
-        
-    }
-    
-    public static void connectFour(int rows, int columns, String gameMode) {
+    public static void connectFour() {
         
     }
 
@@ -370,5 +398,13 @@ public class Project1 {
         // Try ANSI clear; may not work in some consoles but is widely supported
         System.out.print("\u001b[H\u001b[2J");
         System.out.flush();
+    }
+
+    public static void wait(int period) {
+        try {
+            TimeUnit.SECONDS.sleep(period);
+        } catch (InterruptedException e) {
+            Thread.currentThread().interrupt();
+        }
     }
 }
