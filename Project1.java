@@ -256,7 +256,7 @@ public class Project1 {
      */
     // ----------------------------------------------------------------------------------------------------------------
     // Hadi's Part
-   public static void ageZodiac()
+	public static void ageZodiac()
     {
         // Get the birthdate from user
         int year = getYear();
@@ -549,6 +549,11 @@ public class Project1 {
         for (int i = 0; i < text.length(); i++) 
         {
             char c = text.charAt(i);
+            if (isTurkishLetter(c)) 
+            {
+                word.append(c);
+            } 
+            else
             {
                 if (word.length() > 1) 
                 {
@@ -569,6 +574,55 @@ public class Project1 {
 
         String reversed = result.toString();
         System.out.println("\nReversed Sentence:\n" + reversed + "\n");
+    }
+       private static boolean isTurkishLetter(char c) {
+        // Check if character is a letter (English or Turkish)
+        if (Character.isLetter(c)) {
+            return true;
+        }
+        
+        // Check for Turkish-specific lowercase characters
+        if (c == 'ç') {
+            return true;
+        }
+        if (c == 'ğ') {
+            return true;
+        }
+        if (c == 'ı') {
+            return true;
+        }
+        if (c == 'ö') {
+            return true;
+        }
+        if (c == 'ş') {
+            return true;
+        }
+        if (c == 'ü') {
+            return true;
+        }
+        
+        // Check for Turkish-specific uppercase characters
+        if (c == 'Ç') {
+            return true;
+        }
+        if (c == 'Ğ') {
+            return true;
+        }
+        if (c == 'İ') {
+            return true;
+        }
+        if (c == 'Ö') {
+            return true;
+        }
+        if (c == 'Ş') {
+            return true;
+        }
+        if (c == 'Ü') {
+            return true;
+        }
+        
+        // If none of the above, it's not a Turkish letter
+        return false;
     }
     private static String reverseRecursive(String s)
     {
