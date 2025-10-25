@@ -642,7 +642,172 @@ public class Project1 {
     }
     // ----------------------------------------------------------------------------------------------------------------
     // Sena's Part:
-    public static void arrayStat()
+   // ======================= SENA'S PART START =======================
+    // High School > A) Array Statistics  &  B) Distance Between Two Arrays
+    // Kötü girdiyi asla kabul etmez; kullanıcıyı uyarıp tekrar sorar. bu benim part C dimi
+
+    public static void arrayStat(int arraySize, int[] elements) 
+    {
+        clearScreen();
+        System.out.println("High School > Statistical Information About an Array");
+        System.out.println("----------------------------------------------------");
+
+        int n = readPositiveInt("Enter array size (n >= 1): ");
+
+        double[] a = new double[n];
+        for (int i = 0; i < n; i++) {
+            a[i] = readDouble("Enter element #" + (i + 1) + " (double): ");
+        }
+
+        double[] s = java.util.Arrays.copyOf(a, n);
+        java.util.Arrays.sort(s);
+
+        double sum = 0.0, min = s[0], max = s[n - 1];
+        boolean allPositive = s[0] > 0.0;
+        boolean hasZero = false;
+
+        for (double v : a) {
+            sum += v;
+            if (v <= 0.0) allPositive = false;
+            if (v == 0.0) hasZero = true;
+        }
+
+        double mean = sum / n;
+
+        // Median, Q1, Q3, IQR
+        double median = medianSorted(s);
+        double q1 = quantileSorted(s, 0.25);
+        double q3 = quantileSorted(s, 0.75);
+        double iqr = q3 - q1;
+
+        // Variance & Std (Population & Sample)
+        double varPop = variance(a, mean, false);
+        double varSmp = variance(a, mean, true);
+        double stdPop = Math.sqrt(varPop);
+        double stdSmp = Math.sqrt(varSmp);
+
+        // Geometric & Harmonic
+        Double gmean = allPositive ? geometricMean(a) : null;
+        Double hmean = hasZero ? null : harmonicMeanRecursive(a);
+
+        // Outliers by 1.5*IQR
+        int outliers = 0;
+        double lowFence = q1 - 1.5 * iqr, highFence = q3 + 1.5 * iqr;
+        for (double v : a) if (v < lowFence || v > highFence) outliers++;
+
+        // Output
+        System.out.println();
+        System.out.println("Summary");
+        System.out.println("-------");
+        System.out.printf("Count (n)            : %d%n", n);
+        System.out.printf("Min / Max            : %.6f / %.6f%n", min, max);
+        System.out.printf("Sum                  : %.6f%n", sum);
+        System.out.printf("Mean (Arithmetic)    : %.6f%n", mean);
+        System.out.printf("Median               : %.6f%n", median);
+        System.out.printf("Q1 / Q3              : %.6f / %.6f%n", q1, q3);
+        System.out.printf("IQR                  : %.6f%n", iqr);
+        System.out.printf("Variance (Population): %.6f%n", varPop);
+        System.out.printf("Std Dev (Population) : %.6f%n", stdPop);
+        System.out.printf("Variance (Sample)    : %.6f%n", varSmp);
+        System.out.printf("Std Dev (Sample)     : %.6f%n", stdSmp);
+
+        if (gmean == null)
+            System.out.println("Geometric Mean       : undefined (all elements must be > 0)");
+        else
+            System.out.printf("Geometric Mean       : %.6f%n", gmean);
+
+        if (hmean == null)
+            System.out.println("Harmonic Mean        : undefined (no element may be zero)");
+        else
+            System.out.printf("Harmonic Mean        : %.6f%n", hmean);
+
+        System.out.printf("Outliers (1.5*IQR)   : %d%n", outliers);
+
+        // küçük önizleme
+        int k = Math.min(5, s.length);
+        System.out.print("Sorted preview       : ");
+        for (int i = 0; i < k; i++) System.out.print(fmt6(s[i]) + (i < k - 1 ? ", " : ""));
+        if (s.length > 10) System.out.print(", ..., ");
+        int startTail = Math.max(k, s.length - k);
+        for (int i = startTail; i < s.length; i++) {
+            System.out.print(fmt6(s[i]) + (i < s.length - 1 ? ", " : ""));
+        }
+        System.out.println();
+
+        pressEnter();
+    }
+
+    public static void arraysDistance(int arrayDimension, int[] array1Elements, int[] array2Elements) {
+        clearScreen();
+        System.out.println("High School > Distance Between Two Arrays");
+        System.out.println("-----------------------------------------");
+
+        int n = readPositiveInt("Enter dimension (n >= 1): ");
+
+        int[] A = readIntArrayDigits("Enter elements for Array A (each in [0-9])", n, 0, 9);
+        int[] B = readIntArrayDigits("Enter elements for Array B (each in [0-9])", n, 0, 9);
+
+        // Manhattan
+        long manhattan = 0;
+        for (int i = 0; i < n; i++) manhattan += Math.abs(A[i] - B[i]);
+
+        // Euclidean
+        long sq = 0;
+        for (int i = 0; i < n; i++) {
+            int d = A[i] - B[i];
+            sq += (long) d * d;
+        }
+        double euclidean = Math.sqrt(sq);
+
+        // Chebyshev
+        int chebyshev = 0;
+        for (int i = 0; i < n; i++) chebyshev = Math.max(chebyshev, Math.abs(A[i] - B[i]));
+
+        // Hamming
+        int hamming = 0;
+        for (int i = 0; i < n; i++) if (A[i] != B[i]) hamming++;
+
+        // Cosine
+        long dot = 0, normA2 = 0, normB2 = 0;
+        for (int i = 0; i < n; i++) {
+            dot    += (long) A[i] * B[i];
+            normA2 += (long) A[i] * A[i];
+            normB2 += (long) B[i] * B[i];
+        }
+        Double cosSim = null, cosDist = null;
+        if (normA2 != 0 && normB2 != 0) {
+            cosSim = dot / (Math.sqrt(normA2) * Math.sqrt(normB2));
+            cosDist = 1.0 - cosSim;
+        }
+
+        // Minkowski
+        double p = readDoubleInRange("Enter Minkowski order p (>= 1, e.g., 3): ", 1.0, Double.POSITIVE_INFINITY);
+        double mkSum = 0.0;
+        for (int i = 0; i < n; i++) mkSum += Math.pow(Math.abs(A[i] - B[i]), p);
+        double minkowski = Math.pow(mkSum, 1.0 / p);
+
+        // Output
+        System.out.println();
+        System.out.println("Results");
+        System.out.println("-------");
+        System.out.println("Manhattan (L1)      : " + manhattan);
+        System.out.printf("Euclidean (L2)      : %.6f%n", euclidean);
+        System.out.println("Chebyshev (L∞)      : " + chebyshev);
+        System.out.println("Hamming (positions) : " + hamming);
+        if (cosSim == null) {
+            System.out.println("Cosine Similarity   : undefined (a zero vector encountered)");
+            System.out.println("Cosine Distance     : undefined");
+        } else {
+            System.out.printf("Cosine Similarity   : %.6f%n", cosSim);
+            System.out.printf("Cosine Distance     : %.6f%n", cosDist);
+        }
+        System.out.printf("Minkowski (p=%.3f)  : %.6f%n", p, minkowski);
+
+        pressEnter();
+    }
+    // ======================= SENA'S PART END =======================
+
+    public static void arrayStat() 
     {
         
     }
@@ -650,6 +815,126 @@ public class Project1 {
     public static void arraysDistance() {
         
     }
+    
+    public static void connectFour(int rows, int columns, String gameMode) {
+        
+    }
+
+    public static void clearScreen() {
+        
+        System.out.print("\u001b[H\u001b[2J");
+        System.out.flush();
+    }
+
+    //Robust input helpers (for Sena's Part) 
+    private static int readPositiveInt(String prompt) {
+        while (true) {
+            System.out.print(prompt);
+            String s = SC.nextLine().trim();
+            try {
+                int v = Integer.parseInt(s);
+                if (v >= 1) return v;
+                System.out.println("Invalid input. Please enter an integer >= 1.");
+            } catch (NumberFormatException e) {
+                System.out.println("Invalid integer. Try again.");
+            }
+        }
+    }
+
+    private static int readIntInRange(String prompt, int min, int max) {
+        while (true) {
+            System.out.print(prompt);
+            String s = SC.nextLine().trim();
+            try {
+                int v = Integer.parseInt(s);
+                if (v >= min && v <= max) return v;
+                System.out.println("Invalid input. Enter an integer in [" + min + "," + max + "].");
+            } catch (NumberFormatException e) {
+                System.out.println("Invalid integer. Try again.");
+            }
+        }
+    }
+
+    private static double readDouble(String prompt) {
+        while (true) {
+            System.out.print(prompt);
+            String s = SC.nextLine().trim();
+            try {
+                return Double.parseDouble(s);
+            } catch (NumberFormatException e) {
+                System.out.println("Invalid double. Try e.g. 3.14 or -2");
+            }
+        }
+    }
+
+    private static double readDoubleInRange(String prompt, double min, double maxInclOrInf) {
+        while (true) {
+            double v = readDouble(prompt);
+            if (v >= min && v <= maxInclOrInf) return v;
+            System.out.println("Out of range. Value must be >= " + min + (Double.isInfinite(maxInclOrInf) ? "" : (" and <= " + maxInclOrInf)));
+        }
+    }
+
+    private static int[] readIntArrayDigits(String head, int n, int min, int max) {
+        System.out.println(head + " -> total " + n + " items.");
+        int[] arr = new int[n];
+        for (int i = 0; i < n; i++) {
+            arr[i] = readIntInRange("  value[" + (i + 1) + "] = ", min, max);
+        }
+        return arr;
+    }
+
+    private static void pressEnter() {
+        System.out.println();
+        System.out.println("Press ENTER to continue...");
+        SC.nextLine();
+    }
+
+    //  Statistics internals (for Sena's Part)
+    private static String fmt6(double v) { return String.format("%.6f", v); }
+
+    private static double medianSorted(double[] sorted) {
+        int n = sorted.length;
+        return (n % 2 == 1) ? sorted[n / 2] : (sorted[n / 2 - 1] + sorted[n / 2]) / 2.0;
+    }
+
+    private static double quantileSorted(double[] sorted, double q) {
+        int n = sorted.length;
+        if (n == 1) return sorted[0];
+        double pos = q * (n - 1);
+        int idx = (int) Math.floor(pos);
+        double frac = pos - idx;
+        if (idx >= n - 1) return sorted[n - 1];
+        return sorted[idx] * (1 - frac) + sorted[idx + 1] * frac;
+    }
+
+    private static double variance(double[] a, double mean, boolean sample) {
+        if (a.length <= (sample ? 1 : 0)) return 0.0;
+        double ss = 0.0;
+        for (double v : a) { double d = v - mean; ss += d * d; }
+        return ss / (sample ? (a.length - 1) : a.length);
+    }
+
+    private static Double geometricMean(double[] a) {
+        double logSum = 0.0;
+        for (double v : a) {
+            if (v <= 0.0) return null;
+            logSum += Math.log(v);
+        }
+        return Math.exp(logSum / a.length);
+    }
+
+    private static Double harmonicMeanRecursive(double[] a) {
+        for (double v : a) if (v == 0.0) return null;
+        double recSum = reciprocalSum(a, 0);
+        return a.length / recSum;
+    }
+
+    private static double reciprocalSum(double[] a, int i) {
+        if (i == a.length) return 0.0;
+        return (1.0 / a[i]) + reciprocalSum(a, i + 1);
+    }
+}
     // ----------------------------------------------------------------------------------------------------------------
     // THANK YOU GUYS.
 
