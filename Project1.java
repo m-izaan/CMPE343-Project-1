@@ -599,10 +599,12 @@ public class Project1 {
     // ----------------------------------------------------------------------------------------------------------------
     // THANK YOU GUYS.
 
+    // Emre's Part:
     public static void connectFour() {
         
     }
-
+    // ----------------------------------------------------------------------------------------------------------------
+    // helpers
     public static void clearScreen() {
         // Try ANSI clear; may not work in some consoles but is widely supported
         System.out.print("\u001b[H\u001b[2J");
@@ -623,7 +625,7 @@ public class Project1 {
         boolean proceed = false;
         
         while (!proceed) {
-            System.out.print("Press enter when you want to proceed.");
+            System.out.println("Press enter when you want to proceed.");
 
             // The part that handles the Enter key press
             try {
