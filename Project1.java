@@ -641,7 +641,7 @@ public class Project1 {
         
     }
     // ----------------------------------------------------------------------------------------------------------------
-    // Sena's Part:
+    // Sena Berra's Part:
     public static void arrayStat(int arraySize, int[] elements) 
     {
         clearScreen();
