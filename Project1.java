@@ -642,10 +642,6 @@ public class Project1 {
     }
     // ----------------------------------------------------------------------------------------------------------------
     // Sena's Part:
-   // ======================= SENA'S PART START =======================
-    // High School > A) Array Statistics  &  B) Distance Between Two Arrays
-    // Kötü girdiyi asla kabul etmez; kullanıcıyı uyarıp tekrar sorar. bu benim part C dimi
-
     public static void arrayStat(int arraySize, int[] elements) 
     {
         clearScreen();
@@ -982,3 +978,4 @@ public class Project1 {
         }
     }
 }
+
