@@ -229,100 +229,287 @@ public class Project1 {
      */
     // ----------------------------------------------------------------------------------------------------------------
     // Hadi's Part
-    public static void ageZodiac()
+   public static void ageZodiac()
     {
-        int day = getDay();
-        int month = getMonth();
+        // Get the birth date from user
         int year = getYear();
+        int month = getMonth(year);
+        int day = getDay(month, year);
 
+        // Get today's date
         LocalDate now = LocalDate.now();
-
         int currentDay = now.getDayOfMonth();
         int currentMonth = now.getMonthValue();
         int currentYear = now.getYear();
-        int d = currentDay - day;
-        int m = currentMonth - month;
-        int y = currentYear - year;
+        
+        // Calculate the difference
+        int daysDifference = currentDay - day;
+        int monthsDifference = currentMonth - month;
+        int yearsDifference = currentYear - year;
 
-        // Borrow days if needed
-        if (d < 0) 
+        // Fix days if negative
+        if (daysDifference < 0) 
         {
-            m--;
-            d += daysInMonth((month == 12) ? 1 : month);
+            monthsDifference = monthsDifference - 1;
+            
+            int previousMonth;
+            if (month == 12) {
+                previousMonth = 1;
+            } else {
+                previousMonth = month + 1;
+            }
+            
+            daysDifference = daysDifference + daysInMonth(previousMonth, year);
         }
-        // Borrow months if needed
-        if (m < 0) 
+        
+        // Fix months if negative
+        if (monthsDifference < 0) 
         {
-            y--;
-            m += 12;
+            yearsDifference = yearsDifference - 1;
+            monthsDifference = monthsDifference + 12;
         }
 
-        System.out.printf("You are %d years, %d months, and %d days old.%n", y, m, d);
+        // Print the age
+        System.out.println("You are " + yearsDifference + " years, " + monthsDifference + " months, and " + daysDifference + " days old.");
 
+        // Get and print zodiac sign
         String zodiac = getZodiacSign(day, month);
         System.out.println("Your Zodiac sign is: " + zodiac + "\n");
-
     }
-    private static int getDay() {
-        try {
-            System.out.print("Enter day of birth: ");
-            return Integer.parseInt(SC.nextLine());
-        } catch (Exception e) {
-            System.out.println("Invalid input! Please enter valid numbers.");
-        }
-        return 0;
-    }
-    private static int getMonth() {
-        try {
-            System.out.print("Enter month of birth: ");
-            return Integer.parseInt(SC.nextLine());
-        } catch (Exception e) {
-            System.out.println("Invalid input! Please enter valid numbers.");
-        }
-        return 0;
-    }
+    
     private static int getYear() {
-        try {
-            System.out.print("Enter year of birth: ");
-            return Integer.parseInt(SC.nextLine());
-        } catch (Exception e) {
-            System.out.println("Invalid input! Please enter valid numbers.");
+        LocalDate now = LocalDate.now();
+        int currentYear = now.getYear();
+        
+        boolean validInput = false;
+        int year = 0;
+        
+        while (validInput == false) {
+            try {
+                System.out.print("Enter year of birth: ");
+                String input = SC.nextLine();
+                year = Integer.parseInt(input);
+                
+                if (year < 1900) {
+                    System.out.println("Error: Year must be 1900 or later. Please try again.\n");
+                } else if (year > currentYear) {
+                    System.out.println("Error: Year cannot be in the future. Please try again.\n");
+                } else {
+                    validInput = true;
+                }
+                
+            } catch (NumberFormatException e) {
+                System.out.println("Error: Please enter a valid number. Please try again.\n");
+            }
         }
-        return 0;
+        
+        return year;
     }
-    private static int daysInMonth(int month)
+    
+    private static int getMonth(int year) {
+        boolean validInput = false;
+        int month = 0;
+        
+        while (validInput == false) {
+            try {
+                System.out.print("Enter month of birth (1-12): ");
+                String input = SC.nextLine();
+                month = Integer.parseInt(input);
+                
+                if (month < 1) {
+                    System.out.println("Error: Month must be at least 1. Please try again.\n");
+                } else if (month > 12) {
+                    System.out.println("Error: Month cannot be more than 12. Please try again.\n");
+                } else {
+                    validInput = true;
+                }
+                
+            } catch (NumberFormatException e) {
+                System.out.println("Error: Please enter a valid number. Please try again.\n");
+            }
+        }
+        
+        return month;
+    }
+    
+    private static int getDay(int month, int year) {
+        LocalDate now = LocalDate.now();
+        boolean isLeapYear = isLeapYear(year);
+        int maxDays = daysInMonth(month, year);
+        
+        boolean validInput = false;
+        int day = 0;
+        
+        while (validInput == false) {
+            try {
+                System.out.print("Enter day of birth: ");
+                String input = SC.nextLine();
+                day = Integer.parseInt(input);
+                
+                if (day < 1) {
+                    System.out.println("Error: Day must be at least 1. Please try again.\n");
+                } else if (day > maxDays) {
+                    if (month == 2 && isLeapYear) {
+                        System.out.println("Error: February has only 29 days in leap year " + year + ". Please try again.\n");
+                    } else {
+                        System.out.println("Error: Month " + month + " has only " + maxDays + " days. Please try again.\n");
+                    }
+                } else {
+                    // Check if date is in the future
+                    LocalDate birthDate = LocalDate.of(year, month, day);
+                    if (birthDate.isAfter(now)) {
+                        System.out.println("Error: Birth date cannot be in the future. Please try again.\n");
+                    } else {
+                        validInput = true;
+                    }
+                }
+                
+            } catch (NumberFormatException e) {
+                System.out.println("Error: Please enter a valid number. Please try again.\n");
+            } catch (Exception e) {
+                System.out.println("Error: Invalid date. Please try again.\n");
+            }
+        }
+        
+        return day;
+    }
+    
+    private static boolean isLeapYear(int year) {
+        // A year is a leap year if:
+        // It is divisible by 4 AND not divisible by 100
+        // OR it is divisible by 400
+        
+        boolean divisibleBy4 = (year % 4 == 0);
+        boolean divisibleBy100 = (year % 100 == 0);
+        boolean divisibleBy400 = (year % 400 == 0);
+        
+        if (divisibleBy400) {
+            return true;
+        }
+        
+        if (divisibleBy4 && !divisibleBy100) {
+            return true;
+        }
+        
+        return false;
+    }
+    
+    private static int daysInMonth(int month, int year)
     {
-        switch (month)
-        {
-            case 1, 3, 5, 7, 8, 10, 12:
-                return 31;
-            case 4, 6, 9, 11:
-                return 30;
-            case 2:
+        boolean isLeapYear = isLeapYear(year);
+        
+        if (month == 1) {
+            return 31;
+        } else if (month == 2) {
+            if (isLeapYear) {
+                return 29;
+            } else {
                 return 28;
-            default:
-                return 30;
+            }
+        } else if (month == 3) {
+            return 31;
+        } else if (month == 4) {
+            return 30;
+        } else if (month == 5) {
+            return 31;
+        } else if (month == 6) {
+            return 30;
+        } else if (month == 7) {
+            return 31;
+        } else if (month == 8) {
+            return 31;
+        } else if (month == 9) {
+            return 30;
+        } else if (month == 10) {
+            return 31;
+        } else if (month == 11) {
+            return 30;
+        } else if (month == 12) {
+            return 31;
+        } else {
+            return 30;
         }
     }
+    
     private static String getZodiacSign(int day, int month) 
     {
-        return switch (month) 
-        {
-            case 1 -> (day <= 19) ? "Capricorn" : "Aquarius";
-            case 2 -> (day <= 18) ? "Aquarius" : "Pisces";
-            case 3 -> (day <= 20) ? "Pisces" : "Aries";
-            case 4 -> (day <= 19) ? "Aries" : "Taurus";
-            case 5 -> (day <= 20) ? "Taurus" : "Gemini";
-            case 6 -> (day <= 20) ? "Gemini" : "Cancer";
-            case 7 -> (day <= 22) ? "Cancer" : "Leo";
-            case 8 -> (day <= 22) ? "Leo" : "Virgo";
-            case 9 -> (day <= 22) ? "Virgo" : "Libra";
-            case 10 -> (day <= 22) ? "Libra" : "Scorpio";
-            case 11 -> (day <= 21) ? "Scorpio" : "Sagittarius";
-            case 12 -> (day <= 21) ? "Sagittarius" : "Capricorn";
-            default -> "Unknown";
-        };
+        if (month == 1) {
+            if (day <= 19) {
+                return "Capricorn";
+            } else {
+                return "Aquarius";
+            }
+        } else if (month == 2) {
+            if (day <= 18) {
+                return "Aquarius";
+            } else {
+                return "Pisces";
+            }
+        } else if (month == 3) {
+            if (day <= 20) {
+                return "Pisces";
+            } else {
+                return "Aries";
+            }
+        } else if (month == 4) {
+            if (day <= 19) {
+                return "Aries";
+            } else {
+                return "Taurus";
+            }
+        } else if (month == 5) {
+            if (day <= 20) {
+                return "Taurus";
+            } else {
+                return "Gemini";
+            }
+        } else if (month == 6) {
+            if (day <= 20) {
+                return "Gemini";
+            } else {
+                return "Cancer";
+            }
+        } else if (month == 7) {
+            if (day <= 22) {
+                return "Cancer";
+            } else {
+                return "Leo";
+            }
+        } else if (month == 8) {
+            if (day <= 22) {
+                return "Leo";
+            } else {
+                return "Virgo";
+            }
+        } else if (month == 9) {
+            if (day <= 22) {
+                return "Virgo";
+            } else {
+                return "Libra";
+            }
+        } else if (month == 10) {
+            if (day <= 22) {
+                return "Libra";
+            } else {
+                return "Scorpio";
+            }
+        } else if (month == 11) {
+            if (day <= 21) {
+                return "Scorpio";
+            } else {
+                return "Sagittarius";
+            }
+        } else if (month == 12) {
+            if (day <= 21) {
+                return "Sagittarius";
+            } else {
+                return "Capricorn";
+            }
+        } else {
+            return "Unknown";
+        }
     }
+    
     // Recursive reverse function
     public static void reverseWords()
     {
@@ -335,11 +522,6 @@ public class Project1 {
         for (int i = 0; i < text.length(); i++) 
         {
             char c = text.charAt(i);
-            if (Character.isLetter(c)) 
-            {
-                word.append(c);
-            } 
-            else 
             {
                 if (word.length() > 1) 
                 {
@@ -408,3 +590,4 @@ public class Project1 {
         }
     }
 }
+
