@@ -1,5 +1,8 @@
 import java.nio.charset.StandardCharsets; //needed to scan for strings.
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 import java.util.Random;
 import java.util.Scanner;
 import java.io.IOException; //needed for the method waitForProceed().
@@ -9,11 +12,13 @@ public class Project1 {
     private static final Scanner SC = new Scanner(System.in, StandardCharsets.UTF_8);
     private static final Random RAND = new Random();
     private static final long delayAmount = 500;
+    static int Primes[];
+    static int count = 0;
 
-	// Global constant variables needed for connect four:
+    // Global constant variables needed for connect four:
     private static final char PLAYER_ONE_DISC = 'R'; // Player 1 (Red)
     private static final char PLAYER_TWO_DISC = 'Y'; // Player 2 (Yellow)
-    private static final char COMPUTER_DISC = 'Y';   // Computer (Yellow)
+    private static final char COMPUTER_DISC = 'Y'; // Computer (Yellow)
     private static final char EMPTY_SLOT = ' ';
     private static final int GAME_MODE_SINGLE_PLAYER = 1;
     private static final int GAME_MODE_TWO_PLAYER = 2;
@@ -23,6 +28,7 @@ public class Project1 {
         menuMain();
         clearScreen();
     }
+
     // -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
     // Menu Logic:
     public static void menuMain() {
@@ -107,8 +113,7 @@ public class Project1 {
         }
     }
 
-    public static void showMenuPrimarySchool()
-    {
+    public static void showMenuPrimarySchool() {
         clearScreen();
         System.out.println("Sub Menu - Primary School - Select an option:");
         System.out.println("[A] Age and Zodiac Sign Detection");
@@ -116,12 +121,10 @@ public class Project1 {
         System.out.println("[C] Return to the Main Menu");
     }
 
-    public static boolean selectMenuPrimarySchool()
-    {
+    public static boolean selectMenuPrimarySchool() {
         System.out.print("Choice: ");
         String choice = SC.nextLine().trim().toUpperCase();
-        switch (choice)
-        {
+        switch (choice) {
             case "A":
                 ageZodiac();
                 waitBeforeProceed();
@@ -160,10 +163,9 @@ public class Project1 {
     public static boolean selectMenuSecondarySchool() {
         System.out.print("Choice: ");
         String choice = SC.nextLine().trim().toUpperCase();
-        switch (choice)
-        {
+        switch (choice) {
             case "A":
-                primeNumbers();
+                PrimeNumbers();
                 waitBeforeProceed();
                 break;
             case "B":
@@ -200,8 +202,7 @@ public class Project1 {
     public static boolean selectMenuHighSchool() {
         System.out.print("Choice: ");
         String choice = SC.nextLine().trim().toUpperCase();
-        switch (choice)
-        {
+        switch (choice) {
             case "A":
                 arrayStat();
                 waitBeforeProceed();
@@ -239,8 +240,7 @@ public class Project1 {
     public static boolean selectMenuUniversity() {
         System.out.print("Choice: ");
         String choice = SC.nextLine().trim().toUpperCase();
-        switch (choice)
-        {
+        switch (choice) {
             case "A":
                 connectFour();
                 waitBeforeProceed();
@@ -251,15 +251,15 @@ public class Project1 {
                 return false;
             default:
                 System.out.println("Invalid option. Please select A or B.");
-                waitMillis(delayAmount);               
+                waitMillis(delayAmount);
         }
 
         return true;
     }
+
     // -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
     // Hadi's Part:
-	public static void ageZodiac()
-    {
+    public static void ageZodiac() {
         // Get the birthdate from user
         int year = getYear();
         int month = getMonth(year);
@@ -270,55 +270,54 @@ public class Project1 {
         int currentDay = now.getDayOfMonth();
         int currentMonth = now.getMonthValue();
         int currentYear = now.getYear();
-        
+
         // Calculate the difference
         int daysDifference = currentDay - day;
         int monthsDifference = currentMonth - month;
         int yearsDifference = currentYear - year;
 
         // Fix days if negative
-        if (daysDifference < 0) 
-        {
+        if (daysDifference < 0) {
             monthsDifference = monthsDifference - 1;
-            
+
             int previousMonth;
             if (month == 12) {
                 previousMonth = 1;
             } else {
                 previousMonth = month + 1;
             }
-            
+
             daysDifference = daysDifference + daysInMonth(previousMonth, year);
         }
-        
+
         // Fix months if negative
-        if (monthsDifference < 0) 
-        {
+        if (monthsDifference < 0) {
             yearsDifference = yearsDifference - 1;
             monthsDifference = monthsDifference + 12;
         }
 
         // Print the age
-        System.out.println("You are " + yearsDifference + " years, " + monthsDifference + " months, and " + daysDifference + " days old.");
+        System.out.println("You are " + yearsDifference + " years, " + monthsDifference + " months, and "
+                + daysDifference + " days old.");
 
         // Get and print zodiac sign
         String zodiac = getZodiacSign(day, month);
         System.out.println("Your Zodiac sign is: " + zodiac + "\n");
     }
-    
+
     private static int getYear() {
         LocalDate now = LocalDate.now();
         int currentYear = now.getYear();
-        
+
         boolean validInput = false;
         int year = 0;
-        
+
         while (validInput == false) {
             try {
                 System.out.print("Enter year of birth: ");
                 String input = SC.nextLine();
                 year = Integer.parseInt(input);
-                
+
                 if (year < 1900) {
                     System.out.println("Error: Year must be 1900 or later. Please try again.\n");
                 } else if (year > currentYear) {
@@ -326,25 +325,25 @@ public class Project1 {
                 } else {
                     validInput = true;
                 }
-                
+
             } catch (NumberFormatException e) {
                 System.out.println("Error: Please enter a valid number. Please try again.\n");
             }
         }
-        
+
         return year;
     }
-    
+
     private static int getMonth(int year) {
         boolean validInput = false;
         int month = 0;
-        
+
         while (validInput == false) {
             try {
                 System.out.print("Enter month of birth (1-12): ");
                 String input = SC.nextLine();
                 month = Integer.parseInt(input);
-                
+
                 if (month < 1) {
                     System.out.println("Error: Month must be at least 1. Please try again.\n");
                 } else if (month > 12) {
@@ -352,36 +351,38 @@ public class Project1 {
                 } else {
                     validInput = true;
                 }
-                
+
             } catch (NumberFormatException e) {
                 System.out.println("Error: Please enter a valid number. Please try again.\n");
             }
         }
-        
+
         return month;
     }
-    
+
     private static int getDay(int month, int year) {
         LocalDate now = LocalDate.now();
         boolean isLeapYear = isLeapYear(year);
         int maxDays = daysInMonth(month, year);
-        
+
         boolean validInput = false;
         int day = 0;
-        
+
         while (validInput == false) {
             try {
                 System.out.print("Enter day of birth: ");
                 String input = SC.nextLine();
                 day = Integer.parseInt(input);
-                
+
                 if (day < 1) {
                     System.out.println("Error: Day must be at least 1. Please try again.\n");
                 } else if (day > maxDays) {
                     if (month == 2 && isLeapYear) {
-                        System.out.println("Error: February has only 29 days in leap year " + year + ". Please try again.\n");
+                        System.out.println(
+                                "Error: February has only 29 days in leap year " + year + ". Please try again.\n");
                     } else {
-                        System.out.println("Error: Month " + month + " has only " + maxDays + " days. Please try again.\n");
+                        System.out.println(
+                                "Error: Month " + month + " has only " + maxDays + " days. Please try again.\n");
                     }
                 } else {
                     // Check if date is in the future
@@ -392,41 +393,40 @@ public class Project1 {
                         validInput = true;
                     }
                 }
-                
+
             } catch (NumberFormatException e) {
                 System.out.println("Error: Please enter a valid number. Please try again.\n");
             } catch (Exception e) {
                 System.out.println("Error: Invalid date. Please try again.\n");
             }
         }
-        
+
         return day;
     }
-    
+
     private static boolean isLeapYear(int year) {
         // A year is a leap year if:
         // It is divisible by 4 AND not divisible by 100
         // OR it is divisible by 400
-        
+
         boolean divisibleBy4 = (year % 4 == 0);
         boolean divisibleBy100 = (year % 100 == 0);
         boolean divisibleBy400 = (year % 400 == 0);
-        
+
         if (divisibleBy400) {
             return true;
         }
-        
+
         if (divisibleBy4 && !divisibleBy100) {
             return true;
         }
-        
+
         return false;
     }
-    
-    private static int daysInMonth(int month, int year)
-    {
+
+    private static int daysInMonth(int month, int year) {
         boolean isLeapYear = isLeapYear(year);
-        
+
         if (month == 1) {
             return 31;
         } else if (month == 2) {
@@ -459,9 +459,8 @@ public class Project1 {
             return 30;
         }
     }
-    
-    private static String getZodiacSign(int day, int month) 
-    {
+
+    private static String getZodiacSign(int day, int month) {
         if (month == 1) {
             if (day <= 19) {
                 return "Capricorn";
@@ -538,51 +537,46 @@ public class Project1 {
             return "Unknown";
         }
     }
-    
+
     // Recursive reverse function
-    public static void reverseWords()
-    {
+    public static void reverseWords() {
         System.out.print("Enter a sentence: ");
         String text = SC.nextLine();
 
         StringBuilder result = new StringBuilder();
         StringBuilder word = new StringBuilder();
 
-        for (int i = 0; i < text.length(); i++) 
-        {
+        for (int i = 0; i < text.length(); i++) {
             char c = text.charAt(i);
-            if (isTurkishLetter(c)) 
-            {
+            if (isTurkishLetter(c)) {
                 word.append(c);
-            } 
-            else
-            {
-                if (word.length() > 1) 
-                {
+            } else {
+                if (word.length() > 1) {
                     result.append(reverseRecursive(word.toString()));
-                } 
-                else 
-                {
+                } else {
                     result.append(word);
                 }
                 word.setLength(0);
                 result.append(c);
             }
-         }
+        }
 
         // Handle last word if sentence ends with a letter
-        if (word.length() > 1) result.append(reverseRecursive(word.toString()));
-        else result.append(word);
+        if (word.length() > 1)
+            result.append(reverseRecursive(word.toString()));
+        else
+            result.append(word);
 
         String reversed = result.toString();
         System.out.println("\nReversed Sentence:\n" + reversed + "\n");
     }
-       private static boolean isTurkishLetter(char c) {
+
+    private static boolean isTurkishLetter(char c) {
         // Check if character is a letter (English or Turkish)
         if (Character.isLetter(c)) {
             return true;
         }
-        
+
         // Check for Turkish-specific lowercase characters
         if (c == 'ç') {
             return true;
@@ -602,7 +596,7 @@ public class Project1 {
         if (c == 'ü') {
             return true;
         }
-        
+
         // Check for Turkish-specific uppercase characters
         if (c == 'Ç') {
             return true;
@@ -622,31 +616,907 @@ public class Project1 {
         if (c == 'Ü') {
             return true;
         }
-        
+
         // If none of the above, it's not a Turkish letter
         return false;
     }
-    private static String reverseRecursive(String s)
-    {
-        if (s.isEmpty()) return s;
+
+    private static String reverseRecursive(String s) {
+        if (s.isEmpty())
+            return s;
         return reverseRecursive(s.substring(1)) + s.charAt(0);
     }
-    // -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-    // Muhammed's Part:
-    public static void primeNumbers()
-    {
-        
+    // ----------------------------------------------------------------------------------------------------------------
+    // Izaan's Part:
+
+    // All 3 Algorithm for Finding Prime Numbers
+
+    // EratosthenesFormula
+    public static int[] eratosthenesFormula(int n) {
+        boolean isPrime[] = new boolean[n + 1];
+        Arrays.fill(isPrime, true);
+        if (n >= 2) {
+            for (int x = 2; x * x <= n; x++) {
+                if (isPrime[x]) {
+                    for (long multiples = (long) x * x; multiples <= n; multiples += x) {
+                        isPrime[(int) multiples] = false;
+                    }
+
+                }
+            }
+        } else {
+            return new int[0];
+        }
+
+        count = 0;
+        for (int i = 2; i <= n; i++) {
+            if (isPrime[i]) {
+                count++;
+            }
+        }
+        Primes = new int[count];
+        int index = 0;
+        for (int i = 2; i <= n; i++) {
+            if (isPrime[i]) {
+                Primes[index] = i;
+                index++;
+            }
+        }
+
+        return Primes;
     }
 
-    public static void evalExpression()
-    {
-        
+    // Sieve of Sundaram
+
+    public static int[] sieveSundaramArray(int n) {
+
+        if (n < 2) {
+            return new int[0];
+        }
+
+        // k is the upper bound for the Sundaram index (we generate primes up to 2*k +
+        // 1)
+        int k = (n - 2) / 2;
+        if (k < 1) {
+            // Only possible prime is 2 if n >= 2
+            if (n >= 2)
+                return new int[] { 2 };
+            else
+                return new int[0];
+        }
+
+        // Use a boolean marker array indexed 0..k (we'll ignore index 0 in marking
+        // logic)
+        boolean[] marked = new boolean[k + 1]; // default false
+
+        // Mark indices of form i + j + 2*i*j (1 <= i <= j) up to k
+        for (int i = 1; i <= k; i++) {
+            // j starts at i (as per Sundaram)
+            for (int j = i;; j++) {
+                long s = (long) i + j + 2L * i * j; // long to avoid overflow in intermediate
+                if (s > k)
+                    break;
+                marked[(int) s] = true;
+            }
+        }
+
+        // Count primes: include 2 if within range, and then 2*i + 1 for each unmarked i
+        count = 0;
+        if (n >= 2) {
+            count++; // for prime 2
+        }
+        for (int i = 1; i <= k; i++) {
+            if (!marked[i]) {
+                int p = 2 * i + 1;
+                if (p <= n)
+                    count++;
+            }
+        }
+
+        // Compact into int[] primes
+        Primes = new int[count];
+        int idx = 0;
+        if (n >= 2) {
+            Primes[idx++] = 2;
+        }
+        for (int i = 1; i <= k; i++) {
+            if (!marked[i]) {
+                int p = 2 * i + 1;
+                if (p <= n)
+                    Primes[idx++] = p;
+            }
+        }
+
+        return Primes;
     }
-    // -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+    // Sieve of Atkin
+
+    public static int[] sieveAtkinArray(int n) {
+        if (n < 2) {
+            return new int[0];
+        }
+
+        boolean[] isPrime = new boolean[n + 1]; // default false
+        int limit = (int) Math.sqrt(n);
+
+        // Main Atkin quadratic residue toggling
+        for (int x = 1; x <= limit; x++) {
+            for (int y = 1; y <= limit; y++) {
+                long x2 = 1L * x * x;
+                long y2 = 1L * y * y;
+
+                long m = 4 * x2 + y2;
+                if (m <= n) {
+                    int mm = (int) m;
+                    if (mm % 12 == 1 || mm % 12 == 5)
+                        isPrime[mm] = !isPrime[mm];
+                }
+
+                m = 3 * x2 + y2;
+                if (m <= n) {
+                    int mm = (int) m;
+                    if (mm % 12 == 7)
+                        isPrime[mm] = !isPrime[mm];
+                }
+
+                m = 3 * x2 - y2;
+                if (x > y && m <= n) {
+                    int mm = (int) m;
+                    if (mm % 12 == 11)
+                        isPrime[mm] = !isPrime[mm];
+                }
+            }
+        }
+
+        // Eliminate multiples of squares
+        for (int r = 5; r <= limit; r++) {
+            if (isPrime[r]) {
+                int r2 = r * r;
+                for (int k = r2; k <= n; k += r2) {
+                    isPrime[k] = false;
+                }
+            }
+        }
+
+        // Count primes (include 2 and 3 if in range)
+        count = 0;
+        if (n >= 2) {
+            count++;
+        }
+        if (n >= 3) {
+            count++;
+        }
+        for (int i = 5; i <= n; i++) {
+            if (isPrime[i]) {
+                count++;
+            }
+        }
+
+        // Build compact result array
+        Primes = new int[count];
+        int idx = 0;
+        if (n >= 2) {
+            Primes[idx++] = 2;
+        }
+
+        if (n >= 3) {
+            Primes[idx++] = 3;
+        }
+
+        for (int i = 5; i <= n; i++) {
+            if (isPrime[i]) {
+                Primes[idx++] = i;
+            }
+        }
+
+        return Primes;
+    }
+
+    private static String firstK(int[] arr, int k) {
+        if (arr == null || arr.length == 0)
+            return "[]";
+        int n = Math.min(k, arr.length);
+        StringBuilder sb = new StringBuilder("[");
+        for (int i = 0; i < n; i++) {
+            if (i > 0)
+                sb.append(", ");
+            sb.append(arr[i]);
+        }
+        if (arr.length > n)
+            sb.append(", ...");
+        sb.append("]");
+        return sb.toString();
+    }
+
+    private static String lastK(int[] arr, int k) {
+        if (arr == null || arr.length == 0)
+            return "[]";
+        int n = Math.min(k, arr.length);
+        StringBuilder sb = new StringBuilder("[");
+        for (int i = arr.length - n; i < arr.length; i++) {
+            if (i > arr.length - n)
+                sb.append(", ");
+            sb.append(arr[i]);
+        }
+        if (arr.length > n)
+            sb.insert(1, "..., ");
+        sb.append("]");
+        return sb.toString();
+    }
+
+    private static String fmtMs(double ms) {
+        return String.format("%.3f", ms);
+    }
+
+    // Prime Numbers main function
+    public static void PrimeNumbers() {
+
+        int num = 0;
+
+        while (true) {
+            System.out.print("Enter an integer n (n >= 12): ");
+            String line = SC.nextLine().trim();
+            try {
+                num = Integer.parseInt(line);
+                if (num >= 12) {
+                    break;
+                } else {
+                    System.out.println("Value out of range. Try again!");
+                }
+            } catch (NumberFormatException ex) {
+                System.out.println("Not a valid integer. Try again!");
+            }
+        }
+
+        // Eratosthenes
+        long startE = System.nanoTime();
+        int[] erPrimes = eratosthenesFormula(num);
+        long eTimeNs = System.nanoTime() - startE;
+        double eTimeMs = eTimeNs / 1_000_000.0;
+
+        // Sundaram
+        long startS = System.nanoTime();
+        int[] suPrimes = sieveSundaramArray(num);
+        long sTimeNs = System.nanoTime() - startS;
+        double sTimeMs = sTimeNs / 1_000_000.0;
+
+        long startA = System.nanoTime();
+        int[] atPrimes = sieveAtkinArray(num);
+        long aTimeNs = System.nanoTime() - startA;
+        double aTimeMs = aTimeNs / 1_000_000.0;
+
+        // store them in variables
+        double runtimeEratosthenes_ms = eTimeMs;
+        double runtimeSundaram_ms = sTimeMs;
+        double runtimeAtkin_ms = aTimeMs;
+
+        // print summary nicely
+        System.out.println("Eratosthenes: count=" + erPrimes.length
+                + " first 3 =" + firstK(erPrimes, 3) + " last 2 =" + lastK(erPrimes, 2)
+                + " time_ms =" + fmtMs(runtimeEratosthenes_ms));
+
+        System.out.println("Sundaram:     count=" + suPrimes.length
+                + " first 3 =" + firstK(suPrimes, 3) + " last 2 =" + lastK(suPrimes, 2)
+                + " time_ms =" + fmtMs(runtimeSundaram_ms));
+
+        System.out.println("Atkin:        count=" + atPrimes.length
+                + " first 3 =" + firstK(atPrimes, 3) + " last 2 =" + lastK(atPrimes, 2)
+                + " time_ms =" + fmtMs(runtimeAtkin_ms));
+
+    }
+
+    // Replace the existing empty evalExpression() with the following methods:
+
+    public static void evalExpression() {
+        clearScreen();
+        System.out.println("Step-by-step Evaluation of Expression");
+        System.out.println("Allowed characters: digits, +, -, x (or X, *, ×), : (or /), (, )");
+        System.out.println("Unary minus is allowed (e.g. -3). Leading '+' is considered invalid per spec.\n");
+
+        String expr;
+        while (true) {
+            System.out.print("Enter expression: ");
+            expr = SC.nextLine().trim();
+            if (expr.length() == 0) {
+                System.out.println("Empty input. re-enter a valid expression.");
+                continue;
+            }
+            if (!isValidExpression(expr)) {
+                System.out.println("re-enter a valid expression.");
+                continue;
+            }
+            // convert common operator synonyms to canonical forms, but keep formatting for
+            // display
+            expr = normalizeOperators(expr);
+            break;
+        }
+
+        // Print step-by-step; each step simplifies just one subexpression (parenthesis
+        // or one op)
+        List<String> steps = new ArrayList<>();
+        steps.add(expr);
+
+        try {
+            String current = expr;
+            while (true) {
+                String simplified = simplifyOnce(current);
+                // If no further simplification possible, break
+                if (simplified.equals(current)) {
+                    break;
+                }
+                steps.add(simplified);
+                current = simplified;
+            }
+
+            // Print steps in the required format
+            for (String s : steps) {
+                System.out.println("= " + normalizeSpacing(s));
+            }
+
+            // If final is a single number, print final value (already printed as last step)
+            // Nothing else required
+        } catch (ArithmeticException ae) {
+            System.out.println("Error during evaluation: " + ae.getMessage());
+            System.out.println("re-enter a valid expression.");
+        } catch (Exception ex) {
+            System.out.println("An error occurred during evaluation. re-enter a valid expression.");
+        }
+    }
+
+    /*
+     * ---------- Helpers for validation, tokenization, and step-by-step evaluation
+     * ----------
+     */
+
+    private static String normalizeOperators(String s) {
+        // Replace multiple canonical synonyms with a single internal symbol:
+        // multiplication: 'x', 'X', '*', '×' -> 'x'
+        // division: ':' or '/' -> ':'
+        StringBuilder sb = new StringBuilder();
+        for (int i = 0; i < s.length(); i++) {
+            char c = s.charAt(i);
+            if (c == '×' || c == '*' || c == 'X') {
+                sb.append('x');
+            } else if (c == '/') {
+                sb.append(':');
+            } else {
+                sb.append(c);
+            }
+        }
+        return sb.toString();
+    }
+
+    private static boolean isValidExpression(String s) {
+        // Allowed chars: digits, spaces, + - x X * × : / ( )
+        // Normalize for checks
+        if (s.trim().length() == 0)
+            return false;
+
+        String t = s;
+        // Quick character validity check
+        for (int i = 0; i < t.length(); i++) {
+            char c = t.charAt(i);
+            if (Character.isDigit(c) || Character.isWhitespace(c))
+                continue;
+            if (c == '+' || c == '-' || c == '(' || c == ')' || c == ':' || c == 'x' || c == 'X' || c == '*' || c == '×'
+                    || c == '/')
+                continue;
+            return false;
+        }
+
+        // Balance parentheses
+        int bal = 0;
+        for (int i = 0; i < t.length(); i++) {
+            char c = t.charAt(i);
+            if (c == '(')
+                bal++;
+            if (c == ')') {
+                bal--;
+                if (bal < 0)
+                    return false; // closing before opening
+            }
+        }
+        if (bal != 0)
+            return false;
+
+        // Disallow starting with '+' or other invalid leading tokens
+        int firstNonSpace = -1;
+        for (int i = 0; i < t.length(); i++) {
+            if (!Character.isWhitespace(t.charAt(i))) {
+                firstNonSpace = i;
+                break;
+            }
+        }
+        if (firstNonSpace == -1) {
+            return false;
+        }
+        char first = t.charAt(firstNonSpace);
+        if (first == '+') {
+            return false; // per spec sample "+3-4" => invalid
+        }
+        if (first == 'x' || first == 'X' || first == '*' || first == ':' || first == '/' || first == ')') {
+            return false;
+        }
+
+        // Check operator sequences and unary minus rules.
+        // We treat '-' as unary if at start or after '(' or after another operator.
+        boolean prevIsOp = true; // start = as-if previous is operator (so unary minus allowed)
+        for (int i = 0; i < t.length(); i++) {
+            char c = t.charAt(i);
+            if (Character.isWhitespace(c)) {
+                continue;
+            }
+            if (Character.isDigit(c)) {
+                prevIsOp = false;
+                // consume continuous digits
+                while (i + 1 < t.length() && Character.isDigit(t.charAt(i + 1))) {
+                    i++;
+                }
+                continue;
+            }
+            if (c == '(') {
+                prevIsOp = true;
+                continue;
+            }
+            if (c == ')') {
+                prevIsOp = false;
+                continue;
+            }
+            // operator chars
+            if (c == '+' || c == '-' || c == 'x' || c == 'X' || c == '*' || c == '×' || c == ':' || c == '/') {
+                if (c == '-') {
+                    // unary minus allowed if prevIsOp==true
+                    if (prevIsOp) {
+                        // must be followed by a digit or '('
+                        int j = i + 1;
+                        while (j < t.length() && Character.isWhitespace(t.charAt(j))) {
+                            j++;
+                        }
+                        if (j >= t.length()) {
+                            return false;
+                        }
+                        char next = t.charAt(j);
+                        if (!(Character.isDigit(next) || next == '(')) {
+                            return false;
+                        }
+                        // prevIsOp remains true until we see the number/paren content
+                        prevIsOp = true;
+                        continue;
+                    } else {
+                        // binary minus
+                        prevIsOp = true;
+                        continue;
+                    }
+                } else if (c == '+') {
+                    // unary '+' is not allowed per sample and we disallow leading '+'
+                    if (prevIsOp) {
+                        return false;
+                    }
+                    prevIsOp = true;
+                    continue;
+                } else {
+                    // other operators (x,: etc) cannot be unary
+                    if (prevIsOp) {
+                        return false; // e.g., "*3" or ":(1+1)" invalid
+                    }
+                    prevIsOp = true;
+                    continue;
+                }
+            }
+            return false; // any other char (shouldn't reach)
+        }
+
+        // Expression shouldn't end with binary operator
+        // find last non-space char
+        int lastIndex = -1;
+        for (int i = t.length() - 1; i >= 0; i--) {
+            if (!Character.isWhitespace(t.charAt(i))) {
+                lastIndex = i;
+                break;
+            }
+        }
+        if (lastIndex >= 0) {
+            char last = t.charAt(lastIndex);
+            if (last == '+' || last == '-' || last == 'x' || last == 'X' || last == '*' || last == '×' || last == ':'
+                    || last == '/') {
+                // trailing '-' could be part of a number only if it's unary, but trailing
+                // operator is invalid
+                return false;
+            }
+        }
+
+        return true;
+    }
+
+    // Convert expression string to canonical tokens (numbers, operators,
+    // parentheses).
+    // Returns list of tokens in order. Numbers are signed integers as full token
+    // strings.
+    private static List<String> tokenize(String expr) {
+        expr = normalizeOperators(expr);
+        List<String> tokens = new ArrayList<>();
+        int i = 0;
+        int n = expr.length();
+        while (i < n) {
+            char c = expr.charAt(i);
+            if (Character.isWhitespace(c)) {
+                i++;
+                continue;
+            }
+            if (c == '(' || c == ')') {
+                tokens.add(String.valueOf(c));
+                i++;
+                continue;
+            }
+            if (c == '+' || c == 'x' || c == '*' || c == ':' || c == '/') {
+                // treat '*' and '/' should have been normalized; but just in case:
+                char op = c;
+                if (c == '*')
+                    op = 'x';
+                if (c == '/')
+                    op = ':';
+                tokens.add(String.valueOf(op));
+                i++;
+                continue;
+            }
+            if (c == '-') {
+                // unary minus if at start or after '(' or after another operator
+                boolean unary = false;
+                if (tokens.isEmpty())
+                    unary = true;
+                else {
+                    String prev = tokens.get(tokens.size() - 1);
+                    if ("(".equals(prev) || "+".equals(prev) || "-".equals(prev) || "x".equals(prev)
+                            || ":".equals(prev)) {
+                        unary = true;
+                    }
+                }
+                if (unary) {
+                    // capture sign and following number or parenthesis as separate token (for
+                    // number case)
+                    // If next non-space char is '(' then push unary '-' as separate token so that
+                    // "( -3 )" handled when parsing parentheses.
+                    int j = i + 1;
+                    while (j < n && Character.isWhitespace(expr.charAt(j)))
+                        j++;
+                    if (j < n && Character.isDigit(expr.charAt(j))) {
+                        // consume digits
+                        int k = j;
+                        StringBuilder num = new StringBuilder();
+                        num.append('-');
+                        while (k < n && Character.isDigit(expr.charAt(k))) {
+                            num.append(expr.charAt(k));
+                            k++;
+                        }
+                        tokens.add(num.toString());
+                        i = k;
+                        continue;
+                    } else {
+                        // treat '-' as operator token (will allow e.g., (-3) where '-' + '(' handled)
+                        tokens.add("-");
+                        i++;
+                        continue;
+                    }
+                } else {
+                    tokens.add("-");
+                    i++;
+                    continue;
+                }
+            }
+            if (Character.isDigit(c)) {
+                StringBuilder num = new StringBuilder();
+                while (i < n && Character.isDigit(expr.charAt(i))) {
+                    num.append(expr.charAt(i));
+                    i++;
+                }
+                tokens.add(num.toString());
+                continue;
+            }
+            // fallback (shouldn't reach due to validation)
+            tokens.add(String.valueOf(c));
+            i++;
+        }
+        return tokens;
+    }
+
+    // Simplify the expression exactly once (one step). Returns the new expression
+    // string.
+    // If no further simplification possible, returns the same expression.
+    private static String simplifyOnce(String expr) {
+        // Tokenize
+        List<String> tokens = tokenize(expr);
+
+        // First, find innermost parentheses pair
+        int openIndex = -1;
+        int closeIndex = -1;
+
+        for (int i = 0; i < tokens.size(); i++) {
+            if ("(".equals(tokens.get(i))) {
+                openIndex = i;
+            } else if (")".equals(tokens.get(i)) && openIndex != -1) {
+                closeIndex = i;
+                break;
+            }
+        }
+
+        if (openIndex != -1 && closeIndex != -1) {
+            // Extract sublist between openIndex+1 .. closeIndex-1
+            List<String> sub = new ArrayList<>();
+            for (int i = openIndex + 1; i < closeIndex; i++) {
+                sub.add(tokens.get(i));
+            }
+            // If sub is empty -> replace "()" with "0"? But invalid per validation. We'll
+            // just remove.
+            if (sub.isEmpty()) {
+                // remove the empty parentheses
+                List<String> newTokens = new ArrayList<>();
+                for (int i = 0; i < tokens.size(); i++) {
+                    if (i == openIndex) {
+                        i = closeIndex; // skip both
+                        continue;
+                    }
+                    newTokens.add(tokens.get(i));
+                }
+                return joinTokens(newTokens);
+            }
+
+            // Evaluate the sub-expression fully (not step-by-step inside), producing a
+            // single number token.
+            String value = evaluateTokensFully(sub);
+            // Replace tokens from openIndex..closeIndex with the value token (note: value
+            // may be negative)
+            List<String> newTokens = new ArrayList<>();
+            for (int i = 0; i < openIndex; i++) {
+                newTokens.add(tokens.get(i));
+            }
+            // If there is a '-' operator immediately before and it is a unary minus token
+            // (i.e. a '-' operator token and
+            // previous token was operator or '('), keep it. But our tokenization handles
+            // unary negatives inside numbers,
+            // so we just add the numeric value token now.
+            newTokens.add(value);
+            for (int i = closeIndex + 1; i < tokens.size(); i++) {
+                newTokens.add(tokens.get(i));
+            }
+            return joinTokens(newTokens);
+        }
+
+        // No parentheses; perform a single operation according to precedence.
+        // First, find first multiplication/division (left-to-right)
+        for (int i = 0; i < tokens.size(); i++) {
+
+            String t = tokens.get(i);
+            if ("x".equals(t) || ":".equals(t)) {
+                // tokens i-1 (lhs) should exist and i+1 (rhs) should exist
+                if (i - 1 < 0 || i + 1 >= tokens.size()) {
+                    continue; // shouldn't happen due validation
+                }
+
+                String lhs = tokens.get(i - 1);
+                String rhs = tokens.get(i + 1);
+                String result = computeBinary(lhs, t, rhs);
+                // replace i-1..i+1 by result
+                List<String> newTokens = new ArrayList<>();
+
+                for (int j = 0; j < i - 1; j++) {
+                    newTokens.add(tokens.get(j));
+                }
+                newTokens.add(result);
+                for (int j = i + 2; j < tokens.size(); j++) {
+                    newTokens.add(tokens.get(j));
+                }
+
+                return joinTokens(newTokens);
+            }
+        }
+
+        // No mult/div found; perform first addition/subtraction left-to-right
+        for (int i = 0; i < tokens.size(); i++) {
+            String t = tokens.get(i);
+            if ("+".equals(t) || "-".equals(t)) {
+                if (i - 1 < 0 || i + 1 >= tokens.size()) {
+                    continue;
+                }
+
+                String lhs = tokens.get(i - 1);
+                String rhs = tokens.get(i + 1);
+                String result = computeBinary(lhs, t, rhs);
+                List<String> newTokens = new ArrayList<>();
+
+                for (int j = 0; j < i - 1; j++) {
+                    newTokens.add(tokens.get(j));
+                }
+                newTokens.add(result);
+                for (int j = i + 2; j < tokens.size(); j++) {
+                    newTokens.add(tokens.get(j));
+                }
+
+                return joinTokens(newTokens);
+            }
+        }
+
+        // Nothing to simplify (maybe a single number)
+        return expr;
+    }
+
+    // Evaluate a list of tokens fully returning a single numeric string (handles
+    // precedence inside subexpression).
+    // Uses integer arithmetic (long) and integer division behavior.
+    private static String evaluateTokensFully(List<String> tokensIn) {
+        // Make a mutable copy
+        List<String> tokens = new ArrayList<>(tokensIn);
+
+        // First, if there are parentheses inside, recursively resolve them (shouldn't
+        // happen here because we only call for innermost).
+        // But be safe:
+        while (tokens.contains("(")) {
+            // find innermost '(' index (last '(') and its matching ')'
+            int open = -1, close = -1;
+            for (int i = 0; i < tokens.size(); i++) {
+                if ("(".equals(tokens.get(i)))
+                    open = i;
+            }
+            if (open == -1)
+                break;
+            for (int i = open + 1; i < tokens.size(); i++) {
+                if (")".equals(tokens.get(i))) {
+                    close = i;
+                    break;
+                }
+            }
+            if (close == -1)
+                break;
+
+            // extract subexpression between open+1 .. close-1
+            List<String> sub = new ArrayList<>();
+            for (int i = open + 1; i < close; i++)
+                sub.add(tokens.get(i));
+
+            // evaluate subexpression fully to a single token
+            String val = evaluateTokensFully(sub);
+
+            // rebuild tokens: prefix + val + suffix
+            List<String> newT = new ArrayList<>();
+            for (int i = 0; i < open; i++)
+                newT.add(tokens.get(i));
+            newT.add(val);
+            for (int i = close + 1; i < tokens.size(); i++)
+                newT.add(tokens.get(i));
+
+            tokens = newT;
+        }
+
+        // Now perform mult/div left->right
+        for (int i = 0; i < tokens.size();) {
+            String t = tokens.get(i);
+            if ("x".equals(t) || ":".equals(t)) {
+                String lhs = tokens.get(i - 1);
+                String rhs = tokens.get(i + 1);
+                String res = computeBinary(lhs, t, rhs);
+                List<String> newTokens = new ArrayList<>();
+                for (int j = 0; j < i - 1; j++) {
+                    newTokens.add(tokens.get(j));
+                }
+                newTokens.add(res);
+                for (int j = i + 2; j < tokens.size(); j++) {
+                    newTokens.add(tokens.get(j));
+                }
+                tokens = newTokens;
+                i = 0; // restart scan from beginning
+            } else {
+                i++;
+            }
+        }
+
+        // Then addition/subtraction left->right
+        for (int i = 0; i < tokens.size();) {
+            String t = tokens.get(i);
+
+            // defensive guards: ensure lhs and rhs exist
+            if ("+".equals(t) || "-".equals(t)) {
+                if (i - 1 < 0 || i + 1 >= tokens.size()) {
+                    // malformed sequence; skip this operator safely
+                    i++;
+                    continue;
+                }
+
+                String lhs = tokens.get(i - 1);
+                String rhs = tokens.get(i + 1);
+                String res = computeBinary(lhs, t, rhs);
+
+                List<String> newTokens = new ArrayList<>();
+                for (int j = 0; j < i - 1; j++)
+                    newTokens.add(tokens.get(j));
+                newTokens.add(res);
+                for (int j = i + 2; j < tokens.size(); j++)
+                    newTokens.add(tokens.get(j));
+
+                tokens = newTokens;
+                i = 0; // restart scanning from left after replacement
+            } else {
+                i++;
+            }
+        }
+
+        // At the end we should have a single token which is a number
+        if (tokens.size() != 1) {
+            // Something went wrong; fallback try to compute left-to-right
+            while (tokens.size() > 1) {
+                String lhs = tokens.get(0);
+                String op = tokens.get(1);
+                String rhs = tokens.get(2);
+                String res = computeBinary(lhs, op, rhs);
+                List<String> newT = new ArrayList<>();
+                newT.add(res);
+                for (int j = 3; j < tokens.size(); j++)
+                    newT.add(tokens.get(j));
+                tokens = newT;
+            }
+        }
+        return tokens.get(0);
+    }
+
+    // Compute binary operation between two numeric string tokens using integer
+    // arithmetic
+    private static String computeBinary(String lhsStr, String op, String rhsStr) {
+        long lhs = parseLongSafe(lhsStr);
+        long rhs = parseLongSafe(rhsStr);
+
+        switch (op) {
+            case "x":
+                return Long.toString(lhs * rhs);
+            case ":":
+                if (rhs == 0)
+                    throw new ArithmeticException("Division by zero");
+                return Long.toString(lhs / rhs); // integer division
+            case "+":
+                return Long.toString(lhs + rhs);
+            case "-":
+                return Long.toString(lhs - rhs);
+            default:
+                // Unexpected operator
+                throw new IllegalArgumentException("Unknown operator: " + op);
+        }
+    }
+
+    private static long parseLongSafe(String s) {
+        // s may include spaces, but tokenization shouldn't have them
+        s = s.trim();
+        if (s.length() == 0)
+            return 0;
+        return Long.parseLong(s);
+    }
+
+    private static String joinTokens(List<String> tokens) {
+        StringBuilder sb = new StringBuilder();
+        for (int i = 0; i < tokens.size(); i++) {
+            String t = tokens.get(i);
+            // Avoid inserting unnecessary spaces for negative numbers: keep tokens joined
+            // with single space
+            if (i > 0)
+                sb.append(' ');
+            sb.append(t);
+        }
+        return sb.toString();
+    }
+
+    private static String normalizeSpacing(String expr) {
+        // Normalize spaces around operators and parentheses for nicer output
+        List<String> tokens = tokenize(expr);
+        StringBuilder sb = new StringBuilder();
+        for (int i = 0; i < tokens.size(); i++) {
+            if (i > 0)
+                sb.append(' ');
+            sb.append(tokens.get(i));
+        }
+        return sb.toString().replaceAll("\\s+", " ").trim();
+    }
+
+    // ----------------------------------------------------------------------------------------------------------------
     // Sena's Part:
 
-	public static void arrayStat()
-    {
+    public static void arrayStat() {
         clearScreen();
         System.out.println("High School > Statistical Information About an Array");
         System.out.println("----------------------------------------------------");
@@ -667,8 +1537,10 @@ public class Project1 {
 
         for (double v : a) {
             sum += v;
-            if (v <= 0.0) allPositive = false;
-            if (v == 0.0) hasZero = true;
+            if (v <= 0.0)
+                allPositive = false;
+            if (v == 0.0)
+                hasZero = true;
         }
 
         double mean = sum / n;
@@ -692,7 +1564,9 @@ public class Project1 {
         // Outliers by 1.5*IQR
         int outliers = 0;
         double lowFence = q1 - 1.5 * iqr, highFence = q3 + 1.5 * iqr;
-        for (double v : a) if (v < lowFence || v > highFence) outliers++;
+        for (double v : a)
+            if (v < lowFence || v > highFence)
+                outliers++;
 
         // Output
         System.out.println();
@@ -725,8 +1599,10 @@ public class Project1 {
         // A Small Overview
         int k = Math.min(5, s.length);
         System.out.print("Sorted preview       : ");
-        for (int i = 0; i < k; i++) System.out.print(fmt6(s[i]) + (i < k - 1 ? ", " : ""));
-        if (s.length > 10) System.out.print(", ..., ");
+        for (int i = 0; i < k; i++)
+            System.out.print(fmt6(s[i]) + (i < k - 1 ? ", " : ""));
+        if (s.length > 10)
+            System.out.print(", ..., ");
         int startTail = Math.max(k, s.length - k);
         for (int i = startTail; i < s.length; i++) {
             System.out.print(fmt6(s[i]) + (i < s.length - 1 ? ", " : ""));
@@ -748,7 +1624,8 @@ public class Project1 {
 
         // Manhattan
         long manhattan = 0;
-        for (int i = 0; i < n; i++) manhattan += Math.abs(A[i] - B[i]);
+        for (int i = 0; i < n; i++)
+            manhattan += Math.abs(A[i] - B[i]);
 
         // Euclidean
         long sq = 0;
@@ -760,16 +1637,19 @@ public class Project1 {
 
         // Chebyshev
         int chebyshev = 0;
-        for (int i = 0; i < n; i++) chebyshev = Math.max(chebyshev, Math.abs(A[i] - B[i]));
+        for (int i = 0; i < n; i++)
+            chebyshev = Math.max(chebyshev, Math.abs(A[i] - B[i]));
 
         // Hamming
         int hamming = 0;
-        for (int i = 0; i < n; i++) if (A[i] != B[i]) hamming++;
+        for (int i = 0; i < n; i++)
+            if (A[i] != B[i])
+                hamming++;
 
         // Cosine
         long dot = 0, normA2 = 0, normB2 = 0;
         for (int i = 0; i < n; i++) {
-            dot    += (long) A[i] * B[i];
+            dot += (long) A[i] * B[i];
             normA2 += (long) A[i] * A[i];
             normB2 += (long) B[i] * B[i];
         }
@@ -782,7 +1662,8 @@ public class Project1 {
         // Minkowski
         double p = readDoubleInRange("Enter Minkowski order p (>= 1, e.g., 3): ", 1.0, Double.POSITIVE_INFINITY);
         double mkSum = 0.0;
-        for (int i = 0; i < n; i++) mkSum += Math.pow(Math.abs(A[i] - B[i]), p);
+        for (int i = 0; i < n; i++)
+            mkSum += Math.pow(Math.abs(A[i] - B[i]), p);
         double minkowski = Math.pow(mkSum, 1.0 / p);
 
         // Output
@@ -804,15 +1685,16 @@ public class Project1 {
 
         pressEnter();
     }
-    
-    //Robust input helpers (for Sena's Part) 
+
+    // Robust input helpers (for Sena's Part)
     private static int readPositiveInt(String prompt) {
         while (true) {
             System.out.print(prompt);
             String s = SC.nextLine().trim();
             try {
                 int v = Integer.parseInt(s);
-                if (v >= 1) return v;
+                if (v >= 1)
+                    return v;
                 System.out.println("Invalid input. Please enter an integer >= 1.");
             } catch (NumberFormatException e) {
                 System.out.println("Invalid integer. Try again.");
@@ -826,7 +1708,8 @@ public class Project1 {
             String s = SC.nextLine().trim();
             try {
                 int v = Integer.parseInt(s);
-                if (v >= min && v <= max) return v;
+                if (v >= min && v <= max)
+                    return v;
                 System.out.println("Invalid input. Enter an integer in [" + min + "," + max + "].");
             } catch (NumberFormatException e) {
                 System.out.println("Invalid integer. Try again.");
@@ -849,8 +1732,10 @@ public class Project1 {
     private static double readDoubleInRange(String prompt, double min, double maxInclOrInf) {
         while (true) {
             double v = readDouble(prompt);
-            if (v >= min && v <= maxInclOrInf) return v;
-            System.out.println("Out of range. Value must be >= " + min + (Double.isInfinite(maxInclOrInf) ? "" : (" and <= " + maxInclOrInf)));
+            if (v >= min && v <= maxInclOrInf)
+                return v;
+            System.out.println("Out of range. Value must be >= " + min
+                    + (Double.isInfinite(maxInclOrInf) ? "" : (" and <= " + maxInclOrInf)));
         }
     }
 
@@ -869,8 +1754,10 @@ public class Project1 {
         SC.nextLine();
     }
 
-    //  Statistics internals (for Sena's Part)
-    private static String fmt6(double v) { return String.format("%.6f", v); }
+    // Statistics internals (for Sena's Part)
+    private static String fmt6(double v) {
+        return String.format("%.6f", v);
+    }
 
     private static double medianSorted(double[] sorted) {
         int n = sorted.length;
@@ -879,46 +1766,57 @@ public class Project1 {
 
     private static double quantileSorted(double[] sorted, double q) {
         int n = sorted.length;
-        if (n == 1) return sorted[0];
+        if (n == 1)
+            return sorted[0];
         double pos = q * (n - 1);
         int idx = (int) Math.floor(pos);
         double frac = pos - idx;
-        if (idx >= n - 1) return sorted[n - 1];
+        if (idx >= n - 1)
+            return sorted[n - 1];
         return sorted[idx] * (1 - frac) + sorted[idx + 1] * frac;
     }
 
     private static double variance(double[] a, double mean, boolean sample) {
-        if (a.length <= (sample ? 1 : 0)) return 0.0;
+        if (a.length <= (sample ? 1 : 0))
+            return 0.0;
         double ss = 0.0;
-        for (double v : a) { double d = v - mean; ss += d * d; }
+        for (double v : a) {
+            double d = v - mean;
+            ss += d * d;
+        }
         return ss / (sample ? (a.length - 1) : a.length);
     }
 
     private static Double geometricMean(double[] a) {
         double logSum = 0.0;
         for (double v : a) {
-            if (v <= 0.0) return null;
+            if (v <= 0.0)
+                return null;
             logSum += Math.log(v);
         }
         return Math.exp(logSum / a.length);
     }
 
     private static Double harmonicMeanRecursive(double[] a) {
-        for (double v : a) if (v == 0.0) return null;
+        for (double v : a)
+            if (v == 0.0)
+                return null;
         double recSum = reciprocalSum(a, 0);
         return a.length / recSum;
     }
 
     private static double reciprocalSum(double[] a, int i) {
-        if (i == a.length) return 0.0;
+        if (i == a.length)
+            return 0.0;
         return (1.0 / a[i]) + reciprocalSum(a, i + 1);
     }
+
     // -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
     // Emre's Part:
-	/**
-	 * Handles the setup (board size, game mode) for Connect Four
-	 * and then launches the game.
-	 */
+    /**
+     * Handles the setup (board size, game mode) for Connect Four
+     * and then launches the game.
+     */
     public static void connectFour() {
         int rows = 0;
         int cols = 0;
@@ -988,8 +1886,9 @@ public class Project1 {
 
     /**
      * The main game loop for Connect Four.
-     * @param rows The number of rows in the board.
-     * @param cols The number of columns in the board.
+     * 
+     * @param rows     The number of rows in the board.
+     * @param cols     The number of columns in the board.
      * @param gameMode 1 for single-player, 2 for two-player.
      */
     public static void runConnectFourGame(int rows, int cols, int gameMode) {
@@ -1004,7 +1903,7 @@ public class Project1 {
             // 1. Get the current player's move
             int moveCol = -1;
             boolean moveMade = false;
-            
+
             if (gameMode == GAME_MODE_TWO_PLAYER) {
                 // --- Two-Player Mode ---
                 moveCol = getHumanMove(board, currentPlayer);
@@ -1018,9 +1917,9 @@ public class Project1 {
                     waitMillis(delayAmount * 2); // Pause to simulate thinking
                 }
             }
-            
+
             // Check for forfeit
-            if (moveCol == -1) { 
+            if (moveCol == -1) {
                 gameRunning = false;
                 System.out.println("Player " + currentPlayer + " has forfeited the game.");
                 continue; // Skip to the end
@@ -1053,6 +1952,7 @@ public class Project1 {
 
     /**
      * Creates a new Connect Four board filled with empty slots.
+     * 
      * @param rows Number of rows.
      * @param cols Number of columns.
      * @return The initialized 2D char array.
@@ -1069,6 +1969,7 @@ public class Project1 {
 
     /**
      * Prints the Connect Four board to the console.
+     * 
      * @param board The current game board.
      */
     private static void printBoard(char[][] board) {
@@ -1101,7 +2002,8 @@ public class Project1 {
 
     /**
      * Gets a valid column move from a human player.
-     * @param board The current game board.
+     * 
+     * @param board  The current game board.
      * @param player The character representing the player.
      * @return The 0-based column index, or -1 if the player quits.
      */
@@ -1133,6 +2035,7 @@ public class Project1 {
 
     /**
      * Gets a valid random column move for the computer.
+     * 
      * @param board The current game board.
      * @return The 0-based column index.
      */
@@ -1149,8 +2052,9 @@ public class Project1 {
 
     /**
      * Checks if a move is valid (i.e., the column is not full).
+     * 
      * @param board The current game board.
-     * @param col The 0-based column index.
+     * @param col   The 0-based column index.
      * @return true if the column is not full, false otherwise.
      */
     private static boolean isValidMove(char[][] board, int col) {
@@ -1159,8 +2063,9 @@ public class Project1 {
 
     /**
      * "Drops" a disc into the specified column.
-     * @param board The game board (will be modified).
-     * @param col The 0-based column index.
+     * 
+     * @param board  The game board (will be modified).
+     * @param col    The 0-based column index.
      * @param player The player's disc character.
      */
     private static void dropDisc(char[][] board, int col, char player) {
@@ -1176,6 +2081,7 @@ public class Project1 {
 
     /**
      * Checks if the board is completely full (a draw condition).
+     * 
      * @param board The current game board.
      * @return true if the board is full, false otherwise.
      */
@@ -1191,7 +2097,8 @@ public class Project1 {
 
     /**
      * Checks the entire board for a 4-in-a-row win for the specified player.
-     * @param board The current game board.
+     * 
+     * @param board  The current game board.
      * @param player The player's disc character to check for.
      * @return true if a win is found, false otherwise.
      */
@@ -1203,9 +2110,9 @@ public class Project1 {
         for (int r = 0; r < rows; r++) {
             for (int c = 0; c <= cols - 4; c++) {
                 if (board[r][c] == player &&
-                    board[r][c+1] == player &&
-                    board[r][c+2] == player &&
-                    board[r][c+3] == player) {
+                        board[r][c + 1] == player &&
+                        board[r][c + 2] == player &&
+                        board[r][c + 3] == player) {
                     return true;
                 }
             }
@@ -1215,9 +2122,9 @@ public class Project1 {
         for (int c = 0; c < cols; c++) {
             for (int r = 0; r <= rows - 4; r++) {
                 if (board[r][c] == player &&
-                    board[r+1][c] == player &&
-                    board[r+2][c] == player &&
-                    board[r+3][c] == player) {
+                        board[r + 1][c] == player &&
+                        board[r + 2][c] == player &&
+                        board[r + 3][c] == player) {
                     return true;
                 }
             }
@@ -1227,9 +2134,9 @@ public class Project1 {
         for (int r = 3; r < rows; r++) { // Start from row 3 (0-indexed)
             for (int c = 0; c <= cols - 4; c++) {
                 if (board[r][c] == player &&
-                    board[r-1][c+1] == player &&
-                    board[r-2][c+2] == player &&
-                    board[r-3][c+3] == player) {
+                        board[r - 1][c + 1] == player &&
+                        board[r - 2][c + 2] == player &&
+                        board[r - 3][c + 3] == player) {
                     return true;
                 }
             }
@@ -1239,9 +2146,9 @@ public class Project1 {
         for (int r = 0; r <= rows - 4; r++) {
             for (int c = 0; c <= cols - 4; c++) {
                 if (board[r][c] == player &&
-                    board[r+1][c+1] == player &&
-                    board[r+2][c+2] == player &&
-                    board[r+3][c+3] == player) {
+                        board[r + 1][c + 1] == player &&
+                        board[r + 2][c + 2] == player &&
+                        board[r + 3][c + 3] == player) {
                     return true;
                 }
             }
@@ -1249,6 +2156,7 @@ public class Project1 {
 
         return false; // No win found
     }
+
     // -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
     // Helpers
     public static void clearScreen() {
@@ -1260,7 +2168,7 @@ public class Project1 {
     public static void waitMillis(long periodMillis) {
         try {
             // Thread.sleep() accepts the period in milliseconds (long type)
-            Thread.sleep(periodMillis); 
+            Thread.sleep(periodMillis);
         } catch (InterruptedException e) {
             // Always reset the interrupt status when catching InterruptedException
             Thread.currentThread().interrupt();
@@ -1269,20 +2177,20 @@ public class Project1 {
 
     public static void waitBeforeProceed() {
         boolean proceed = false;
-        
+
         while (!proceed) {
             System.out.println("Press enter when you want to proceed.");
 
             // The part that handles the Enter key press
             try {
-                // System.in.read() waits for the next byte of input, 
+                // System.in.read() waits for the next byte of input,
                 // which is often the newline character ('\n') generated by Enter.
-                System.in.read(); 
+                System.in.read();
                 proceed = true; // Set flag to exit the loop
             } catch (IOException e) {
                 // Handle potential input/output errors
                 System.out.println("An input error occurred: " + e.getMessage());
-                // You might want to handle the loop exit differently here, 
+                // You might want to handle the loop exit differently here,
                 // but setting proceed = true is a simple exit strategy.
                 proceed = true;
             }
