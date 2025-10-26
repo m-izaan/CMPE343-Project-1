@@ -645,7 +645,7 @@ public class Project1 {
     // -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
     // Sena's Part:
 
-	public static void arrayStat(int arraySize, int[] elements) 
+	public static void arrayStat()
     {
         clearScreen();
         System.out.println("High School > Statistical Information About an Array");
@@ -736,7 +736,7 @@ public class Project1 {
         pressEnter();
     }
 
-    public static void arraysDistance(int arrayDimension, int[] array1Elements, int[] array2Elements) {
+    public static void arraysDistance() {
         clearScreen();
         System.out.println("High School > Distance Between Two Arrays");
         System.out.println("-----------------------------------------");
