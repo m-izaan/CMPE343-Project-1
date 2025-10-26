@@ -5,15 +5,26 @@ import java.util.Scanner;
 import java.io.IOException; //needed for the method waitForProceed().
 
 public class Project1 {
+    // Global variables:
     private static final Scanner SC = new Scanner(System.in, StandardCharsets.UTF_8);
     private static final Random RAND = new Random();
     private static final long delayAmount = 500;
 
+	// Global constant variables needed for connect four:
+    private static final char PLAYER_ONE_DISC = 'R'; // Player 1 (Red)
+    private static final char PLAYER_TWO_DISC = 'Y'; // Player 2 (Yellow)
+    private static final char COMPUTER_DISC = 'Y';   // Computer (Yellow)
+    private static final char EMPTY_SLOT = ' ';
+    private static final int GAME_MODE_SINGLE_PLAYER = 1;
+    private static final int GAME_MODE_TWO_PLAYER = 2;
+
+    // Main Method:
     public static void main(String[] args) {
         menuMain();
         clearScreen();
     }
-
+    // -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+    // Menu Logic:
     public static void menuMain() {
         boolean running = true;
         while (running) {
@@ -220,9 +231,9 @@ public class Project1 {
 
     public static void showMenuUniversity() {
         clearScreen();
-        System.out.println("Welcome to the Connect Four Game! - Select the Board Size and then the Game Mode to Start:");
-        System.out.println("Board Size Options:%n[A] 5x4%n[B] 6x5%n[C] 7x6");
-        System.out.println("Game Mode Options:%n[A] single-player vs computer%n[B] two-players");
+        System.out.println("Sub Menu - University - Select an option:");
+        System.out.println("[A] Play Connect Four");
+        System.out.println("[B] Return to Main Menu");
     }
 
     public static boolean selectMenuUniversity() {
@@ -235,27 +246,18 @@ public class Project1 {
                 waitBeforeProceed();
                 break;
             case "B":
-                //something about case b
-                waitBeforeProceed();
-                break;
-            case "C":
                 System.out.println("Returning to main menu...");
                 waitMillis(delayAmount);
                 return false;
             default:
-                System.out.println("Invalid option. Please select A, B, or C.");
+                System.out.println("Invalid option. Please select A or B.");
+                waitMillis(delayAmount);               
         }
 
         return true;
     }
-    // ----------------------------------------------------------------------------------------------------------------
-    /*
-    THE PARTS BELOW UNTIL THE NEXT CAPITALIZED COMMENT WILL BE HANDLED BY THE GROUP MEMBERS. THE ABOVE IS NOT IMPORTANT, AND ALREADY IS MOSTLY DONE.
-    Group members don't have to think about how the menus work, and inside the methods below, you don't need to insert messages or anything related to the main menu and the submenus.
-    Getting the arguments methods need to work is also to be handled within another methods to be declared below as you wish, because inside whatever above is only the logic of the menus, and calling these methods.
-     */
-    // ----------------------------------------------------------------------------------------------------------------
-    // Hadi's Part
+    // -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+    // Hadi's Part:
 	public static void ageZodiac()
     {
         // Get the birthdate from user
@@ -629,7 +631,7 @@ public class Project1 {
         if (s.isEmpty()) return s;
         return reverseRecursive(s.substring(1)) + s.charAt(0);
     }
-    // ----------------------------------------------------------------------------------------------------------------
+    // -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
     // Muhammed's Part:
     public static void primeNumbers()
     {
@@ -640,25 +642,615 @@ public class Project1 {
     {
         
     }
-    // ----------------------------------------------------------------------------------------------------------------
+    // -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
     // Sena's Part:
-    public static void arrayStat()
+
+	public static void arrayStat(int arraySize, int[] elements) 
     {
-        
+        clearScreen();
+        System.out.println("High School > Statistical Information About an Array");
+        System.out.println("----------------------------------------------------");
+
+        int n = readPositiveInt("Enter array size (n >= 1): ");
+
+        double[] a = new double[n];
+        for (int i = 0; i < n; i++) {
+            a[i] = readDouble("Enter element #" + (i + 1) + " (double): ");
+        }
+
+        double[] s = java.util.Arrays.copyOf(a, n);
+        java.util.Arrays.sort(s);
+
+        double sum = 0.0, min = s[0], max = s[n - 1];
+        boolean allPositive = s[0] > 0.0;
+        boolean hasZero = false;
+
+        for (double v : a) {
+            sum += v;
+            if (v <= 0.0) allPositive = false;
+            if (v == 0.0) hasZero = true;
+        }
+
+        double mean = sum / n;
+
+        // Median, Q1, Q3, IQR
+        double median = medianSorted(s);
+        double q1 = quantileSorted(s, 0.25);
+        double q3 = quantileSorted(s, 0.75);
+        double iqr = q3 - q1;
+
+        // Variance & Std (Population & Sample)
+        double varPop = variance(a, mean, false);
+        double varSmp = variance(a, mean, true);
+        double stdPop = Math.sqrt(varPop);
+        double stdSmp = Math.sqrt(varSmp);
+
+        // Geometric & Harmonic
+        Double gmean = allPositive ? geometricMean(a) : null;
+        Double hmean = hasZero ? null : harmonicMeanRecursive(a);
+
+        // Outliers by 1.5*IQR
+        int outliers = 0;
+        double lowFence = q1 - 1.5 * iqr, highFence = q3 + 1.5 * iqr;
+        for (double v : a) if (v < lowFence || v > highFence) outliers++;
+
+        // Output
+        System.out.println();
+        System.out.println("Summary");
+        System.out.println("-------");
+        System.out.printf("Count (n)            : %d%n", n);
+        System.out.printf("Min / Max            : %.6f / %.6f%n", min, max);
+        System.out.printf("Sum                  : %.6f%n", sum);
+        System.out.printf("Mean (Arithmetic)    : %.6f%n", mean);
+        System.out.printf("Median               : %.6f%n", median);
+        System.out.printf("Q1 / Q3              : %.6f / %.6f%n", q1, q3);
+        System.out.printf("IQR                  : %.6f%n", iqr);
+        System.out.printf("Variance (Population): %.6f%n", varPop);
+        System.out.printf("Std Dev (Population) : %.6f%n", stdPop);
+        System.out.printf("Variance (Sample)    : %.6f%n", varSmp);
+        System.out.printf("Std Dev (Sample)     : %.6f%n", stdSmp);
+
+        if (gmean == null)
+            System.out.println("Geometric Mean       : undefined (all elements must be > 0)");
+        else
+            System.out.printf("Geometric Mean       : %.6f%n", gmean);
+
+        if (hmean == null)
+            System.out.println("Harmonic Mean        : undefined (no element may be zero)");
+        else
+            System.out.printf("Harmonic Mean        : %.6f%n", hmean);
+
+        System.out.printf("Outliers (1.5*IQR)   : %d%n", outliers);
+
+        // A Small Overview
+        int k = Math.min(5, s.length);
+        System.out.print("Sorted preview       : ");
+        for (int i = 0; i < k; i++) System.out.print(fmt6(s[i]) + (i < k - 1 ? ", " : ""));
+        if (s.length > 10) System.out.print(", ..., ");
+        int startTail = Math.max(k, s.length - k);
+        for (int i = startTail; i < s.length; i++) {
+            System.out.print(fmt6(s[i]) + (i < s.length - 1 ? ", " : ""));
+        }
+        System.out.println();
+
+        pressEnter();
     }
 
-    public static void arraysDistance() {
-        
-    }
-    // ----------------------------------------------------------------------------------------------------------------
-    // THANK YOU GUYS.
+    public static void arraysDistance(int arrayDimension, int[] array1Elements, int[] array2Elements) {
+        clearScreen();
+        System.out.println("High School > Distance Between Two Arrays");
+        System.out.println("-----------------------------------------");
 
+        int n = readPositiveInt("Enter dimension (n >= 1): ");
+
+        int[] A = readIntArrayDigits("Enter elements for Array A (each in [0-9])", n, 0, 9);
+        int[] B = readIntArrayDigits("Enter elements for Array B (each in [0-9])", n, 0, 9);
+
+        // Manhattan
+        long manhattan = 0;
+        for (int i = 0; i < n; i++) manhattan += Math.abs(A[i] - B[i]);
+
+        // Euclidean
+        long sq = 0;
+        for (int i = 0; i < n; i++) {
+            int d = A[i] - B[i];
+            sq += (long) d * d;
+        }
+        double euclidean = Math.sqrt(sq);
+
+        // Chebyshev
+        int chebyshev = 0;
+        for (int i = 0; i < n; i++) chebyshev = Math.max(chebyshev, Math.abs(A[i] - B[i]));
+
+        // Hamming
+        int hamming = 0;
+        for (int i = 0; i < n; i++) if (A[i] != B[i]) hamming++;
+
+        // Cosine
+        long dot = 0, normA2 = 0, normB2 = 0;
+        for (int i = 0; i < n; i++) {
+            dot    += (long) A[i] * B[i];
+            normA2 += (long) A[i] * A[i];
+            normB2 += (long) B[i] * B[i];
+        }
+        Double cosSim = null, cosDist = null;
+        if (normA2 != 0 && normB2 != 0) {
+            cosSim = dot / (Math.sqrt(normA2) * Math.sqrt(normB2));
+            cosDist = 1.0 - cosSim;
+        }
+
+        // Minkowski
+        double p = readDoubleInRange("Enter Minkowski order p (>= 1, e.g., 3): ", 1.0, Double.POSITIVE_INFINITY);
+        double mkSum = 0.0;
+        for (int i = 0; i < n; i++) mkSum += Math.pow(Math.abs(A[i] - B[i]), p);
+        double minkowski = Math.pow(mkSum, 1.0 / p);
+
+        // Output
+        System.out.println();
+        System.out.println("Results");
+        System.out.println("-------");
+        System.out.println("Manhattan (L1)      : " + manhattan);
+        System.out.printf("Euclidean (L2)      : %.6f%n", euclidean);
+        System.out.println("Chebyshev (L∞)      : " + chebyshev);
+        System.out.println("Hamming (positions) : " + hamming);
+        if (cosSim == null) {
+            System.out.println("Cosine Similarity   : undefined (a zero vector encountered)");
+            System.out.println("Cosine Distance     : undefined");
+        } else {
+            System.out.printf("Cosine Similarity   : %.6f%n", cosSim);
+            System.out.printf("Cosine Distance     : %.6f%n", cosDist);
+        }
+        System.out.printf("Minkowski (p=%.3f)  : %.6f%n", p, minkowski);
+
+        pressEnter();
+    }
+    
+    //Robust input helpers (for Sena's Part) 
+    private static int readPositiveInt(String prompt) {
+        while (true) {
+            System.out.print(prompt);
+            String s = SC.nextLine().trim();
+            try {
+                int v = Integer.parseInt(s);
+                if (v >= 1) return v;
+                System.out.println("Invalid input. Please enter an integer >= 1.");
+            } catch (NumberFormatException e) {
+                System.out.println("Invalid integer. Try again.");
+            }
+        }
+    }
+
+    private static int readIntInRange(String prompt, int min, int max) {
+        while (true) {
+            System.out.print(prompt);
+            String s = SC.nextLine().trim();
+            try {
+                int v = Integer.parseInt(s);
+                if (v >= min && v <= max) return v;
+                System.out.println("Invalid input. Enter an integer in [" + min + "," + max + "].");
+            } catch (NumberFormatException e) {
+                System.out.println("Invalid integer. Try again.");
+            }
+        }
+    }
+
+    private static double readDouble(String prompt) {
+        while (true) {
+            System.out.print(prompt);
+            String s = SC.nextLine().trim();
+            try {
+                return Double.parseDouble(s);
+            } catch (NumberFormatException e) {
+                System.out.println("Invalid double. Try e.g. 3.14 or -2");
+            }
+        }
+    }
+
+    private static double readDoubleInRange(String prompt, double min, double maxInclOrInf) {
+        while (true) {
+            double v = readDouble(prompt);
+            if (v >= min && v <= maxInclOrInf) return v;
+            System.out.println("Out of range. Value must be >= " + min + (Double.isInfinite(maxInclOrInf) ? "" : (" and <= " + maxInclOrInf)));
+        }
+    }
+
+    private static int[] readIntArrayDigits(String head, int n, int min, int max) {
+        System.out.println(head + " -> total " + n + " items.");
+        int[] arr = new int[n];
+        for (int i = 0; i < n; i++) {
+            arr[i] = readIntInRange("  value[" + (i + 1) + "] = ", min, max);
+        }
+        return arr;
+    }
+
+    private static void pressEnter() {
+        System.out.println();
+        System.out.println("Press ENTER to continue...");
+        SC.nextLine();
+    }
+
+    //  Statistics internals (for Sena's Part)
+    private static String fmt6(double v) { return String.format("%.6f", v); }
+
+    private static double medianSorted(double[] sorted) {
+        int n = sorted.length;
+        return (n % 2 == 1) ? sorted[n / 2] : (sorted[n / 2 - 1] + sorted[n / 2]) / 2.0;
+    }
+
+    private static double quantileSorted(double[] sorted, double q) {
+        int n = sorted.length;
+        if (n == 1) return sorted[0];
+        double pos = q * (n - 1);
+        int idx = (int) Math.floor(pos);
+        double frac = pos - idx;
+        if (idx >= n - 1) return sorted[n - 1];
+        return sorted[idx] * (1 - frac) + sorted[idx + 1] * frac;
+    }
+
+    private static double variance(double[] a, double mean, boolean sample) {
+        if (a.length <= (sample ? 1 : 0)) return 0.0;
+        double ss = 0.0;
+        for (double v : a) { double d = v - mean; ss += d * d; }
+        return ss / (sample ? (a.length - 1) : a.length);
+    }
+
+    private static Double geometricMean(double[] a) {
+        double logSum = 0.0;
+        for (double v : a) {
+            if (v <= 0.0) return null;
+            logSum += Math.log(v);
+        }
+        return Math.exp(logSum / a.length);
+    }
+
+    private static Double harmonicMeanRecursive(double[] a) {
+        for (double v : a) if (v == 0.0) return null;
+        double recSum = reciprocalSum(a, 0);
+        return a.length / recSum;
+    }
+
+    private static double reciprocalSum(double[] a, int i) {
+        if (i == a.length) return 0.0;
+        return (1.0 / a[i]) + reciprocalSum(a, i + 1);
+    }
+    // -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
     // Emre's Part:
+	/**
+	 * Handles the setup (board size, game mode) for Connect Four
+	 * and then launches the game.
+	 */
     public static void connectFour() {
-        
+        int rows = 0;
+        int cols = 0;
+        int gameMode = 0;
+
+        // 1. Select Board Size
+        boolean sizeSelected = false;
+        while (!sizeSelected) {
+            clearScreen();
+            System.out.println("--- Connect Four: Board Size ---");
+            System.out.println("[A] 5x4 (5 Rows, 4 Cols)");
+            System.out.println("[B] 6x5 (6 Rows, 5 Cols)");
+            System.out.println("[C] 7x6 (7 Rows, 6 Cols)");
+            System.out.print("Select board size: ");
+            String choice = SC.nextLine().trim().toUpperCase();
+
+            switch (choice) {
+                case "A":
+                    rows = 5;
+                    cols = 4;
+                    sizeSelected = true;
+                    break;
+                case "B":
+                    rows = 6;
+                    cols = 5;
+                    sizeSelected = true;
+                    break;
+                case "C":
+                    rows = 7;
+                    cols = 6;
+                    sizeSelected = true;
+                    break;
+                default:
+                    System.out.println("Invalid choice. Press Enter to try again.");
+                    SC.nextLine(); // Wait for user acknowledgment
+            }
+        }
+
+        // 2. Select Game Mode
+        boolean modeSelected = false;
+        while (!modeSelected) {
+            clearScreen();
+            System.out.println("--- Connect Four: Game Mode ---");
+            System.out.println("[A] Single-Player (vs. Computer)");
+            System.out.println("[B] Two-Players");
+            System.out.print("Select game mode: ");
+            String choice = SC.nextLine().trim().toUpperCase();
+
+            switch (choice) {
+                case "A":
+                    gameMode = GAME_MODE_SINGLE_PLAYER;
+                    modeSelected = true;
+                    break;
+                case "B":
+                    gameMode = GAME_MODE_TWO_PLAYER;
+                    modeSelected = true;
+                    break;
+                default:
+                    System.out.println("Invalid choice. Press Enter to try again.");
+                    SC.nextLine(); // Wait for user acknowledgment
+            }
+        }
+
+        // 3. Start the game
+        runConnectFourGame(rows, cols, gameMode);
     }
-    // ----------------------------------------------------------------------------------------------------------------
-    // helpers
+
+    /**
+     * The main game loop for Connect Four.
+     * @param rows The number of rows in the board.
+     * @param cols The number of columns in the board.
+     * @param gameMode 1 for single-player, 2 for two-player.
+     */
+    public static void runConnectFourGame(int rows, int cols, int gameMode) {
+        char[][] board = initializeBoard(rows, cols);
+        boolean gameRunning = true;
+        char currentPlayer = PLAYER_ONE_DISC; // Player 1 always starts
+
+        while (gameRunning) {
+            clearScreen();
+            printBoard(board);
+
+            // 1. Get the current player's move
+            int moveCol = -1;
+            boolean moveMade = false;
+            
+            if (gameMode == GAME_MODE_TWO_PLAYER) {
+                // --- Two-Player Mode ---
+                moveCol = getHumanMove(board, currentPlayer);
+            } else {
+                // --- Single-Player Mode ---
+                if (currentPlayer == PLAYER_ONE_DISC) {
+                    moveCol = getHumanMove(board, currentPlayer);
+                } else {
+                    moveCol = getComputerMove(board);
+                    System.out.println("Computer (Y) chose column " + (moveCol + 1));
+                    waitMillis(delayAmount * 2); // Pause to simulate thinking
+                }
+            }
+            
+            // Check for forfeit
+            if (moveCol == -1) { 
+                gameRunning = false;
+                System.out.println("Player " + currentPlayer + " has forfeited the game.");
+                continue; // Skip to the end
+            }
+
+            // 2. Drop the disc in the board
+            dropDisc(board, moveCol, currentPlayer);
+
+            // 3. Check for game end conditions
+            if (checkWin(board, currentPlayer)) {
+                clearScreen();
+                printBoard(board);
+                System.out.println("\n!!! PLAYER " + currentPlayer + " WINS! !!!\n");
+                gameRunning = false;
+            } else if (isBoardFull(board)) {
+                clearScreen();
+                printBoard(board);
+                System.out.println("\n!!! GAME OVER! It's a DRAW! !!!\n");
+                gameRunning = false;
+            } else {
+                // 4. Switch player
+                if (currentPlayer == PLAYER_ONE_DISC) {
+                    currentPlayer = (gameMode == GAME_MODE_SINGLE_PLAYER) ? COMPUTER_DISC : PLAYER_TWO_DISC;
+                } else {
+                    currentPlayer = PLAYER_ONE_DISC;
+                }
+            }
+        }
+    }
+
+    /**
+     * Creates a new Connect Four board filled with empty slots.
+     * @param rows Number of rows.
+     * @param cols Number of columns.
+     * @return The initialized 2D char array.
+     */
+    private static char[][] initializeBoard(int rows, int cols) {
+        char[][] board = new char[rows][cols];
+        for (int r = 0; r < rows; r++) {
+            for (int c = 0; c < cols; c++) {
+                board[r][c] = EMPTY_SLOT;
+            }
+        }
+        return board;
+    }
+
+    /**
+     * Prints the Connect Four board to the console.
+     * @param board The current game board.
+     */
+    private static void printBoard(char[][] board) {
+        int rows = board.length;
+        int cols = board[0].length;
+
+        System.out.println("\n--- CONNECT FOUR ---");
+        // Print board contents
+        for (int r = 0; r < rows; r++) {
+            System.out.print("| ");
+            for (int c = 0; c < cols; c++) {
+                System.out.print(board[r][c] + " | ");
+            }
+            System.out.println();
+        }
+
+        // Print separator
+        for (int c = 0; c < cols; c++) {
+            System.out.print("----");
+        }
+        System.out.println("-");
+
+        // Print column numbers
+        System.out.print("  ");
+        for (int c = 0; c < cols; c++) {
+            System.out.print((c + 1) + "   ");
+        }
+        System.out.println("\n");
+    }
+
+    /**
+     * Gets a valid column move from a human player.
+     * @param board The current game board.
+     * @param player The character representing the player.
+     * @return The 0-based column index, or -1 if the player quits.
+     */
+    private static int getHumanMove(char[][] board, char player) {
+        int cols = board[0].length;
+        while (true) {
+            System.out.print("Player " + player + ", enter column (1-" + cols + ") or 'Q' to quit: ");
+            String input = SC.nextLine().trim().toUpperCase();
+
+            if (input.equals("Q")) {
+                return -1; // Forfeit
+            }
+
+            try {
+                int col = Integer.parseInt(input) - 1; // Convert to 0-based index
+
+                if (col < 0 || col >= cols) {
+                    System.out.println("Invalid column. Please choose between 1 and " + cols + ".");
+                } else if (!isValidMove(board, col)) {
+                    System.out.println("Column " + (col + 1) + " is full. Please choose another.");
+                } else {
+                    return col; // Valid move
+                }
+            } catch (NumberFormatException e) {
+                System.out.println("Invalid input. Please enter a number.");
+            }
+        }
+    }
+
+    /**
+     * Gets a valid random column move for the computer.
+     * @param board The current game board.
+     * @return The 0-based column index.
+     */
+    private static int getComputerMove(char[][] board) {
+        int cols = board[0].length;
+        while (true) {
+            int col = RAND.nextInt(cols); // Pick a random column (0 to cols-1)
+            if (isValidMove(board, col)) {
+                return col; // Return if the column is not full
+            }
+            // If column is full, the loop repeats to find another
+        }
+    }
+
+    /**
+     * Checks if a move is valid (i.e., the column is not full).
+     * @param board The current game board.
+     * @param col The 0-based column index.
+     * @return true if the column is not full, false otherwise.
+     */
+    private static boolean isValidMove(char[][] board, int col) {
+        return board[0][col] == EMPTY_SLOT; // Check only the top row
+    }
+
+    /**
+     * "Drops" a disc into the specified column.
+     * @param board The game board (will be modified).
+     * @param col The 0-based column index.
+     * @param player The player's disc character.
+     */
+    private static void dropDisc(char[][] board, int col, char player) {
+        int rows = board.length;
+        // Start from the bottom row and go up
+        for (int r = rows - 1; r >= 0; r--) {
+            if (board[r][col] == EMPTY_SLOT) {
+                board[r][col] = player; // Place the disc
+                return; // Exit the method
+            }
+        }
+    }
+
+    /**
+     * Checks if the board is completely full (a draw condition).
+     * @param board The current game board.
+     * @return true if the board is full, false otherwise.
+     */
+    private static boolean isBoardFull(char[][] board) {
+        int cols = board[0].length;
+        for (int c = 0; c < cols; c++) {
+            if (board[0][c] == EMPTY_SLOT) {
+                return false; // If any slot in the top row is empty, not full
+            }
+        }
+        return true; // All top slots are full
+    }
+
+    /**
+     * Checks the entire board for a 4-in-a-row win for the specified player.
+     * @param board The current game board.
+     * @param player The player's disc character to check for.
+     * @return true if a win is found, false otherwise.
+     */
+    private static boolean checkWin(char[][] board, char player) {
+        int rows = board.length;
+        int cols = board[0].length;
+
+        // 1. Check Horizontal
+        for (int r = 0; r < rows; r++) {
+            for (int c = 0; c <= cols - 4; c++) {
+                if (board[r][c] == player &&
+                    board[r][c+1] == player &&
+                    board[r][c+2] == player &&
+                    board[r][c+3] == player) {
+                    return true;
+                }
+            }
+        }
+
+        // 2. Check Vertical
+        for (int c = 0; c < cols; c++) {
+            for (int r = 0; r <= rows - 4; r++) {
+                if (board[r][c] == player &&
+                    board[r+1][c] == player &&
+                    board[r+2][c] == player &&
+                    board[r+3][c] == player) {
+                    return true;
+                }
+            }
+        }
+
+        // 3. Check Diagonal (Bottom-Left to Top-Right)
+        for (int r = 3; r < rows; r++) { // Start from row 3 (0-indexed)
+            for (int c = 0; c <= cols - 4; c++) {
+                if (board[r][c] == player &&
+                    board[r-1][c+1] == player &&
+                    board[r-2][c+2] == player &&
+                    board[r-3][c+3] == player) {
+                    return true;
+                }
+            }
+        }
+
+        // 4. Check Diagonal (Top-Left to Bottom-Right)
+        for (int r = 0; r <= rows - 4; r++) {
+            for (int c = 0; c <= cols - 4; c++) {
+                if (board[r][c] == player &&
+                    board[r+1][c+1] == player &&
+                    board[r+2][c+2] == player &&
+                    board[r+3][c+3] == player) {
+                    return true;
+                }
+            }
+        }
+
+        return false; // No win found
+    }
+    // -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+    // Helpers
     public static void clearScreen() {
         // Try ANSI clear; may not work in some consoles but is widely supported
         System.out.print("\u001b[H\u001b[2J");
