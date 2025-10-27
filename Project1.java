@@ -8,14 +8,12 @@ import java.util.Scanner;
 import java.io.IOException; //needed for the method waitForProceed().
 
 public class Project1 {
-    // Global variables:
+    // Global Constants
     private static final Scanner SC = new Scanner(System.in, StandardCharsets.UTF_8);
     private static final Random RAND = new Random();
     private static final long delayAmount = 500;
-    static int Primes[];
-    static int count = 0;
 
-    // Global constant variables needed for connect four:
+    // Global Constants for connectFour
     private static final char PLAYER_ONE_DISC = 'R'; // Player 1 (Red)
     private static final char PLAYER_TWO_DISC = 'Y'; // Player 2 (Yellow)
     private static final char COMPUTER_DISC = 'Y'; // Computer (Yellow)
@@ -23,14 +21,18 @@ public class Project1 {
     private static final int GAME_MODE_SINGLE_PLAYER = 1;
     private static final int GAME_MODE_TWO_PLAYER = 2;
 
-    // Main Method:
+    // Global Variables
+    static int Primes[];
+    static int count = 0;
+
+    // Main Method
     public static void main(String[] args) {
         menuMain();
         clearScreen();
     }
 
     // -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-    // Menu Logic:
+    // Menu Logic
     public static void menuMain() {
         boolean running = true;
         while (running) {
@@ -165,7 +167,7 @@ public class Project1 {
         String choice = SC.nextLine().trim().toUpperCase();
         switch (choice) {
             case "A":
-                PrimeNumbers();
+                primeNumbers();
                 waitBeforeProceed();
                 break;
             case "B":
@@ -258,7 +260,7 @@ public class Project1 {
     }
 
     // -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-    // Hadi's Part:
+    // Methods for selectPrimarySchool()
     public static void ageZodiac() {
         // Get the birthdate from user
         int year = getYear();
@@ -312,7 +314,7 @@ public class Project1 {
         boolean validInput = false;
         int year = 0;
 
-        while (validInput == false) {
+        while (!validInput) {
             try {
                 System.out.print("Enter year of birth: ");
                 String input = SC.nextLine();
@@ -338,7 +340,7 @@ public class Project1 {
         boolean validInput = false;
         int month = 0;
 
-        while (validInput == false) {
+        while (!validInput) {
             try {
                 System.out.print("Enter month of birth (1-12): ");
                 String input = SC.nextLine();
@@ -368,7 +370,7 @@ public class Project1 {
         boolean validInput = false;
         int day = 0;
 
-        while (validInput == false) {
+        while (!validInput) {
             try {
                 System.out.print("Enter day of birth: ");
                 String input = SC.nextLine();
@@ -626,8 +628,9 @@ public class Project1 {
             return s;
         return reverseRecursive(s.substring(1)) + s.charAt(0);
     }
-    // ----------------------------------------------------------------------------------------------------------------
-    // Izaan's Part:
+
+    // -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+    // Methods for secondarySchool
 
     // All 3 Algorithm for Finding Prime Numbers
 
@@ -850,7 +853,7 @@ public class Project1 {
     }
 
     // Prime Numbers main function
-    public static void PrimeNumbers() {
+    public static void primeNumbers() {
 
         int num = 0;
 
@@ -1089,14 +1092,14 @@ public class Project1 {
                         continue;
                     }
                 } else if (c == '+') {
-                    // unary '+' is not allowed per sample and we disallow leading '+'
+                    // unary '+' is not allowed per sample, and we disallow leading '+'
                     if (prevIsOp) {
                         return false;
                     }
                     prevIsOp = true;
                     continue;
                 } else {
-                    // other operators (x,: etc) cannot be unary
+                    // other operators (x,: etc.) cannot be unary
                     if (prevIsOp) {
                         return false; // e.g., "*3" or ":(1+1)" invalid
                     }
@@ -1270,11 +1273,8 @@ public class Project1 {
             for (int i = 0; i < openIndex; i++) {
                 newTokens.add(tokens.get(i));
             }
-            // If there is a '-' operator immediately before and it is a unary minus token
-            // (i.e. a '-' operator token and
-            // previous token was operator or '('), keep it. But our tokenization handles
-            // unary negatives inside numbers,
-            // so we just add the numeric value token now.
+            /* If there is a '-' operator immediately before and it is a unary minus token (i.e. a '-' operator token and previous token was operator or '('), keep it.
+               But our tokenization handles unary negatives inside numbers, so we just add the numeric value token now. */
             newTokens.add(value);
             for (int i = closeIndex + 1; i < tokens.size(); i++) {
                 newTokens.add(tokens.get(i));
@@ -1513,8 +1513,8 @@ public class Project1 {
         return sb.toString().replaceAll("\\s+", " ").trim();
     }
 
-    // ----------------------------------------------------------------------------------------------------------------
-    // Sena's Part:
+    // -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+    // Methods for menuHighSchool()
 
     public static void arrayStat() {
         clearScreen();
@@ -1812,7 +1812,7 @@ public class Project1 {
     }
 
     // -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-    // Emre's Part:
+    // Methods for selectMenuUniversity()
     /**
      * Handles the setup (board size, game mode) for Connect Four
      * and then launches the game.
