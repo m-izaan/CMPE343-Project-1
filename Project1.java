@@ -867,8 +867,7 @@ public class Project1 {
                 return new int[0];
         }
 
-        // Use a boolean marker array indexed 0..k (we'll ignore index 0 in marking
-        // logic)
+        // Use a boolean marker array indexed 0...k (we'll ignore index 0 in marking logic)
         boolean[] marked = new boolean[k + 1]; // default false
 
         // Mark indices of form i + j + 2*i*j (1 <= i <= j) up to k
@@ -1423,7 +1422,7 @@ public class Project1 {
         }
 
         if (openIndex != -1 && closeIndex != -1) {
-            // Extract sublist between openIndex+1 .. closeIndex-1
+            // Extract sublist between openIndex+1 ... closeIndex-1
             List<String> sub = new ArrayList<>();
             for (int i = openIndex + 1; i < closeIndex; i++) {
                 sub.add(tokens.get(i));
@@ -1446,7 +1445,7 @@ public class Project1 {
             // Evaluate the sub-expression fully (not step-by-step inside), producing a
             // single number token.
             String value = evaluateTokensFully(sub);
-            // Replace tokens from openIndex..closeIndex with the value token (note: value
+            // Replace tokens from openIndex...closeIndex with the value token (note: value
             // may be negative)
             List<String> newTokens = new ArrayList<>();
             for (int i = 0; i < openIndex; i++) {
@@ -1547,7 +1546,7 @@ public class Project1 {
             if (close == -1)
                 break;
 
-            // extract subexpression between open+1 .. close-1
+            // extract subexpression between open+1 ... close-1
             List<String> sub = new ArrayList<>();
             for (int i = open + 1; i < close; i++)
                 sub.add(tokens.get(i));
@@ -1737,8 +1736,8 @@ public class Project1 {
         double stdSmp = Math.sqrt(varSmp);
 
         // Geometric & Harmonic
-        Double gmean = allPositive ? geometricMean(a) : null;
-        Double hmean = hasZero ? null : harmonicMeanRecursive(a);
+        Double gMean = allPositive ? geometricMean(a) : null;
+        Double hMean = hasZero ? null : harmonicMeanRecursive(a);
 
         // Outliers by 1.5*IQR
         int outliers = 0;
@@ -1763,15 +1762,15 @@ public class Project1 {
         System.out.printf("Variance (Sample)    : %.6f%n", varSmp);
         System.out.printf("Std Dev (Sample)     : %.6f%n", stdSmp);
 
-        if (gmean == null)
+        if (gMean == null)
             System.out.println("Geometric Mean       : undefined (all elements must be > 0)");
         else
-            System.out.printf("Geometric Mean       : %.6f%n", gmean);
+            System.out.printf("Geometric Mean       : %.6f%n", gMean);
 
-        if (hmean == null)
+        if (hMean == null)
             System.out.println("Harmonic Mean        : undefined (no element may be zero)");
         else
-            System.out.printf("Harmonic Mean        : %.6f%n", hmean);
+            System.out.printf("Harmonic Mean        : %.6f%n", hMean);
 
         System.out.printf("Outliers (1.5*IQR)   : %d%n", outliers);
 
@@ -2345,12 +2344,24 @@ public class Project1 {
 
     // -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
     // Helpers
+
+    /**
+     * Clears the screen.
+     *
+     * @author Muhammed Izaan
+     */
     public static void clearScreen() {
         // Try ANSI clear; may not work in some consoles but is widely supported
         System.out.print("\u001b[H\u001b[2J");
         System.out.flush();
     }
 
+    /**
+     * Checks the entire board for a 4-in-a-row win for the specified player.
+     *
+     * @param periodMillis A variable to specify the time in milliseconds that program will wait whenever the method is called.
+     * @author Emre Mekec
+     */
     public static void waitMillis(long periodMillis) {
         try {
             // Thread.sleep() accepts the period in milliseconds (long type)
@@ -2361,6 +2372,11 @@ public class Project1 {
         }
     }
 
+    /**
+     * Prompts the user for a keystroke "return" to proceed so that results of the operations under menu options will be visible before turning back to the menus that methods were called from.
+     *
+     * @author Emre Mekec
+     */
     public static void waitBeforeProceed() {
         boolean proceed = false;
 
