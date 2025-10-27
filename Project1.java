@@ -1,3 +1,12 @@
+/**
+ * A console project with Java showcasing programming fundamentals through an interactive menu system. The project includes multiple school levels with unique features implemented with structured programming and recursions.
+ * @author Muhammed Izaan
+ * @author Abdul Hadi Khan
+ * @author Sena Berra Soydugan
+ * @author Emre Mekec
+ * @version 1.0
+ */
+
 import java.nio.charset.StandardCharsets; //needed to scan for strings.
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -9,23 +18,19 @@ import java.io.IOException; //needed for the method waitForProceed().
 
 public class Project1 {
     // Global Constants
-    private static final Scanner SC = new Scanner(System.in, StandardCharsets.UTF_8);
-    private static final Random RAND = new Random();
-    private static final long delayAmount = 500;
-
-    // Global Constants for connectFour
-    private static final char PLAYER_ONE_DISC = 'R'; // Player 1 (Red)
-    private static final char PLAYER_TWO_DISC = 'Y'; // Player 2 (Yellow)
-    private static final char COMPUTER_DISC = 'Y'; // Computer (Yellow)
-    private static final char EMPTY_SLOT = ' ';
-    private static final int GAME_MODE_SINGLE_PLAYER = 1;
-    private static final int GAME_MODE_TWO_PLAYER = 2;
-
-    // Global Variables
-    static int Primes[];
-    static int count = 0;
+    public static final Scanner SC = new Scanner(System.in, StandardCharsets.UTF_8);
+    public static final Random RAND = new Random();
+    public static final long delayAmount = 500;
 
     // Main Method
+    /**
+     * The main method of the class
+     * Its purpose is to call the menuMain() method, and the clearScreen() method specifically dedicated to clearing up the screen on the program exit.
+     *
+     * @param args     Command line arguments
+     * @author Emre Mekec
+     */
+    // To make sure there is a clearScreen() dedicated to the state after everything else, the method that starts everything and the method that clears the screen are separately called inside the main method.
     public static void main(String[] args) {
         menuMain();
         clearScreen();
@@ -33,6 +38,12 @@ public class Project1 {
 
     // -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
     // Menu Logic
+    /**
+     * The main menu method
+     * It wraps up the methods for displaying everything within the main screen and start selecting from the main menu in one call, and keeps running until the user terminates it.
+     *
+     * @author Emre Mekec
+     */
     public static void menuMain() {
         boolean running = true;
         while (running) {
@@ -41,12 +52,24 @@ public class Project1 {
         }
     }
 
+    /**
+     * The method dedicated to the showcase of the main screen
+     * Its purpose is to call everything related to display the main screen. It calls another three methods to clear the screen, show the welcoming ASCII art, and show the main menu.
+     *
+     * @author Emre Mekec
+     */
     public static void showInitialScreen() {
         clearScreen();
         showWelcome();
         showMenuMain();
     }
 
+    /**
+     * The method that shows the welcome message
+     *
+     * @author Emre Mekec
+     * @author Abdul Hadi Khan
+     */
     public static void showWelcome() {
         System.out.println("                            .--.");
         System.out.println("                           /  ..\\");
@@ -72,6 +95,12 @@ public class Project1 {
         System.out.println("               `````");
     }
 
+    /**
+     * The method that shows the main menu
+     *
+     * @author Emre Mekec
+     * @author Muhammed Izaan
+     */
     public static void showMenuMain() {
         System.out.println("Main Menu - Select an option:");
         System.out.println("[A] Primary School");
@@ -81,6 +110,12 @@ public class Project1 {
         System.out.println("[E] Terminate");
     }
 
+    /**
+     * The method to select the options from the main menu
+     *
+     * @author Emre Mekec
+     * @author Muhammed Izaan
+     */
     public static boolean selectMenuMain() {
         System.out.print("Choice: ");
         String choice = SC.nextLine().trim().toUpperCase();
@@ -107,6 +142,12 @@ public class Project1 {
         return true;
     }
 
+    /**
+     * The primary school menu method
+     * It wraps up the methods for displaying the primary school menu screen and start selecting from the primary school menu in one call, and keeps running until the user terminates it.
+     *
+     * @author Emre Mekec
+     */
     public static void menuPrimarySchool() {
         boolean running = true;
         while (running) {
@@ -115,6 +156,12 @@ public class Project1 {
         }
     }
 
+    /**
+     * The method that shows the primary school menu
+     *
+     * @author Emre Mekec
+     * @author Muhammed Izaan
+     */
     public static void showMenuPrimarySchool() {
         clearScreen();
         System.out.println("Sub Menu - Primary School - Select an option:");
@@ -123,6 +170,12 @@ public class Project1 {
         System.out.println("[C] Return to the Main Menu");
     }
 
+    /**
+     * The method to select the options from the primary school menu
+     *
+     * @author Emre Mekec
+     * @author Muhammed Izaan
+     */
     public static boolean selectMenuPrimarySchool() {
         System.out.print("Choice: ");
         String choice = SC.nextLine().trim().toUpperCase();
@@ -146,6 +199,12 @@ public class Project1 {
         return true;
     }
 
+    /**
+     * The secondary school menu method
+     * It wraps up the methods for displaying the secondary school menu screen and start selecting from the secondary school menu in one call, and keeps running until the user terminates it.
+     *
+     * @author Emre Mekec
+     */
     public static void menuSecondarySchool() {
         boolean running = true;
         while (running) {
@@ -154,6 +213,12 @@ public class Project1 {
         }
     }
 
+    /**
+     * The method that shows the secondary school menu
+     *
+     * @author Emre Mekec
+     * @author Muhammed Izaan
+     */
     public static void showMenuSecondarySchool() {
         clearScreen();
         System.out.println("Sub Menu - Secondary School - Select an option:");
@@ -162,6 +227,12 @@ public class Project1 {
         System.out.println("[C] Return to Main Menu");
     }
 
+    /**
+     * The method to select the options from the secondary school menu
+     *
+     * @author Emre Mekec
+     * @author Muhammed Izaan
+     */
     public static boolean selectMenuSecondarySchool() {
         System.out.print("Choice: ");
         String choice = SC.nextLine().trim().toUpperCase();
@@ -185,6 +256,12 @@ public class Project1 {
         return true;
     }
 
+    /**
+     * The high school menu method.
+     * It wraps up the methods for displaying the high school menu screen and start selecting from the high school menu in one call, and keeps running until the user terminates it.
+     *
+     * @author Emre Mekec
+     */
     public static void menuHighSchool() {
         boolean running = true;
         while (running) {
@@ -193,6 +270,12 @@ public class Project1 {
         }
     }
 
+    /**
+     * The method that shows the high school menu
+     *
+     * @author Emre Mekec
+     * @author Muhammed Izaan
+     */
     public static void showMenuHighSchool() {
         clearScreen();
         System.out.println("Sub Menu - High School - Select an option:");
@@ -201,6 +284,12 @@ public class Project1 {
         System.out.println("[C] Return to Main Menu");
     }
 
+    /**
+     * The method to select the options from the high school menu
+     *
+     * @author Emre Mekec
+     * @author Muhammed Izaan
+     */
     public static boolean selectMenuHighSchool() {
         System.out.print("Choice: ");
         String choice = SC.nextLine().trim().toUpperCase();
@@ -224,6 +313,12 @@ public class Project1 {
         return true;
     }
 
+    /**
+     * The university menu method.
+     * It wraps up the methods for displaying the university menu screen and start selecting from the university menu in one call, and keeps running until the user terminates it.
+     *
+     * @author Emre Mekec
+     */
     public static void menuUniversity() {
         boolean running = true;
         while (running) {
@@ -232,6 +327,12 @@ public class Project1 {
         }
     }
 
+    /**
+     * The method that shows the university menu
+     *
+     * @author Emre Mekec
+     * @author Muhammed Izaan
+     */
     public static void showMenuUniversity() {
         clearScreen();
         System.out.println("Sub Menu - University - Select an option:");
@@ -239,6 +340,12 @@ public class Project1 {
         System.out.println("[B] Return to Main Menu");
     }
 
+    /**
+     * The method to select the options from the university menu
+     *
+     * @author Emre Mekec
+     * @author Muhammed Izaan
+     */
     public static boolean selectMenuUniversity() {
         System.out.print("Choice: ");
         String choice = SC.nextLine().trim().toUpperCase();
@@ -261,10 +368,16 @@ public class Project1 {
 
     // -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
     // Methods for selectPrimarySchool()
+
+    /**
+     * The method that finds the zodiac sign of user based on the day, month, and year input, and tells them how old they are as years, months, and days
+     *
+     * @author Abdul Hadi Khan
+     */
     public static void ageZodiac() {
         // Get the birthdate from user
         int year = getYear();
-        int month = getMonth(year);
+        int month = getMonth();
         int day = getDay(month, year);
 
         // Get today's date
@@ -307,7 +420,13 @@ public class Project1 {
         System.out.println("Your Zodiac sign is: " + zodiac + "\n");
     }
 
-    private static int getYear() {
+    /**
+     * The method to get the year from the user for the ageZodiac method
+     *
+     * @return year taken from the user
+     * @author Abdul Hadi Khan
+     */
+    public static int getYear() {
         LocalDate now = LocalDate.now();
         int currentYear = now.getYear();
 
@@ -336,7 +455,13 @@ public class Project1 {
         return year;
     }
 
-    private static int getMonth(int year) {
+    /**
+     * The method to get the month from the user for the ageZodiac method
+     *
+     * @return month taken from the user
+     * @author Abdul Hadi Khan
+     */
+    public static int getMonth() {
         boolean validInput = false;
         int month = 0;
 
@@ -362,7 +487,15 @@ public class Project1 {
         return month;
     }
 
-    private static int getDay(int month, int year) {
+    /**
+     * The method to get the day from the user for the ageZodiac method
+     *
+     * @param month the month to be used inside the method
+     * @param year the year to be used inside the method
+     * @return day taken from the user
+     * @author Abdul Hadi Khan
+     */
+    public static int getDay(int month, int year) {
         LocalDate now = LocalDate.now();
         boolean isLeapYear = isLeapYear(year);
         int maxDays = daysInMonth(month, year);
@@ -406,7 +539,14 @@ public class Project1 {
         return day;
     }
 
-    private static boolean isLeapYear(int year) {
+    /**
+     * The method to check if the year taken from the user is a leap year or not
+     *
+     * @param year the year taken from the user
+     * @return boolean value concluding if the year is a leap year or not
+     * @author Abdul Hadi Khan
+     */
+    public static boolean isLeapYear(int year) {
         // A year is a leap year if:
         // It is divisible by 4 AND not divisible by 100
         // OR it is divisible by 400
@@ -426,7 +566,15 @@ public class Project1 {
         return false;
     }
 
-    private static int daysInMonth(int month, int year) {
+    /**
+     * The method to get the days in months to be used in the method getZodiac
+     *
+     * @param month the month taken from the user
+     * @param year the year taken from the user
+     * @return a number of the days in the month
+     * @author Abdul Hadi Khan
+     */
+    public static int daysInMonth(int month, int year) {
         boolean isLeapYear = isLeapYear(year);
 
         if (month == 1) {
@@ -462,7 +610,15 @@ public class Project1 {
         }
     }
 
-    private static String getZodiacSign(int day, int month) {
+    /**
+     * The method to get the zodiac sign result
+     *
+     * @param day the day taken from the user
+     * @param month the month taken from the user
+     * @return the found zodiac sign of the user
+     * @author Abdul Hadi Khan
+     */
+    public static String getZodiacSign(int day, int month) {
         if (month == 1) {
             if (day <= 19) {
                 return "Capricorn";
@@ -540,6 +696,11 @@ public class Project1 {
         }
     }
 
+    /**
+     * The method to reverse the words of the sentence taken from the user
+     *
+     * @author Abdul Hadi Khan
+     */
     // Recursive reverse function
     public static void reverseWords() {
         System.out.print("Enter a sentence: ");
@@ -573,7 +734,14 @@ public class Project1 {
         System.out.println("\nReversed Sentence:\n" + reversed + "\n");
     }
 
-    private static boolean isTurkishLetter(char c) {
+    /**
+     * The method to count for the Turkish letters
+     *
+     * @param c a char variable representing characters to be checked one by one from the words of the given sentence
+     * @return a boolean value deciding if the word taken as input is a Turkish word or not
+     * @author Abdul Hadi Khan
+     */
+    public static boolean isTurkishLetter(char c) {
         // Check if character is a letter (English or Turkish)
         if (Character.isLetter(c)) {
             return true;
@@ -623,7 +791,14 @@ public class Project1 {
         return false;
     }
 
-    private static String reverseRecursive(String s) {
+    /**
+     * The method to reverse a given word recursively
+     *
+     * @param s a string parameter, standing for a word to be reversed recursively
+     * @return a boolean value deciding if the word taken as input is a Turkish word or not
+     * @author Abdul Hadi Khan
+     */
+    public static String reverseRecursive(String s) {
         if (s.isEmpty())
             return s;
         return reverseRecursive(s.substring(1)) + s.charAt(0);
@@ -633,6 +808,10 @@ public class Project1 {
     // Methods for secondarySchool
 
     // All 3 Algorithm for Finding Prime Numbers
+
+    // Necessary Variables
+    static int Primes[];
+    static int count = 0;
 
     // EratosthenesFormula
     public static int[] eratosthenesFormula(int n) {
@@ -816,7 +995,7 @@ public class Project1 {
         return Primes;
     }
 
-    private static String firstK(int[] arr, int k) {
+    public static String firstK(int[] arr, int k) {
         if (arr == null || arr.length == 0)
             return "[]";
         int n = Math.min(k, arr.length);
@@ -832,7 +1011,7 @@ public class Project1 {
         return sb.toString();
     }
 
-    private static String lastK(int[] arr, int k) {
+    public static String lastK(int[] arr, int k) {
         if (arr == null || arr.length == 0)
             return "[]";
         int n = Math.min(k, arr.length);
@@ -848,7 +1027,7 @@ public class Project1 {
         return sb.toString();
     }
 
-    private static String fmtMs(double ms) {
+    public static String fmtMs(double ms) {
         return String.format("%.3f", ms);
     }
 
@@ -972,7 +1151,7 @@ public class Project1 {
      * ----------
      */
 
-    private static String normalizeOperators(String s) {
+    public static String normalizeOperators(String s) {
         // Replace multiple canonical synonyms with a single internal symbol:
         // multiplication: 'x', 'X', '*', '×' -> 'x'
         // division: ':' or '/' -> ':'
@@ -990,7 +1169,7 @@ public class Project1 {
         return sb.toString();
     }
 
-    private static boolean isValidExpression(String s) {
+    public static boolean isValidExpression(String s) {
         // Allowed chars: digits, spaces, + - x X * × : / ( )
         // Normalize for checks
         if (s.trim().length() == 0)
@@ -1136,7 +1315,7 @@ public class Project1 {
     // parentheses).
     // Returns list of tokens in order. Numbers are signed integers as full token
     // strings.
-    private static List<String> tokenize(String expr) {
+    public static List<String> tokenize(String expr) {
         expr = normalizeOperators(expr);
         List<String> tokens = new ArrayList<>();
         int i = 0;
@@ -1226,7 +1405,7 @@ public class Project1 {
     // Simplify the expression exactly once (one step). Returns the new expression
     // string.
     // If no further simplification possible, returns the same expression.
-    private static String simplifyOnce(String expr) {
+    public static String simplifyOnce(String expr) {
         // Tokenize
         List<String> tokens = tokenize(expr);
 
@@ -1343,7 +1522,7 @@ public class Project1 {
     // Evaluate a list of tokens fully returning a single numeric string (handles
     // precedence inside subexpression).
     // Uses integer arithmetic (long) and integer division behavior.
-    private static String evaluateTokensFully(List<String> tokensIn) {
+    public static String evaluateTokensFully(List<String> tokensIn) {
         // Make a mutable copy
         List<String> tokens = new ArrayList<>(tokensIn);
 
@@ -1459,7 +1638,7 @@ public class Project1 {
 
     // Compute binary operation between two numeric string tokens using integer
     // arithmetic
-    private static String computeBinary(String lhsStr, String op, String rhsStr) {
+    public static String computeBinary(String lhsStr, String op, String rhsStr) {
         long lhs = parseLongSafe(lhsStr);
         long rhs = parseLongSafe(rhsStr);
 
@@ -1480,7 +1659,7 @@ public class Project1 {
         }
     }
 
-    private static long parseLongSafe(String s) {
+    public static long parseLongSafe(String s) {
         // s may include spaces, but tokenization shouldn't have them
         s = s.trim();
         if (s.length() == 0)
@@ -1488,7 +1667,7 @@ public class Project1 {
         return Long.parseLong(s);
     }
 
-    private static String joinTokens(List<String> tokens) {
+    public static String joinTokens(List<String> tokens) {
         StringBuilder sb = new StringBuilder();
         for (int i = 0; i < tokens.size(); i++) {
             String t = tokens.get(i);
@@ -1501,7 +1680,7 @@ public class Project1 {
         return sb.toString();
     }
 
-    private static String normalizeSpacing(String expr) {
+    public static String normalizeSpacing(String expr) {
         // Normalize spaces around operators and parentheses for nicer output
         List<String> tokens = tokenize(expr);
         StringBuilder sb = new StringBuilder();
@@ -1687,7 +1866,7 @@ public class Project1 {
     }
 
     // Robust input helpers (for Sena's Part)
-    private static int readPositiveInt(String prompt) {
+    public static int readPositiveInt(String prompt) {
         while (true) {
             System.out.print(prompt);
             String s = SC.nextLine().trim();
@@ -1702,7 +1881,7 @@ public class Project1 {
         }
     }
 
-    private static int readIntInRange(String prompt, int min, int max) {
+    public static int readIntInRange(String prompt, int min, int max) {
         while (true) {
             System.out.print(prompt);
             String s = SC.nextLine().trim();
@@ -1717,7 +1896,7 @@ public class Project1 {
         }
     }
 
-    private static double readDouble(String prompt) {
+    public static double readDouble(String prompt) {
         while (true) {
             System.out.print(prompt);
             String s = SC.nextLine().trim();
@@ -1729,7 +1908,7 @@ public class Project1 {
         }
     }
 
-    private static double readDoubleInRange(String prompt, double min, double maxInclOrInf) {
+    public static double readDoubleInRange(String prompt, double min, double maxInclOrInf) {
         while (true) {
             double v = readDouble(prompt);
             if (v >= min && v <= maxInclOrInf)
@@ -1739,7 +1918,7 @@ public class Project1 {
         }
     }
 
-    private static int[] readIntArrayDigits(String head, int n, int min, int max) {
+    public static int[] readIntArrayDigits(String head, int n, int min, int max) {
         System.out.println(head + " -> total " + n + " items.");
         int[] arr = new int[n];
         for (int i = 0; i < n; i++) {
@@ -1748,23 +1927,23 @@ public class Project1 {
         return arr;
     }
 
-    private static void pressEnter() {
+    public static void pressEnter() {
         System.out.println();
         System.out.println("Press ENTER to continue...");
         SC.nextLine();
     }
 
     // Statistics internals (for Sena's Part)
-    private static String fmt6(double v) {
+    public static String fmt6(double v) {
         return String.format("%.6f", v);
     }
 
-    private static double medianSorted(double[] sorted) {
+    public static double medianSorted(double[] sorted) {
         int n = sorted.length;
         return (n % 2 == 1) ? sorted[n / 2] : (sorted[n / 2 - 1] + sorted[n / 2]) / 2.0;
     }
 
-    private static double quantileSorted(double[] sorted, double q) {
+    public static double quantileSorted(double[] sorted, double q) {
         int n = sorted.length;
         if (n == 1)
             return sorted[0];
@@ -1776,7 +1955,7 @@ public class Project1 {
         return sorted[idx] * (1 - frac) + sorted[idx + 1] * frac;
     }
 
-    private static double variance(double[] a, double mean, boolean sample) {
+    public static double variance(double[] a, double mean, boolean sample) {
         if (a.length <= (sample ? 1 : 0))
             return 0.0;
         double ss = 0.0;
@@ -1787,7 +1966,7 @@ public class Project1 {
         return ss / (sample ? (a.length - 1) : a.length);
     }
 
-    private static Double geometricMean(double[] a) {
+    public static Double geometricMean(double[] a) {
         double logSum = 0.0;
         for (double v : a) {
             if (v <= 0.0)
@@ -1797,7 +1976,7 @@ public class Project1 {
         return Math.exp(logSum / a.length);
     }
 
-    private static Double harmonicMeanRecursive(double[] a) {
+    public static Double harmonicMeanRecursive(double[] a) {
         for (double v : a)
             if (v == 0.0)
                 return null;
@@ -1805,7 +1984,7 @@ public class Project1 {
         return a.length / recSum;
     }
 
-    private static double reciprocalSum(double[] a, int i) {
+    public static double reciprocalSum(double[] a, int i) {
         if (i == a.length)
             return 0.0;
         return (1.0 / a[i]) + reciprocalSum(a, i + 1);
@@ -1813,6 +1992,15 @@ public class Project1 {
 
     // -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
     // Methods for selectMenuUniversity()
+
+    // The Constants
+    public static final char PLAYER_ONE_DISC = 'R'; // Player 1 (Red)
+    public static final char PLAYER_TWO_DISC = 'Y'; // Player 2 (Yellow)
+    public static final char COMPUTER_DISC = 'Y'; // Computer (Yellow)
+    public static final char EMPTY_SLOT = ' ';
+    public static final int GAME_MODE_SINGLE_PLAYER = 1;
+    public static final int GAME_MODE_TWO_PLAYER = 2;
+
     /**
      * Handles the setup (board size, game mode) for Connect Four
      * and then launches the game.
@@ -1880,18 +2068,17 @@ public class Project1 {
             }
         }
 
-        // 3. Start the game
-        runConnectFourGame(rows, cols, gameMode);
+        gameLoop(rows, cols, gameMode);
     }
 
     /**
      * The main game loop for Connect Four.
-     * 
+     *
      * @param rows     The number of rows in the board.
      * @param cols     The number of columns in the board.
      * @param gameMode 1 for single-player, 2 for two-player.
      */
-    public static void runConnectFourGame(int rows, int cols, int gameMode) {
+    public static void gameLoop(int rows, int cols, int gameMode) {
         char[][] board = initializeBoard(rows, cols);
         boolean gameRunning = true;
         char currentPlayer = PLAYER_ONE_DISC; // Player 1 always starts
@@ -1902,7 +2089,6 @@ public class Project1 {
 
             // 1. Get the current player's move
             int moveCol = -1;
-            boolean moveMade = false;
 
             if (gameMode == GAME_MODE_TWO_PLAYER) {
                 // --- Two-Player Mode ---
@@ -1952,12 +2138,12 @@ public class Project1 {
 
     /**
      * Creates a new Connect Four board filled with empty slots.
-     * 
+     *
      * @param rows Number of rows.
      * @param cols Number of columns.
      * @return The initialized 2D char array.
      */
-    private static char[][] initializeBoard(int rows, int cols) {
+    public static char[][] initializeBoard(int rows, int cols) {
         char[][] board = new char[rows][cols];
         for (int r = 0; r < rows; r++) {
             for (int c = 0; c < cols; c++) {
@@ -1969,10 +2155,10 @@ public class Project1 {
 
     /**
      * Prints the Connect Four board to the console.
-     * 
+     *
      * @param board The current game board.
      */
-    private static void printBoard(char[][] board) {
+    public static void printBoard(char[][] board) {
         int rows = board.length;
         int cols = board[0].length;
 
@@ -2002,12 +2188,12 @@ public class Project1 {
 
     /**
      * Gets a valid column move from a human player.
-     * 
+     *
      * @param board  The current game board.
      * @param player The character representing the player.
      * @return The 0-based column index, or -1 if the player quits.
      */
-    private static int getHumanMove(char[][] board, char player) {
+    public static int getHumanMove(char[][] board, char player) {
         int cols = board[0].length;
         while (true) {
             System.out.print("Player " + player + ", enter column (1-" + cols + ") or 'Q' to quit: ");
@@ -2035,11 +2221,11 @@ public class Project1 {
 
     /**
      * Gets a valid random column move for the computer.
-     * 
+     *
      * @param board The current game board.
      * @return The 0-based column index.
      */
-    private static int getComputerMove(char[][] board) {
+    public static int getComputerMove(char[][] board) {
         int cols = board[0].length;
         while (true) {
             int col = RAND.nextInt(cols); // Pick a random column (0 to cols-1)
@@ -2052,23 +2238,23 @@ public class Project1 {
 
     /**
      * Checks if a move is valid (i.e., the column is not full).
-     * 
+     *
      * @param board The current game board.
      * @param col   The 0-based column index.
      * @return true if the column is not full, false otherwise.
      */
-    private static boolean isValidMove(char[][] board, int col) {
+    public static boolean isValidMove(char[][] board, int col) {
         return board[0][col] == EMPTY_SLOT; // Check only the top row
     }
 
     /**
      * "Drops" a disc into the specified column.
-     * 
+     *
      * @param board  The game board (will be modified).
      * @param col    The 0-based column index.
      * @param player The player's disc character.
      */
-    private static void dropDisc(char[][] board, int col, char player) {
+    public static void dropDisc(char[][] board, int col, char player) {
         int rows = board.length;
         // Start from the bottom row and go up
         for (int r = rows - 1; r >= 0; r--) {
@@ -2081,11 +2267,11 @@ public class Project1 {
 
     /**
      * Checks if the board is completely full (a draw condition).
-     * 
+     *
      * @param board The current game board.
      * @return true if the board is full, false otherwise.
      */
-    private static boolean isBoardFull(char[][] board) {
+    public static boolean isBoardFull(char[][] board) {
         int cols = board[0].length;
         for (int c = 0; c < cols; c++) {
             if (board[0][c] == EMPTY_SLOT) {
@@ -2097,12 +2283,12 @@ public class Project1 {
 
     /**
      * Checks the entire board for a 4-in-a-row win for the specified player.
-     * 
+     *
      * @param board  The current game board.
      * @param player The player's disc character to check for.
      * @return true if a win is found, false otherwise.
      */
-    private static boolean checkWin(char[][] board, char player) {
+    public static boolean checkWin(char[][] board, char player) {
         int rows = board.length;
         int cols = board[0].length;
 
