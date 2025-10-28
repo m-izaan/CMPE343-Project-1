@@ -559,11 +559,7 @@ public class Project1 {
             return true;
         }
 
-        if (divisibleBy4 && !divisibleBy100) {
-            return true;
-        }
-
-        return false;
+        return (divisibleBy4 && !divisibleBy100);
     }
 
     /**
