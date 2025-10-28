@@ -1,5 +1,6 @@
 /**
  * A console project with Java showcasing programming fundamentals through an interactive menu system. The project includes multiple school levels with unique features implemented with structured programming and recursions.
+ *
  * @author Abdul Hadi Khan
  * @author Muhammed Izaan
  * @author Sena Berra Soydugan
@@ -30,7 +31,6 @@ public class Project1 {
      *
      * @author Emre Mekec
      */
-
     public static void main(String[] args) {
         mainLoop();
         clearScreen();
@@ -367,7 +367,8 @@ public class Project1 {
     }
 
     // -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-    // Methods for selectPrimarySchool()
+
+    // Methods for the method selectMenuPrimarySchool()
 
     /**
      * Finds the zodiac sign of the user based on the day, month, and year input, and tells them how old they are as years, months, and days.
@@ -697,7 +698,6 @@ public class Project1 {
      *
      * @author Abdul Hadi Khan
      */
-    // Recursive reverse function
     public static void reverseWords() {
         System.out.print("Enter a sentence: ");
         String text = SC.nextLine();
@@ -801,7 +801,8 @@ public class Project1 {
     }
 
     // -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-    // Methods for secondarySchool
+
+    // Methods for the method selectMenuSecondarySchool()
 
     // All 3 Algorithm for Finding Prime Numbers
 
@@ -1688,7 +1689,8 @@ public class Project1 {
     }
 
     // -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-    // Methods for menuHighSchool()
+
+    // Methods for the method selectMenuHighSchool()
 
     public static void arrayStat() {
         clearScreen();
@@ -1976,7 +1978,8 @@ public class Project1 {
     }
 
     // -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-    // Methods for selectMenuUniversity()
+
+    // Methods for the method selectMenuUniversity()
 
     // The Constants
     public static final char PLAYER_ONE_DISC = '1';
@@ -2072,7 +2075,7 @@ public class Project1 {
             printBoard(board);
 
             // Get the Current Player's Move
-            int moveCol = -1;
+            int moveCol;
 
             if (gameMode.equals("multiplayer")) {
                 // Multiplayer Mode
@@ -2276,12 +2279,12 @@ public class Project1 {
         int cols = board[0].length;
 
         // 1. Check Horizontal
-        for (int r = 0; r < rows; r++) {
+        for (char[] chars : board) {
             for (int c = 0; c <= cols - 4; c++) {
-                if (board[r][c] == player &&
-                        board[r][c + 1] == player &&
-                        board[r][c + 2] == player &&
-                        board[r][c + 3] == player) {
+                if (chars[c] == player &&
+                        chars[c + 1] == player &&
+                        chars[c + 2] == player &&
+                        chars[c + 3] == player) {
                     return true;
                 }
             }
@@ -2327,6 +2330,7 @@ public class Project1 {
     }
 
     // -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
     // Helpers
 
     /**
