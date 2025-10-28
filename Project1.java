@@ -28,7 +28,6 @@ public class Project1 {
     /**
      * The entry point of the program: calls the mainLoop(), then clears up the screen on program exit.
      *
-     * @param args command-line arguments (not used)
      * @author Emre Mekec
      */
 
@@ -74,9 +73,9 @@ public class Project1 {
     public static void showWelcome() {
         System.out.println("                            .--.");
         System.out.println("                           /  ..\\");
-        System.out.println("                      ____.'  _o/");
+        System.out.println("  Muhammed Izaan      ____.'  _o/");
         System.out.println("       .--.          '--.     |.__");
-        System.out.println("      /..  \\         _.-'     /--'");
+        System.out.print  ("      /..  \\         _.-'     /--'"); System.out.println(" Abdul Hadi Khan");
         System.out.println("      \\ o  /    _.--'        /");
         System.out.println("      /    \\   ~'--....___.-'");
         System.out.println("     /      \\");
@@ -85,15 +84,17 @@ public class Project1 {
         System.out.println("      \\      '._     \\  `'-._");
         System.out.println("       '._      '-.   \\      '-._/)");
         System.out.println("          `'- ,~- _.`  '.        '.--.");
-        System.out.println("jgs                      `-.,    / ..`\\");
+        System.out.print  ("jgs                      `-.,    / ..`\\"); System.out.println(" Sena Berra Soydugan");
         System.out.println("       .--.                 //'-.   o /");
         System.out.println("      /..  \\               (/     '--'");
         System.out.println("      \\o _ (____");
         System.out.println("    __.|    .--'");
         System.out.println("   '---\\    '.         ,");
         System.out.println("        '.    '-.___.-'/");
-        System.out.println("          '-.__     _.'");
+        System.out.print  ("          '-.__     _.'"); System.out.println(" Emre Mekec");
         System.out.println("               `````");
+
+        System.out.println("Welcome to the CMPE-343 Project 1!\n");
     }
 
     /**
