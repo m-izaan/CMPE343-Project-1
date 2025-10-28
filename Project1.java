@@ -1982,9 +1982,9 @@ public class Project1 {
     // Methods for the method selectMenuUniversity()
 
     // The Constants
-    public static final char PLAYER_ONE_DISC = '1';
-    public static final char PLAYER_TWO_DISC = '2';
-    public static final char COMPUTER_DISC = 'B'; // (Stands for bot)
+    public static final char MARK_PLAYER_1 = '1';
+    public static final char MARK_PLAYER_2 = '2';
+    public static final char MARK_COMPUTER = 'B'; // (Stands for bot)
     public static final char EMPTY_CELL = ' ';
 
     /**
@@ -1993,69 +1993,84 @@ public class Project1 {
      * @author Emre Mekec
      */
     public static void connectFour() {
-        int rows = 0;
-        int cols = 0;
+        String dimension = " ";
         String gameMode = " ";
 
         // Board Size Selection Phase
-        boolean sizeSelected = false;
-        while (!sizeSelected) {
+        while (dimension.equals(" ")) {
             clearScreen();
-            System.out.println("--- Connect Four: Board Size ---");
-            System.out.println("[A] 5x4 (5 Rows, 4 Cols)");
-            System.out.println("[B] 6x5 (6 Rows, 5 Cols)");
-            System.out.println("[C] 7x6 (7 Rows, 6 Cols)");
-            System.out.print("Select board size: ");
-            String choice = SC.nextLine().trim().toUpperCase();
-
-            switch (choice) {
-                case "A":
-                    rows = 5;
-                    cols = 4;
-                    sizeSelected = true;
-                    break;
-                case "B":
-                    rows = 6;
-                    cols = 5;
-                    sizeSelected = true;
-                    break;
-                case "C":
-                    rows = 7;
-                    cols = 6;
-                    sizeSelected = true;
-                    break;
-                default:
-                    System.out.println("Invalid choice. Press Enter to try again.");
-                    SC.nextLine();
-            }
+            showDimensionsConnectFour();
+            dimension = selectDimensionConnectFour();
         }
 
         // Game Mode Selection Phase
-        boolean modeSelected = false;
-        while (!modeSelected) {
+        while (gameMode.equals(" ")) {
             clearScreen();
-            System.out.println("--- Connect Four: Game Mode ---");
-            System.out.println("[A] Single-Player (vs. Computer)");
-            System.out.println("[B] Two-Players");
-            System.out.print("Select game mode: ");
-            String choice = SC.nextLine().trim().toUpperCase();
-
-            switch (choice) {
-                case "A":
-                    gameMode = "singleplayer";
-                    modeSelected = true;
-                    break;
-                case "B":
-                    gameMode = "multiplayer";
-                    modeSelected = true;
-                    break;
-                default:
-                    System.out.println("Invalid choice. Press Enter to try again.");
-                    SC.nextLine(); // Wait for the Key Press
-            }
+            showModesConnectFour();
+            gameMode = selectModeConnectFour();
         }
 
-        gameLoop(rows, cols, gameMode);
+        // Start the Game
+        switch (dimension) {
+            case "7x6":
+                gameLoop(7, 6, gameMode);
+                break;
+            case "6x5":
+                gameLoop(6, 5, gameMode);
+                break;
+            case "5x4":
+                gameLoop(5, 4, gameMode);
+                break;
+        }
+    }
+
+    public static void showDimensionsConnectFour() {
+        System.out.println("--- Connect Four: Board Sizes ---");
+        System.out.println("[A] 5x4 (5 Rows, 4 Cols)");
+        System.out.println("[B] 6x5 (6 Rows, 5 Cols)");
+        System.out.println("[C] 7x6 (7 Rows, 6 Cols)");
+    }
+
+    public static String selectDimensionConnectFour() {
+        System.out.print("Choice: ");
+        String choice = SC.nextLine().trim().toUpperCase();
+
+        switch (choice) {
+            case "A":
+                return "7x6";
+            case "B":
+                return "6x5";
+            case "C":
+                return "5x4";
+            default:
+                System.out.println("Invalid choice. Please try again.");
+                waitMillis(delayAmount);
+        }
+
+        return " ";
+    }
+
+    public static void showModesConnectFour() {
+        System.out.println("--- Connect Four: Game Modes ---");
+        System.out.println("[A] Single-Player (vs. Computer)");
+        System.out.println("[B] Two-Players");
+    }
+
+    public static String selectModeConnectFour() {
+        System.out.print("Choice: ");
+        String choice = SC.nextLine().trim().toUpperCase();
+
+        switch (choice) {
+            case "A":
+                return "singleplayer";
+            case "B":
+                return "multiplayer";
+            default:
+                System.out.println("Invalid choice. Please try again.");
+                waitMillis(delayAmount);
+        }
+
+        return " ";
     }
 
     /**
@@ -2068,7 +2083,7 @@ public class Project1 {
     public static void gameLoop(int rows, int cols, String gameMode) {
         char[][] board = initializeBoard(rows, cols);
         boolean gameRunning = true;
-        char currentPlayer = PLAYER_ONE_DISC; // Player 1 always starts
+        char currentPlayer = MARK_PLAYER_1; // Player 1 always starts
 
         while (gameRunning) {
             clearScreen();
@@ -2082,7 +2097,7 @@ public class Project1 {
                 moveCol = getPlayerMove(board, currentPlayer);
             } else {
                 // Singleplayer Mode
-                if (currentPlayer == PLAYER_ONE_DISC) {
+                if (currentPlayer == MARK_PLAYER_1) {
                     moveCol = getPlayerMove(board, currentPlayer);
                 } else {
                     moveCol = getComputerMove(board);
@@ -2114,10 +2129,10 @@ public class Project1 {
                 gameRunning = false;
             } else {
                 // 4. Switch player
-                if (currentPlayer == PLAYER_ONE_DISC) {
-                    currentPlayer = (gameMode.equals("singleplayer")) ? COMPUTER_DISC : PLAYER_TWO_DISC;
+                if (currentPlayer == MARK_PLAYER_1) {
+                    currentPlayer = (gameMode.equals("singleplayer")) ? MARK_COMPUTER : MARK_PLAYER_2;
                 } else {
-                    currentPlayer = PLAYER_ONE_DISC;
+                    currentPlayer = MARK_PLAYER_1;
                 }
             }
         }
@@ -2132,9 +2147,9 @@ public class Project1 {
      */
     public static char[][] initializeBoard(int rows, int cols) {
         char[][] board = new char[rows][cols];
-        for (int r = 0; r < rows; r++) {
-            for (int c = 0; c < cols; c++) {
-                board[r][c] = EMPTY_CELL;
+        for (int i = 0; i < rows; i++) {
+            for (int j = 0; j < cols; j++) {
+                board[i][j] = EMPTY_CELL;
             }
         }
         return board;
@@ -2148,7 +2163,7 @@ public class Project1 {
     public static void printBoard(char[][] board) {
         int cols = board[0].length;
 
-        System.out.println("\n--- CONNECT FOUR ---");
+        System.out.println("\n------ CONNECT FOUR ------");
         // Print board contents
         for (char[] chars : board) {
             System.out.print("| ");
@@ -2278,51 +2293,37 @@ public class Project1 {
         int rows = board.length;
         int cols = board[0].length;
 
-        // 1. Check Horizontal
+        // Checking the Horizontals
         for (char[] chars : board) {
-            for (int c = 0; c <= cols - 4; c++) {
-                if (chars[c] == player &&
-                        chars[c + 1] == player &&
-                        chars[c + 2] == player &&
-                        chars[c + 3] == player) {
+            for (int j = 0; j <= cols - 4; j++) {
+                if (chars[j] == player && chars[j + 1] == player && chars[j + 2] == player && chars[j + 3] == player) {
                     return true;
                 }
             }
         }
 
-        // 2. Check Vertical
-        for (int c = 0; c < cols; c++) {
-            for (int r = 0; r <= rows - 4; r++) {
-                if (board[r][c] == player &&
-                        board[r + 1][c] == player &&
-                        board[r + 2][c] == player &&
-                        board[r + 3][c] == player) {
+        // Checking the Verticals
+        for (int j = 0; j < cols; j++) {
+            for (int i = 0; i <= rows - 4; i++) {
+                if (board[i][j] == player && board[i + 1][j] == player && board[i + 2][j] == player && board[i + 3][j] == player) {
                     return true;
                 }
             }
         }
 
-        // 3. Check Diagonal (Bottom-Left to Top-Right)
+        // Checking the Diagonals from the Bottom Left to Top Right
         for (int r = 3; r < rows; r++) { // Start from row 3 (0-indexed)
             for (int c = 0; c <= cols - 4; c++) {
-                if (board[r][c] == player &&
-                        board[r - 1][c + 1] == player &&
-                        board[r - 2][c + 2] == player &&
-                        board[r - 3][c + 3] == player) {
+                if (board[r][c] == player && board[r - 1][c + 1] == player && board[r - 2][c + 2] == player && board[r - 3][c + 3] == player)
                     return true;
-                }
             }
         }
 
-        // 4. Check Diagonal (Top-Left to Bottom-Right)
+        // Checking the Diagonals from the Top Left to Bottom Right
         for (int r = 0; r <= rows - 4; r++) {
             for (int c = 0; c <= cols - 4; c++) {
-                if (board[r][c] == player &&
-                        board[r + 1][c + 1] == player &&
-                        board[r + 2][c + 2] == player &&
-                        board[r + 3][c + 3] == player) {
+                if (board[r][c] == player && board[r + 1][c + 1] == player && board[r + 2][c + 2] == player && board[r + 3][c + 3] == player)
                     return true;
-                }
             }
         }
 
@@ -2367,7 +2368,6 @@ public class Project1 {
      */
     public static void waitBeforeProceed() {
         System.out.println("Press ENTER when you want to proceed...");
-        Scanner scanner = new Scanner(System.in);
-        scanner.nextLine();
+        SC.nextLine();
     }
 }
