@@ -1,4 +1,6 @@
-import java.nio.charset.StandardCharsets; //needed to scan for strings.
+import java.nio.charset.StandardCharsets;
+import java.text.Format;
+//needed to scan for strings.
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -7,10 +9,12 @@ import java.util.Random;
 import java.util.Scanner;
 
 /**
- * A console project with Java showcasing programming fundamentals through an interactive menu system. The project includes multiple school levels with unique features implemented with structured programming and recursions.
+ * A console project with Java showcasing programming fundamentals through an
+ * interactive menu system. The project includes multiple school levels with
+ * unique features implemented with structured programming and recursions.
  *
  * @author Abdul Hadi Khan
- * @author Muhammed Izaan
+ * @author Muhammed Izaan Ul Haque
  * @author Sena Berra Soydugan
  * @author Emre Mekec
  * @version 1.0
@@ -33,7 +37,8 @@ public class Project1 {
     public static final Random RAND = new Random();
 
     /**
-     * A long constant to be used as the amount of time program should stop when used with waitBeforeProceed() or waitMillis() methods
+     * A long constant to be used as the amount of time program should stop when
+     * used with waitBeforeProceed() or waitMillis() methods
      *
      */
     public static final long delayAmount = 500;
@@ -41,7 +46,8 @@ public class Project1 {
     // -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
     /**
-     * The entry point of the program: calls the mainLoop(), then clears up the screen on program exit.
+     * The entry point of the program: calls the mainLoop(), then clears up the
+     * screen on program exit.
      *
      * @param args command-line arguments
      * @author Emre Mekec
@@ -65,7 +71,9 @@ public class Project1 {
     }
 
     /**
-     * Wraps up the methods for displaying everything within the main screen and start selecting from the main menu in one call, and keeps running until the user terminates it.
+     * Wraps up the methods for displaying everything within the main screen and
+     * start selecting from the main menu in one call, and keeps running until the
+     * user terminates it.
      *
      * @author Emre Mekec
      */
@@ -90,7 +98,8 @@ public class Project1 {
         System.out.println("                           /  ..\\");
         System.out.println("  Muhammed Izaan      ____.'  _o/");
         System.out.println("       .--.          '--.     |.__");
-        System.out.print  ("      /..  \\         _.-'     /--'"); System.out.println(" Abdul Hadi Khan");
+        System.out.print("      /..  \\         _.-'     /--'");
+        System.out.println(" Abdul Hadi Khan");
         System.out.println("      \\ o  /    _.--'        /");
         System.out.println("      /    \\   ~'--....___.-'");
         System.out.println("     /      \\");
@@ -99,14 +108,16 @@ public class Project1 {
         System.out.println("      \\      '._     \\  `'-._");
         System.out.println("       '._      '-.   \\      '-._/)");
         System.out.println("          `'- ,~- _.`  '.        '.--.");
-        System.out.print  ("credit: jgs              `-.,    / ..`\\"); System.out.println(" Sena Berra Soydugan");
+        System.out.print("credit: jgs              `-.,    / ..`\\");
+        System.out.println(" Sena Berra Soydugan");
         System.out.println("       .--.                 //'-.   o /");
         System.out.println("      /..  \\               (/     '--'");
         System.out.println("      \\o _ (____");
         System.out.println("    __.|    .--'");
         System.out.println("   '---\\    '.         ,");
         System.out.println("        '.    '-.___.-'/");
-        System.out.print  ("          '-.__     _.'"); System.out.println(" Emre Mekec");
+        System.out.print("          '-.__     _.'");
+        System.out.println(" Emre Mekec");
         System.out.println("               `````");
 
         System.out.println("Welcome to the CMPE-343 Project 1!\n");
@@ -130,7 +141,8 @@ public class Project1 {
     /**
      * Selects the options from the main menu.
      *
-     * @return A boolean value weather keeping the program main loop running or terminating it.
+     * @return A boolean value weather keeping the program main loop running or
+     *         terminating it.
      * @author Emre Mekec
      * @author Muhammed Izaan
      */
@@ -161,7 +173,9 @@ public class Project1 {
     }
 
     /**
-     * Wraps up the methods for displaying the primary school menu screen and start selecting from the primary school menu in one call, and keeps running until the user terminates it.
+     * Wraps up the methods for displaying the primary school menu screen and start
+     * selecting from the primary school menu in one call, and keeps running until
+     * the user terminates it.
      *
      * @author Emre Mekec
      */
@@ -190,7 +204,8 @@ public class Project1 {
     /**
      * Selects the options from the primary school menu.
      *
-     * @return A boolean value weather keeping the primary school menu running or terminating it.
+     * @return A boolean value weather keeping the primary school menu running or
+     *         terminating it.
      * @author Emre Mekec
      * @author Muhammed Izaan
      */
@@ -220,7 +235,9 @@ public class Project1 {
     }
 
     /**
-     * Wraps up the methods for displaying the secondary school menu screen and start selecting from the secondary school menu in one call, and keeps running until the user terminates it.
+     * Wraps up the methods for displaying the secondary school menu screen and
+     * start selecting from the secondary school menu in one call, and keeps running
+     * until the user terminates it.
      *
      * @author Emre Mekec
      */
@@ -249,7 +266,8 @@ public class Project1 {
     /**
      * Selects the options from the secondary school menu.
      *
-     * @return A boolean value weather keeping the secondary school menu running or terminating it.
+     * @return A boolean value weather keeping the secondary school menu running or
+     *         terminating it.
      * @author Emre Mekec
      * @author Muhammed Izaan
      */
@@ -277,7 +295,9 @@ public class Project1 {
     }
 
     /**
-     * Wraps up the methods for displaying the high school menu screen and start selecting from the high school menu in one call, and keeps running until the user terminates it.
+     * Wraps up the methods for displaying the high school menu screen and start
+     * selecting from the high school menu in one call, and keeps running until the
+     * user terminates it.
      *
      * @author Emre Mekec
      */
@@ -306,7 +326,8 @@ public class Project1 {
     /**
      * Selects the options from the high school menu.
      *
-     * @return A boolean value weather keeping the high school menu running or terminating it.
+     * @return A boolean value weather keeping the high school menu running or
+     *         terminating it.
      * @author Emre Mekec
      * @author Muhammed Izaan
      */
@@ -334,7 +355,9 @@ public class Project1 {
     }
 
     /**
-     * Wraps up the methods for displaying the university menu screen and start selecting from the university menu in one call, and keeps running until the user terminates it.
+     * Wraps up the methods for displaying the university menu screen and start
+     * selecting from the university menu in one call, and keeps running until the
+     * user terminates it.
      *
      * @author Emre Mekec
      */
@@ -362,7 +385,8 @@ public class Project1 {
     /**
      * Selects the options from the university menu.
      *
-     * @return A boolean value weather keeping the university menu running or terminating it.
+     * @return A boolean value weather keeping the university menu running or
+     *         terminating it.
      * @author Emre Mekec
      * @author Muhammed Izaan
      */
@@ -391,7 +415,8 @@ public class Project1 {
     // Methods for the method selectMenuPrimarySchool()
 
     /**
-     * Finds the zodiac sign of the user based on the day, month, and year input, and tells them how old they are as years, months, and days.
+     * Finds the zodiac sign of the user based on the day, month, and year input,
+     * and tells them how old they are as years, months, and days.
      *
      * @author Abdul Hadi Khan
      */
@@ -512,7 +537,7 @@ public class Project1 {
      * Gets the day from the user for the method ageZodiac().
      *
      * @param month The month to be used inside the method ageZodiac()
-     * @param year The year to be used inside the method ageZodiac()
+     * @param year  The year to be used inside the method ageZodiac()
      * @return Day taken from the user
      * @author Abdul Hadi Khan
      */
@@ -587,7 +612,7 @@ public class Project1 {
      * Gets the days in a month to be used in the method getZodiac.
      *
      * @param month The month taken from the user
-     * @param year The year taken from the user
+     * @param year  The year taken from the user
      * @return A number of the days in the month
      * @author Abdul Hadi Khan
      */
@@ -630,7 +655,7 @@ public class Project1 {
     /**
      * Gets the zodiac sign result.
      *
-     * @param day The day taken from the user
+     * @param day   The day taken from the user
      * @param month The month taken from the user
      * @return The found zodiac sign of the user
      * @author Abdul Hadi Khan
@@ -753,8 +778,10 @@ public class Project1 {
     /**
      * Checks for the Turkish letters.
      *
-     * @param c A char variable representing characters to be checked one by one from the words of a given sentence
-     * @return A boolean value deciding if a word taken as input is a Turkish word or not
+     * @param c A char variable representing characters to be checked one by one
+     *          from the words of a given sentence
+     * @return A boolean value deciding if a word taken as input is a Turkish word
+     *         or not
      * @author Abdul Hadi Khan
      */
     public static boolean isTurkishLetter(char c) {
@@ -811,7 +838,8 @@ public class Project1 {
      * Reverses a given word recursively.
      *
      * @param s A string parameter, standing for a word to be reversed recursively
-     * @return A boolean value deciding if a word taken as input is a Turkish word or not
+     * @return A boolean value deciding if a word taken as input is a Turkish word
+     *         or not
      * @author Abdul Hadi Khan
      */
     public static String reverseRecursive(String s) {
@@ -827,10 +855,28 @@ public class Project1 {
     // All 3 Algorithm for Finding Prime Numbers
 
     // Necessary Variables
+
+    /**
+     * Array holding the most recently generated prime numbers.
+     *
+     * <p>
+     * Note: this is reused by the different sieve methods; the returned array
+     * reference from each method points to a newly sized array assigned here.
+     */
     static int Primes[];
+    /**
+     * Number of primes stored in {@code Primes} after the last generation call.
+     */
     static int count = 0;
 
-    // EratosthenesFormula
+    /**
+     * The EratosthenesFormula() is the function made to find prime numbers using
+     * the Eratosthene method
+     * 
+     * @param
+     * @author Muhammad Izaan Ul Haque
+     */
+
     public static int[] eratosthenesFormula(int n) {
         boolean isPrime[] = new boolean[n + 1];
         Arrays.fill(isPrime, true);
@@ -865,7 +911,12 @@ public class Project1 {
         return Primes;
     }
 
-    // Sieve of Sundaram
+    /**
+     * The EsieveSundaramArray() is the function made to find prime numbers using
+     * the Sieve of Sundaram method
+     * 
+     * @author Muhammad Izaan Ul Haque
+     */
 
     public static int[] sieveSundaramArray(int n) {
 
@@ -884,7 +935,8 @@ public class Project1 {
                 return new int[0];
         }
 
-        // Use a boolean marker array indexed 0...k (we'll ignore index 0 in marking logic)
+        // Use a boolean marker array indexed 0...k (we'll ignore index 0 in marking
+        // logic)
         boolean[] marked = new boolean[k + 1]; // default false
 
         // Mark indices of form i + j + 2*i*j (1 <= i <= j) up to k
@@ -928,7 +980,12 @@ public class Project1 {
         return Primes;
     }
 
-    // Sieve of Atkin
+    /**
+     * The sieveAtkinArray() is the function made to find prime numbers using the
+     * Sieve of Atkin method
+     * 
+     * @author Muhammad Izaan Ul Haque
+     */
 
     public static int[] sieveAtkinArray(int n) {
         if (n < 2) {
@@ -1011,6 +1068,20 @@ public class Project1 {
         return Primes;
     }
 
+    /**
+     * Build a short string representation showing the first {@code k} elements
+     * of an integer array.
+     *
+     * <p>
+     * Used for compact display: prints "[a, b, c]" when length <= k, otherwise
+     * prints "[a, b, c, ...]". Returns "[]" for null or empty arrays.
+     *
+     * @param arr the array to inspect (may be null)
+     * @param k   maximum number of elements to include from the start
+     * @return a compact string representing the first up to {@code k} elements
+     *         of {@code arr}
+     */
+
     public static String firstK(int[] arr, int k) {
         if (arr == null || arr.length == 0)
             return "[]";
@@ -1026,6 +1097,20 @@ public class Project1 {
         sb.append("]");
         return sb.toString();
     }
+
+    /**
+     * Build a short string representation showing the last {@code k} elements
+     * of an integer array.
+     *
+     * <p>
+     * Used for compact display: prints "[..., x, y]" when array is longer
+     * than {@code k}. Returns "[]" for null or empty arrays.
+     *
+     * @param arr the array to inspect (may be null)
+     * @param k   maximum number of elements to include from the end
+     * @return a compact string representing the last up to {@code k} elements
+     *         of {@code arr}
+     */
 
     public static String lastK(int[] arr, int k) {
         if (arr == null || arr.length == 0)
@@ -1043,11 +1128,37 @@ public class Project1 {
         return sb.toString();
     }
 
+    /**
+     * Format a millisecond duration to a string with three decimal places.
+     *
+     * @param ms duration in milliseconds
+     * @return formatted string like "12.345"
+     */
+
     public static String fmtMs(double ms) {
         return String.format("%.3f", ms);
     }
 
     // Prime Numbers main function
+
+    /**
+     * Interactive console routine to:
+     * - prompt the user for an integer {@code n >= 12},
+     * - run the three sieve algorithms (Eratosthenes, Sundaram, Atkin),
+     * - measure runtime of each in milliseconds,
+     * - and print a compact comparative summary.
+     *
+     * <p>
+     * Uses {@code SC} (a Scanner) to read console input and writes results to
+     * standard output. The method loops until a valid integer >= 12 is entered.
+     *
+     * <strong>Side effects:</strong> reads from input, prints to output, and
+     * measures system time with {@code System.nanoTime()}.
+     *
+     * @see #eratosthenesFormula(int)
+     * @see #sieveSundaramArray(int)
+     * @see #sieveAtkinArray(int)
+     */
     public static void primeNumbers() {
 
         int num = 0;
@@ -1105,6 +1216,30 @@ public class Project1 {
     }
 
     // Replace the existing empty evalExpression() with the following methods:
+
+    /**
+     * Interactive, step-by-step evaluator for arithmetic expressions.
+     *
+     * <p>
+     * Prompts the user to enter an expression consisting of integers,
+     * parentheses, and operators {@code +}, {@code -}, {@code x} (or {@code X},
+     * {@code *}),
+     * and {@code :} (or {@code /}). The method validates input, normalizes
+     * operator synonyms, then repeatedly simplifies the expression one step at a
+     * time
+     * printing each intermediate form until a final value is reached.
+     *
+     * <p>
+     * Unary minus is supported. Leading '+' is considered invalid per spec.
+     * Uses helper routines for validation, tokenization and evaluation.
+     *
+     * <strong>Side effects:</strong> reads from input via {@code SC} and prints
+     * steps.
+     *
+     * @see #isValidExpression(String)
+     * @see #normalizeOperators(String)
+     * @see #simplifyOnce(String)
+     */
 
     public static void evalExpression() {
         clearScreen();
@@ -1167,6 +1302,20 @@ public class Project1 {
      * ----------
      */
 
+    /**
+     * Replace common operator synonyms with canonical internal symbols.
+     *
+     * <p>
+     * Specifically:
+     * <ul>
+     * <li>'×', '*', and 'X' -> 'x' (multiplication)</li>
+     * <li>'/' -> ':' (division)</li>
+     * </ul>
+     *
+     * @param s the input expression string (may contain various operator glyphs)
+     * @return a new string where operator synonyms are normalized to internal
+     *         tokens
+     */
     public static String normalizeOperators(String s) {
         // Replace multiple canonical synonyms with a single internal symbol:
         // multiplication: 'x', 'X', '*', '×' -> 'x'
@@ -1185,6 +1334,19 @@ public class Project1 {
         return sb.toString();
     }
 
+    /**
+     * Validate the syntax of an arithmetic expression according to the project
+     * rules.
+     *
+     * <p>
+     * Checks allowed characters (digits, whitespace, +, -, x/X/*, :/ /,
+     * parentheses),
+     * balanced parentheses, proper placement of operators, and unary minus rules.
+     * Leading '+' and illegal operator sequences are rejected.
+     *
+     * @param s the expression string to validate
+     * @return true if {@code s} is considered a valid expression; false otherwise
+     */
     public static boolean isValidExpression(String s) {
         // Allowed chars: digits, spaces, + - x X * × : / ( )
         // Normalize for checks
@@ -1331,6 +1493,27 @@ public class Project1 {
     // parentheses).
     // Returns list of tokens in order. Numbers are signed integers as full token
     // strings.
+
+    /**
+     * Convert an expression string into a list of canonical tokens.
+     *
+     * <p>
+     * Output tokens are:
+     * <ul>
+     * <li>signed integer literals like "-123" or "456"</li>
+     * <li>operator tokens: "+", "-", "x" (multiplication), ":" (division)</li>
+     * <li>parentheses "(" and ")"</li>
+     * </ul>
+     *
+     * <p>
+     * Unary minus immediately preceding a number produces a single signed-number
+     * token;
+     * a unary minus before a parenthesis is emitted as a separate "-" token.
+     *
+     * @param expr the input expression string (operator synonyms will be
+     *             normalized)
+     * @return ordered list of token strings suitable for evaluation routines
+     */
     public static List<String> tokenize(String expr) {
         expr = normalizeOperators(expr);
         List<String> tokens = new ArrayList<>();
@@ -1421,6 +1604,30 @@ public class Project1 {
     // Simplify the expression exactly once (one step). Returns the new expression
     // string.
     // If no further simplification possible, returns the same expression.
+
+    /**
+     * Perform a single simplification step on an arithmetic expression string.
+     *
+     * <p>
+     * The method:
+     * <ol>
+     * <li>reduces the innermost parenthesised subexpression to a single numeric
+     * token
+     * (evaluating it completely), or</li>
+     * <li>performs the leftmost multiplication/division, or</li>
+     * <li>performs the leftmost addition/subtraction</li>
+     * </ol>
+     * If no simplification is possible the original expression is returned.
+     *
+     * <p>
+     * Tokenization and helper evaluation methods are used internally.
+     *
+     * @param expr the current expression string
+     * @return a new expression string with one step simplified, or the original
+     *         {@code expr} if nothing could be simplified
+     * @throws ArithmeticException if a division by zero occurs while computing a
+     *                             step
+     */
     public static String simplifyOnce(String expr) {
         // Tokenize
         List<String> tokens = tokenize(expr);
@@ -1468,8 +1675,12 @@ public class Project1 {
             for (int i = 0; i < openIndex; i++) {
                 newTokens.add(tokens.get(i));
             }
-            /* If there is a '-' operator immediately before and it is a unary minus token (i.e. a '-' operator token and previous token was operator or '('), keep it.
-               But our tokenization handles unary negatives inside numbers, so we just add the numeric value token now. */
+            /*
+             * If there is a '-' operator immediately before and it is a unary minus token
+             * (i.e. a '-' operator token and previous token was operator or '('), keep it.
+             * But our tokenization handles unary negatives inside numbers, so we just add
+             * the numeric value token now.
+             */
             newTokens.add(value);
             for (int i = closeIndex + 1; i < tokens.size(); i++) {
                 newTokens.add(tokens.get(i));
@@ -1535,9 +1746,28 @@ public class Project1 {
         return expr;
     }
 
-    // Evaluate a list of tokens fully returning a single numeric string (handles
-    // precedence inside subexpression).
-    // Uses integer arithmetic (long) and integer division behavior.
+    /**
+     * Evaluate a token list fully and return a single numeric token string.
+     *
+     * <p>
+     * This performs:
+     * <ol>
+     * <li>resolution of any parenthesis (recursively),</li>
+     * <li>multiplication/division left-to-right,</li>
+     * <li>addition/subtraction left-to-right.</li>
+     * </ol>
+     *
+     * <p>
+     * All arithmetic is integer arithmetic using {@code long}; division is integer
+     * division. The returned string represents the final integer value (may be
+     * negative).
+     *
+     * @param tokensIn list of tokens representing a (sub)expression without
+     *                 external context
+     * @return the single numeric string representing the evaluated value
+     * @throws ArithmeticException   if division by zero occurs
+     * @throws NumberFormatException if an integer token cannot be parsed as long
+     */
     public static String evaluateTokensFully(List<String> tokensIn) {
         // Make a mutable copy
         List<String> tokens = new ArrayList<>(tokensIn);
@@ -1652,8 +1882,27 @@ public class Project1 {
         return tokens.get(0);
     }
 
-    // Compute binary operation between two numeric string tokens using integer
-    // arithmetic
+    /**
+     * Compute a binary operation between two numeric string tokens using integer
+     * arithmetic.
+     *
+     * <p>
+     * Supported operators:
+     * <ul>
+     * <li>"x" -> multiplication</li>
+     * <li>":" -> integer division (throws ArithmeticException on divide by
+     * zero)</li>
+     * <li>"+" -> addition</li>
+     * <li>"-" -> subtraction</li>
+     * </ul>
+     *
+     * @param lhsStr left-hand side numeric token (may be signed)
+     * @param op     operator token ("x", ":", "+", or "-")
+     * @param rhsStr right-hand side numeric token (may be signed)
+     * @return numeric result as a string
+     * @throws ArithmeticException   for division by zero
+     * @throws NumberFormatException if inputs are not valid integers
+     */
     public static String computeBinary(String lhsStr, String op, String rhsStr) {
         long lhs = parseLongSafe(lhsStr);
         long rhs = parseLongSafe(rhsStr);
@@ -1675,6 +1924,15 @@ public class Project1 {
         }
     }
 
+    /**
+     * Parse a string into a {@code long}, trimming whitespace and treating an
+     * empty string as zero.
+     *
+     * @param s string containing an integer (possibly with leading/trailing spaces)
+     * @return parsed long value
+     * @throws NumberFormatException if {@code s} (after trim) is not a valid
+     *                               integer
+     */
     public static long parseLongSafe(String s) {
         // s may include spaces, but tokenization shouldn't have them
         s = s.trim();
@@ -1682,6 +1940,17 @@ public class Project1 {
             return 0;
         return Long.parseLong(s);
     }
+
+    /**
+     * Join tokens into a single expression string with single-space separators.
+     *
+     * <p>
+     * This helper is used to reconstruct expressions after token-level
+     * modifications.
+     *
+     * @param tokens list of token strings
+     * @return single string expression with tokens separated by one space
+     */
 
     public static String joinTokens(List<String> tokens) {
         StringBuilder sb = new StringBuilder();
@@ -1695,6 +1964,18 @@ public class Project1 {
         }
         return sb.toString();
     }
+
+    /**
+     * Produce a nicely spaced string representation of an expression.
+     *
+     * <p>
+     * Tokenizes the expression and joins tokens with single spaces to normalize
+     * inconsistent spacing around operators and parentheses.
+     *
+     * @param expr input expression (possibly with irregular spacing)
+     * @return expression string with normalized spacing (single spaces between
+     *         tokens)
+     */
 
     public static String normalizeSpacing(String expr) {
         // Normalize spaces around operators and parentheses for nicer output
@@ -2003,19 +2284,22 @@ public class Project1 {
 
     // The Constants
     /**
-     * A char constant representing both the player 1 itself and their mark to be placed on the game board
+     * A char constant representing both the player 1 itself and their mark to be
+     * placed on the game board
      *
      */
     public static final char MARK_PLAYER_1 = '1';
 
     /**
-     * A char constant representing both the player 2 itself and their mark to be placed on the game board
+     * A char constant representing both the player 2 itself and their mark to be
+     * placed on the game board
      *
      */
     public static final char MARK_PLAYER_2 = '2';
 
     /**
-     * A char constant representing both the user computer and their mark to be placed on the game board
+     * A char constant representing both the user computer and their mark to be
+     * placed on the game board
      *
      */
     public static final char MARK_COMPUTER = 'B'; // (Stands for bot)
@@ -2027,7 +2311,8 @@ public class Project1 {
     public static final char EMPTY_CELL = ' ';
 
     /**
-     * Handles the setup (board size, game mode) for Connect Four and then launches the game.
+     * Handles the setup (board size, game mode) for Connect Four and then launches
+     * the game.
      *
      * @author Emre Mekec
      */
@@ -2114,7 +2399,8 @@ public class Project1 {
     /**
      * Selects the game mode for connect four.
      *
-     * @return A String value representing the game mode selection, if successfully made. Defaults to empty string, representing the need to try again.
+     * @return A String value representing the game mode selection, if successfully
+     *         made. Defaults to empty string, representing the need to try again.
      * @author Emre Mekec
      */
     public static String selectModeConnectFour() {
@@ -2160,7 +2446,7 @@ public class Project1 {
                     colSelected = getPlayerMove(board, currentPlayer);
                 } else {
                     colSelected = getComputerMove(board);
-                    waitMillis(delayAmount/2); // The bot is thinking.
+                    waitMillis(delayAmount / 2); // The bot is thinking.
                     System.out.println("Computer (Y) chose column " + (colSelected + 1));
                     waitMillis(delayAmount);
                 }
@@ -2251,7 +2537,8 @@ public class Project1 {
      *
      * @param board  The current game board
      * @param player A character value representing the player
-     * @return The 0-based column index, or -1 as the sentinel value if the player quits
+     * @return The 0-based column index, or -1 as the sentinel value if the player
+     *         quits
      * @author Emre Mekec
      */
     public static int getPlayerMove(char[][] board, char player) {
@@ -2306,14 +2593,15 @@ public class Project1 {
      * @author Emre Mekec
      */
     public static boolean isAllowed(char[][] board, int col) {
-        return board[0][col] == EMPTY_CELL; // If the top row of the selected column is not free, this will return false, meaning it's not allowed.
+        return board[0][col] == EMPTY_CELL; // If the top row of the selected column is not free, this will return
+                                            // false, meaning it's not allowed.
     }
 
     /**
      * Inserts a mark into the specified column.
      *
-     * @param board  The game board (will be modified)
-     * @param col    The 0-based column index
+     * @param board      The game board (will be modified)
+     * @param col        The 0-based column index
      * @param playerMark A char value representing player's mark
      * @author Emre Mekec
      */
@@ -2331,7 +2619,7 @@ public class Project1 {
     /**
      * Checks the entire board for a 4-in-a-row win for the specified player.
      *
-     * @param board  The current game board
+     * @param board      The current game board
      * @param playerMark A char value representing the player's mark to check for
      * @return true if a win is found, false otherwise
      * @author Emre Mekec
@@ -2343,28 +2631,36 @@ public class Project1 {
         // Checking the Horizontals
         for (char[] chars : board) {
             for (int j = 0; j <= cols - 4; j++) {
-                if (chars[j] == playerMark && chars[j + 1] == playerMark && chars[j + 2] == playerMark && chars[j + 3] == playerMark) return true;
+                if (chars[j] == playerMark && chars[j + 1] == playerMark && chars[j + 2] == playerMark
+                        && chars[j + 3] == playerMark)
+                    return true;
             }
         }
 
         // Checking the Verticals
         for (int j = 0; j < cols; j++) {
             for (int i = 0; i <= rows - 4; i++) {
-                if (board[i][j] == playerMark && board[i + 1][j] == playerMark && board[i + 2][j] == playerMark && board[i + 3][j] == playerMark) return true;
+                if (board[i][j] == playerMark && board[i + 1][j] == playerMark && board[i + 2][j] == playerMark
+                        && board[i + 3][j] == playerMark)
+                    return true;
             }
         }
 
         // Checking the Diagonals from the Bottom Left to the Top Right
         for (int i = 3; i < rows; i++) { // Start from row 3 (0-indexed)
             for (int j = 0; j <= cols - 4; j++) {
-                if (board[i][j] == playerMark && board[i - 1][j + 1] == playerMark && board[i - 2][j + 2] == playerMark && board[i - 3][j + 3] == playerMark) return true;
+                if (board[i][j] == playerMark && board[i - 1][j + 1] == playerMark && board[i - 2][j + 2] == playerMark
+                        && board[i - 3][j + 3] == playerMark)
+                    return true;
             }
         }
 
         // Checking the Diagonals from the Top Left to the Bottom Right
         for (int i = 0; i <= rows - 4; i++) {
             for (int j = 0; j <= cols - 4; j++) {
-                if (board[i][j] == playerMark && board[i + 1][j + 1] == playerMark && board[i + 2][j + 2] == playerMark && board[i + 3][j + 3] == playerMark) return true;
+                if (board[i][j] == playerMark && board[i + 1][j + 1] == playerMark && board[i + 2][j + 2] == playerMark
+                        && board[i + 3][j + 3] == playerMark)
+                    return true;
             }
         }
 
@@ -2381,7 +2677,8 @@ public class Project1 {
     public static boolean isBoardFull(char[][] board) {
         int cols = board[0].length;
         for (int j = 0; j < cols; j++) {
-            if (board[0][j] == EMPTY_CELL) return false;
+            if (board[0][j] == EMPTY_CELL)
+                return false;
         }
         return true;
     }
@@ -2404,7 +2701,8 @@ public class Project1 {
     /**
      * Waits for a specified amount of time.
      *
-     * @param periodMillis A variable to specify the time in milliseconds that program will wait whenever the method is called.
+     * @param periodMillis A variable to specify the time in milliseconds that
+     *                     program will wait whenever the method is called.
      * @author Emre Mekec
      */
     public static void waitMillis(long periodMillis) {
@@ -2418,7 +2716,8 @@ public class Project1 {
     }
 
     /**
-     * Prompts the user for a keystroke "ENTER" to proceed so that they will have the time to stop before moving on whatever's next after something's done.
+     * Prompts the user for a keystroke "ENTER" to proceed so that they will have
+     * the time to stop before moving on whatever's next after something's done.
      *
      * @author Emre Mekec
      */
