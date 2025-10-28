@@ -2074,7 +2074,7 @@ public class Project1 {
             // Get the Current Player's Move
             int moveCol = -1;
 
-            if (gameMode.equals("singleplayer")) {
+            if (gameMode.equals("multiplayer")) {
                 // Multiplayer Mode
                 moveCol = getPlayerMove(board, currentPlayer);
             } else {
@@ -2143,15 +2143,14 @@ public class Project1 {
      * @param board The current game board.
      */
     public static void printBoard(char[][] board) {
-        int rows = board.length;
         int cols = board[0].length;
 
         System.out.println("\n--- CONNECT FOUR ---");
         // Print board contents
-        for (int r = 0; r < rows; r++) {
+        for (char[] chars : board) {
             System.out.print("| ");
             for (int c = 0; c < cols; c++) {
-                System.out.print(board[r][c] + " | ");
+                System.out.print(chars[c] + " | ");
             }
             System.out.println();
         }
