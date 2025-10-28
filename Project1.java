@@ -14,7 +14,6 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Random;
 import java.util.Scanner;
-import java.io.IOException; //needed for the method waitForProceed().
 
 public class Project1 {
 
