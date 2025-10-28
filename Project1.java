@@ -1,7 +1,7 @@
 /**
  * A console project with Java showcasing programming fundamentals through an interactive menu system. The project includes multiple school levels with unique features implemented with structured programming and recursions.
- * @author Muhammed Izaan
  * @author Abdul Hadi Khan
+ * @author Muhammed Izaan
  * @author Sena Berra Soydugan
  * @author Emre Mekec
  * @version 1.0
