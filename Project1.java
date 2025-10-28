@@ -2024,6 +2024,11 @@ public class Project1 {
         }
     }
 
+    /**
+     * Shows the dimension options for connect four.
+     *
+     * @author Emre Mekec
+     */
     public static void showDimensionsConnectFour() {
         System.out.println("--- Connect Four: Board Sizes ---");
         System.out.println("[A] 5x4 (5 Rows, 4 Cols)");
@@ -2031,6 +2036,12 @@ public class Project1 {
         System.out.println("[C] 7x6 (7 Rows, 6 Cols)");
     }
 
+    /**
+     * Selects the dimension for connect four.
+     *
+     * @return A String value representing the dimension selection
+     * @author Emre Mekec
+     */
     public static String selectDimensionConnectFour() {
         System.out.print("Choice: ");
         String choice = SC.nextLine().trim().toUpperCase();
@@ -2050,12 +2061,23 @@ public class Project1 {
         return " ";
     }
 
+    /**
+     * Shows the game modes for connect four.
+     *
+     * @author Emre Mekec
+     */
     public static void showModesConnectFour() {
         System.out.println("--- Connect Four: Game Modes ---");
         System.out.println("[A] Single-Player (vs. Computer)");
         System.out.println("[B] Two-Players");
     }
 
+    /**
+     * Selects the game mode for connect four.
+     *
+     * @return A String value representing the game mode selection, if successfully made. Defaults to empty string, representing the need to try again.
+     * @author Emre Mekec
+     */
     public static String selectModeConnectFour() {
         System.out.print("Choice: ");
         String choice = SC.nextLine().trim().toUpperCase();
@@ -2079,56 +2101,54 @@ public class Project1 {
      * @param rows     The number of rows in the board
      * @param cols     The number of columns in the board
      * @param gameMode 1 for single-player, 2 for two-player
+     * @author Emre Mekec
      */
     public static void gameLoop(int rows, int cols, String gameMode) {
         char[][] board = initializeBoard(rows, cols);
-        boolean gameRunning = true;
-        char currentPlayer = MARK_PLAYER_1; // Player 1 always starts
+        boolean isConcluded = false;
+        char currentPlayer = MARK_PLAYER_1; // First, player 1 puts their mark.
 
-        while (gameRunning) {
+        while (!isConcluded) {
             clearScreen();
             printBoard(board);
 
-            // Get the Current Player's Move
-            int moveCol;
+            int colSelected;
 
             if (gameMode.equals("multiplayer")) {
-                // Multiplayer Mode
-                moveCol = getPlayerMove(board, currentPlayer);
+                colSelected = getPlayerMove(board, currentPlayer);
             } else {
-                // Singleplayer Mode
                 if (currentPlayer == MARK_PLAYER_1) {
-                    moveCol = getPlayerMove(board, currentPlayer);
+                    colSelected = getPlayerMove(board, currentPlayer);
                 } else {
-                    moveCol = getComputerMove(board);
-                    System.out.println("Computer (Y) chose column " + (moveCol + 1));
-                    waitMillis(delayAmount * 2); // Pause to simulate thinking
+                    colSelected = getComputerMove(board);
+                    waitMillis(delayAmount/2); // The bot is thinking.
+                    System.out.println("Computer (Y) chose column " + (colSelected + 1));
+                    waitMillis(delayAmount);
                 }
             }
 
             // Check for forfeit
-            if (moveCol == -1) {
-                gameRunning = false;
+            if (colSelected == -1) {
+                isConcluded = true;
                 System.out.println("Player " + currentPlayer + " has forfeited the game.");
                 continue; // Skip to the end
             }
 
-            // 2. Drop the disc in the board
-            dropDisc(board, moveCol, currentPlayer);
+            insertMark(board, colSelected, currentPlayer); // Insert the mark on the board
 
-            // 3. Check for game end conditions
+            // Check for the win conditions
             if (checkWin(board, currentPlayer)) {
                 clearScreen();
                 printBoard(board);
-                System.out.println("\n!!! PLAYER " + currentPlayer + " WINS! !!!\n");
-                gameRunning = false;
+                System.out.println("\nPlayer " + currentPlayer + " won!\n");
+                isConcluded = true;
             } else if (isBoardFull(board)) {
                 clearScreen();
                 printBoard(board);
-                System.out.println("\n!!! GAME OVER! It's a DRAW! !!!\n");
-                gameRunning = false;
+                System.out.println("\nDraw!\n");
+                isConcluded = true;
             } else {
-                // 4. Switch player
+                // Switch players
                 if (currentPlayer == MARK_PLAYER_1) {
                     currentPlayer = (gameMode.equals("singleplayer")) ? MARK_COMPUTER : MARK_PLAYER_2;
                 } else {
@@ -2141,9 +2161,10 @@ public class Project1 {
     /**
      * Creates a new Connect Four board filled with empty slots.
      *
-     * @param rows Number of rows.
-     * @param cols Number of columns.
-     * @return The initialized 2D char array.
+     * @param rows Number of rows
+     * @param cols Number of columns
+     * @return The initialized 2D char array
+     * @author Emre Mekec
      */
     public static char[][] initializeBoard(int rows, int cols) {
         char[][] board = new char[rows][cols];
@@ -2158,41 +2179,41 @@ public class Project1 {
     /**
      * Prints the Connect Four board to the console.
      *
-     * @param board The current game board.
+     * @param board The current game board
+     * @author Emre Mekec
      */
     public static void printBoard(char[][] board) {
+        System.out.println();
         int cols = board[0].length;
 
-        System.out.println("\n------ CONNECT FOUR ------");
-        // Print board contents
         for (char[] chars : board) {
             System.out.print("| ");
-            for (int c = 0; c < cols; c++) {
-                System.out.print(chars[c] + " | ");
+            for (int i = 0; i < cols; i++) {
+                System.out.print(chars[i] + " | ");
             }
             System.out.println();
         }
 
-        // Print separator
-        for (int c = 0; c < cols; c++) {
+        for (int j = 0; j < cols; j++) {
             System.out.print("----");
         }
         System.out.println("-");
 
-        // Print column numbers
+        // Display the columns numbers
         System.out.print("  ");
-        for (int c = 0; c < cols; c++) {
-            System.out.print((c + 1) + "   ");
+        for (int j = 0; j < cols; j++) {
+            System.out.print((j + 1) + "   ");
         }
         System.out.println("\n");
     }
 
     /**
-     * Gets a valid column move from a human player.
+     * Gets a valid column move from a human player
      *
-     * @param board  The current game board.
-     * @param player The character representing the player.
-     * @return The 0-based column index, or -1 if the player quits.
+     * @param board  The current game board
+     * @param player A character value representing the player
+     * @return The 0-based column index, or -1 as the sentinel value if the player quits
+     * @author Emre Mekec
      */
     public static int getPlayerMove(char[][] board, char player) {
         int cols = board[0].length;
@@ -2209,10 +2230,10 @@ public class Project1 {
 
                 if (col < 0 || col >= cols) {
                     System.out.println("Invalid column. Please choose between 1 and " + cols + ".");
-                } else if (!isValidMove(board, col)) {
+                } else if (!isAllowed(board, col)) {
                     System.out.println("Column " + (col + 1) + " is full. Please choose another.");
                 } else {
-                    return col; // Valid move
+                    return col;
                 }
             } catch (NumberFormatException e) {
                 System.out.println("Invalid input. Please enter a number.");
@@ -2221,113 +2242,109 @@ public class Project1 {
     }
 
     /**
-     * Gets a valid random column move for the computer.
+     * Gets a valid random column move for the computer
      *
-     * @param board The current game board.
-     * @return The 0-based column index.
+     * @param board The current game board
+     * @return The 0-based column index
+     * @author Emre Mekec
      */
     public static int getComputerMove(char[][] board) {
         int cols = board[0].length;
         while (true) {
-            int col = RAND.nextInt(cols); // Pick a random column (0 to cols-1)
-            if (isValidMove(board, col)) {
-                return col; // Return if the column is not full
-            }
-            // If column is full, the loop repeats to find another
+            int col = RAND.nextInt(cols); // Pick a random column number from 0 to cols-1
+            if (isAllowed(board, col))
+                return col;
+            // If column is not available, try again.
         }
     }
 
     /**
      * Checks if a move is valid (i.e., the column is not full).
      *
-     * @param board The current game board.
-     * @param col   The 0-based column index.
-     * @return true if the column is not full, false otherwise.
+     * @param board The current game board
+     * @param col   The 0-based column index
+     * @return true if the column is not full, false otherwise
+     * @author Emre Mekec
      */
-    public static boolean isValidMove(char[][] board, int col) {
-        return board[0][col] == EMPTY_CELL; // Check only the top row
+    public static boolean isAllowed(char[][] board, int col) {
+        return board[0][col] == EMPTY_CELL; // If the top row of the selected column is not free, this will return false, meaning it's not allowed.
     }
 
     /**
-     * "Drops" a disc into the specified column.
+     * Inserts a mark into the specified column.
      *
-     * @param board  The game board (will be modified).
-     * @param col    The 0-based column index.
-     * @param player The player's disc character.
+     * @param board  The game board (will be modified)
+     * @param col    The 0-based column index
+     * @param playerMark A char value representing player's mark
+     * @author Emre Mekec
      */
-    public static void dropDisc(char[][] board, int col, char player) {
+    public static void insertMark(char[][] board, int col, char playerMark) {
         int rows = board.length;
-        // Start from the bottom row and go up
-        for (int r = rows - 1; r >= 0; r--) {
-            if (board[r][col] == EMPTY_CELL) {
-                board[r][col] = player; // Place the disc
-                return; // Exit the method
-            }
-        }
-    }
 
-    /**
-     * Checks if the board is completely full (a draw condition).
-     *
-     * @param board The current game board.
-     * @return true if the board is full, false otherwise.
-     */
-    public static boolean isBoardFull(char[][] board) {
-        int cols = board[0].length;
-        for (int c = 0; c < cols; c++) {
-            if (board[0][c] == EMPTY_CELL) {
-                return false; // If any slot in the top row is empty, not full
+        for (int i = rows - 1; i >= 0; i--) {
+            if (board[i][col] == EMPTY_CELL) {
+                board[i][col] = playerMark;
+                return;
             }
         }
-        return true; // All top slots are full
     }
 
     /**
      * Checks the entire board for a 4-in-a-row win for the specified player.
      *
-     * @param board  The current game board.
-     * @param player The player's disc character to check for.
-     * @return true if a win is found, false otherwise.
+     * @param board  The current game board
+     * @param playerMark A char value representing the player's mark to check for
+     * @return true if a win is found, false otherwise
+     * @author Emre Mekec
      */
-    public static boolean checkWin(char[][] board, char player) {
+    public static boolean checkWin(char[][] board, char playerMark) {
         int rows = board.length;
         int cols = board[0].length;
 
         // Checking the Horizontals
         for (char[] chars : board) {
             for (int j = 0; j <= cols - 4; j++) {
-                if (chars[j] == player && chars[j + 1] == player && chars[j + 2] == player && chars[j + 3] == player) {
-                    return true;
-                }
+                if (chars[j] == playerMark && chars[j + 1] == playerMark && chars[j + 2] == playerMark && chars[j + 3] == playerMark) return true;
             }
         }
 
         // Checking the Verticals
         for (int j = 0; j < cols; j++) {
             for (int i = 0; i <= rows - 4; i++) {
-                if (board[i][j] == player && board[i + 1][j] == player && board[i + 2][j] == player && board[i + 3][j] == player) {
-                    return true;
-                }
+                if (board[i][j] == playerMark && board[i + 1][j] == playerMark && board[i + 2][j] == playerMark && board[i + 3][j] == playerMark) return true;
             }
         }
 
-        // Checking the Diagonals from the Bottom Left to Top Right
-        for (int r = 3; r < rows; r++) { // Start from row 3 (0-indexed)
-            for (int c = 0; c <= cols - 4; c++) {
-                if (board[r][c] == player && board[r - 1][c + 1] == player && board[r - 2][c + 2] == player && board[r - 3][c + 3] == player)
-                    return true;
+        // Checking the Diagonals from the Bottom Left to the Top Right
+        for (int i = 3; i < rows; i++) { // Start from row 3 (0-indexed)
+            for (int j = 0; j <= cols - 4; j++) {
+                if (board[i][j] == playerMark && board[i - 1][j + 1] == playerMark && board[i - 2][j + 2] == playerMark && board[i - 3][j + 3] == playerMark) return true;
             }
         }
 
-        // Checking the Diagonals from the Top Left to Bottom Right
-        for (int r = 0; r <= rows - 4; r++) {
-            for (int c = 0; c <= cols - 4; c++) {
-                if (board[r][c] == player && board[r + 1][c + 1] == player && board[r + 2][c + 2] == player && board[r + 3][c + 3] == player)
-                    return true;
+        // Checking the Diagonals from the Top Left to the Bottom Right
+        for (int i = 0; i <= rows - 4; i++) {
+            for (int j = 0; j <= cols - 4; j++) {
+                if (board[i][j] == playerMark && board[i + 1][j + 1] == playerMark && board[i + 2][j + 2] == playerMark && board[i + 3][j + 3] == playerMark) return true;
             }
         }
 
-        return false; // No win found
+        return false;
+    }
+
+    /**
+     * Checks if the board is completely full (a draw condition).
+     *
+     * @param board The current game board
+     * @return true if the board is full, false otherwise
+     * @author Emre Mekec
+     */
+    public static boolean isBoardFull(char[][] board) {
+        int cols = board[0].length;
+        for (int j = 0; j < cols; j++) {
+            if (board[0][j] == EMPTY_CELL) return false;
+        }
+        return true;
     }
 
     // -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
