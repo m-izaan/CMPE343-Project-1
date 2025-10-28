@@ -84,7 +84,7 @@ public class Project1 {
         System.out.println("      \\      '._     \\  `'-._");
         System.out.println("       '._      '-.   \\      '-._/)");
         System.out.println("          `'- ,~- _.`  '.        '.--.");
-        System.out.print  ("jgs                      `-.,    / ..`\\"); System.out.println(" Sena Berra Soydugan");
+        System.out.print  ("credit: jgs              `-.,    / ..`\\"); System.out.println(" Sena Berra Soydugan");
         System.out.println("       .--.                 //'-.   o /");
         System.out.println("      /..  \\               (/     '--'");
         System.out.println("      \\o _ (____");
