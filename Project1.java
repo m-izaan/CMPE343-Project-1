@@ -1,3 +1,11 @@
+import java.nio.charset.StandardCharsets; //needed to scan for strings.
+import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import java.util.Random;
+import java.util.Scanner;
+
 /**
  * A console project with Java showcasing programming fundamentals through an interactive menu system. The project includes multiple school levels with unique features implemented with structured programming and recursions.
  *
@@ -8,20 +16,26 @@
  * @version 1.0
  */
 
-import java.nio.charset.StandardCharsets; //needed to scan for strings.
-import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Random;
-import java.util.Scanner;
-
 public class Project1 {
 
     // Global Constants
 
+    /**
+     * An object of the class Scanner to take user inputs
+     *
+     */
     public static final Scanner SC = new Scanner(System.in, StandardCharsets.UTF_8);
+
+    /**
+     * An object of the class random to get random values when needed
+     *
+     */
     public static final Random RAND = new Random();
+
+    /**
+     * A long constant to be used as the amount of time program should stop when used with waitBeforeProceed() or waitMillis() methods
+     *
+     */
     public static final long delayAmount = 500;
 
     // -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -29,6 +43,7 @@ public class Project1 {
     /**
      * The entry point of the program: calls the mainLoop(), then clears up the screen on program exit.
      *
+     * @param args command-line arguments
      * @author Emre Mekec
      */
     public static void main(String[] args) {
@@ -115,6 +130,7 @@ public class Project1 {
     /**
      * Selects the options from the main menu.
      *
+     * @return A boolean value weather keeping the program main loop running or terminating it.
      * @author Emre Mekec
      * @author Muhammed Izaan
      */
@@ -174,6 +190,7 @@ public class Project1 {
     /**
      * Selects the options from the primary school menu.
      *
+     * @return A boolean value weather keeping the primary school menu running or terminating it.
      * @author Emre Mekec
      * @author Muhammed Izaan
      */
@@ -232,6 +249,7 @@ public class Project1 {
     /**
      * Selects the options from the secondary school menu.
      *
+     * @return A boolean value weather keeping the secondary school menu running or terminating it.
      * @author Emre Mekec
      * @author Muhammed Izaan
      */
@@ -288,6 +306,7 @@ public class Project1 {
     /**
      * Selects the options from the high school menu.
      *
+     * @return A boolean value weather keeping the high school menu running or terminating it.
      * @author Emre Mekec
      * @author Muhammed Izaan
      */
@@ -343,6 +362,7 @@ public class Project1 {
     /**
      * Selects the options from the university menu.
      *
+     * @return A boolean value weather keeping the university menu running or terminating it.
      * @author Emre Mekec
      * @author Muhammed Izaan
      */
@@ -1982,9 +2002,28 @@ public class Project1 {
     // Methods for the method selectMenuUniversity()
 
     // The Constants
+    /**
+     * A char constant representing both the player 1 itself and their mark to be placed on the game board
+     *
+     */
     public static final char MARK_PLAYER_1 = '1';
+
+    /**
+     * A char constant representing both the player 2 itself and their mark to be placed on the game board
+     *
+     */
     public static final char MARK_PLAYER_2 = '2';
+
+    /**
+     * A char constant representing both the user computer and their mark to be placed on the game board
+     *
+     */
     public static final char MARK_COMPUTER = 'B'; // (Stands for bot)
+
+    /**
+     * A char constant representing the empty slots on the game board
+     *
+     */
     public static final char EMPTY_CELL = ' ';
 
     /**
