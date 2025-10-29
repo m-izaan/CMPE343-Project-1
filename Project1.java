@@ -2482,7 +2482,6 @@ public class Project1 {
 
             // Check for forfeit
             if (colSelected == -1) {
-                isConcluded = true;
                 System.out.println("Player " + currentPlayer + " has forfeited the game.");
                 return;
             }
