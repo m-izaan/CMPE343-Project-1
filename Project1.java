@@ -1263,7 +1263,6 @@ public class Project1 {
      * <p>
      * Unary minus is supported. Leading '+' is considered invalid per spec.
      * Uses helper routines for validation, tokenization and evaluation.
-     *
      * <strong>Side effects:</strong> reads from input via {@code SC} and prints
      * steps.
      *
