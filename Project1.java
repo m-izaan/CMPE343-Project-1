@@ -86,31 +86,6 @@ public class Project1 {
     // Menu Logic
 
     /**
-     * The main loop of the program: calls the menuMain().
-     *
-     * @author Emre Mekec
-     */
-    public static void mainLoop() {
-        menuMain();
-    }
-
-    /**
-     * Wraps up the methods for displaying everything within the main screen and
-     * start selecting from the main menu in one call, and keeps running until the
-     * user terminates it.
-     *
-     * @author Emre Mekec
-     */
-    public static void menuMain() {
-        boolean running = true;
-        while (running) {
-            showMenuMain();
-            running = selectMenuMain();
-            clearScreen();
-        }
-    }
-
-    /**
      * Shows the colorized ASCII art as the welcome message.
      *
      * @author Emre Mekec
@@ -141,6 +116,31 @@ public class Project1 {
         System.out.println(ANSI_BLUE + "               `````" + ANSI_RESET);
 
         System.out.println(ANSI_PURPLE + "\nWelcome to the CMPE-343 Project 1!\n" + ANSI_RESET);
+    }
+
+    /**
+     * The main loop of the program: calls the menuMain().
+     *
+     * @author Emre Mekec
+     */
+    public static void mainLoop() {
+        menuMain();
+    }
+
+    /**
+     * Wraps up the methods for displaying everything within the main screen and
+     * start selecting from the main menu in one call, and keeps running until the
+     * user terminates it.
+     *
+     * @author Emre Mekec
+     */
+    public static void menuMain() {
+        boolean running = true;
+        while (running) {
+            showMenuMain();
+            running = selectMenuMain();
+            clearScreen();
+        }
     }
 
     /**
@@ -223,80 +223,6 @@ public class Project1 {
     }
 
     /**
-     * Selects the options from the primary school menu.
-     *
-     * @return A boolean value weather keeping the primary school menu running or
-     *         terminating it.
-     * @author Emre Mekec
-     * @author Muhammed Izaan
-     */
-    public static boolean selectMenuPrimarySchool() {
-        System.out.print("Choice: ");
-        String choice = SC.nextLine().trim().toUpperCase();
-        String replay;
-        boolean showMessage = true;
-        switch (choice) {
-            case "A":
-                clearScreen();
-                ageZodiac();
-                while(showMessage) {
-                    System.out.printf("%nDo you want to play again or return to the primary school menu?%n%n");
-                    System.out.printf("[A] = Play Again%n[B] = Return to the primary school Menu%n");
-                    System.out.print("Choice: ");
-                    replay = SC.nextLine().trim().toUpperCase();
-                    switch (replay) {
-                        case "A":
-                            clearScreen();
-                            ageZodiac();
-                            break;
-                        case "B":
-                            showMessage = false;
-                            System.out.println("Returning to primary school menu...");
-                            waitMillis(DELAY_AMOUNT);
-                            break;
-                        default:
-                            System.out.println("Invalid option. Please select A or B.");
-                    }
-                }
-                break;
-            case "B":
-                clearScreen();
-                reverseWords();
-                while(showMessage) {
-                    System.out.printf("%nDo you want to play again or return to the primary school menu?%n%n");
-                    System.out.printf("[A] = Play Again%n[B] = Return to the primary school Menu%n");
-                    System.out.print("Choice: ");
-                    replay = SC.nextLine().trim().toUpperCase();
-                    switch (replay) {
-                        case "A":
-                            clearScreen();
-                            reverseWords();
-                            break;
-                        case "B":
-                            showMessage = false;
-                            System.out.println("Returning to primary school menu...");
-                            waitMillis(DELAY_AMOUNT);
-                            break;
-                        default:
-                            System.out.println("Invalid option. Please select A or B.");
-                            waitMillis(DELAY_AMOUNT*2);
-                    }
-                }
-                break;
-            case "C":
-                System.out.println("Returning to main menu...");
-                waitMillis(DELAY_AMOUNT);
-                return false;
-            default:
-                System.out.println("Invalid option. Please select A, B, or C.");
-                waitMillis(DELAY_AMOUNT*2);
-        }
-
-
-        return true;
-    }
-
-    /**
      * Wraps up the methods for displaying the secondary school menu screen and
      * start selecting from the secondary school menu in one call, and keeps running
      * until the user terminates it.
@@ -326,78 +252,6 @@ public class Project1 {
     }
 
     /**
-     * Selects the options from the secondary school menu.
-     *
-     * @return A boolean value weather keeping the secondary school menu running or
-     *         terminating it.
-     * @author Emre Mekec
-     * @author Muhammed Izaan
-     */
-    public static boolean selectMenuSecondarySchool() {
-        System.out.print("Choice: ");
-        String choice = SC.nextLine().trim().toUpperCase();
-        String replay;
-        boolean showMessage = true;
-        switch (choice) {
-            case "A":
-                primeNumbers();
-                while(showMessage) {
-                    System.out.printf("%nDo you want to play again or return to the secondary school menu?%n%n");
-                    System.out.printf("[A] = Play Again%n[B] = Return to the secondary school Menu%n");
-                    System.out.print("Choice: ");
-                    replay = SC.nextLine().trim().toUpperCase();
-                    switch (replay) {
-                        case "A":
-                            clearScreen();
-                            primeNumbers();
-                            break;
-                        case "B":
-                            showMessage = false;
-                            System.out.println("Returning to secondary school menu...");
-                            waitMillis(DELAY_AMOUNT);
-                            break;
-                        default:
-                            System.out.println("Invalid option. Please select A or B.");
-                            waitMillis(DELAY_AMOUNT*2);
-                    }
-                }
-                break;
-            case "B":
-                evalExpression();
-                while(showMessage) {
-                    System.out.printf("%nDo you want to play again or return to the secondary school menu?%n%n");
-                    System.out.printf("[A] = Play Again%n[B] = Return to the secondary school Menu%n");
-                    System.out.print("Choice: ");
-                    replay = SC.nextLine().trim().toUpperCase();
-                    switch (replay) {
-                        case "A":
-                            clearScreen();
-                            evalExpression();
-                            break;
-                        case "B":
-                            showMessage = false;
-                            System.out.println("Returning to secondary school menu...");
-                            waitMillis(DELAY_AMOUNT);
-                            break;
-                        default:
-                            System.out.println("Invalid option. Please select A or B.");
-                            waitMillis(DELAY_AMOUNT*2);
-                    }
-                }
-                break;
-            case "C":
-                System.out.println("Returning to Main Menu");
-                waitMillis(DELAY_AMOUNT);
-                return false;
-            default:
-                System.out.println("Invalid option. Please select A, B, or C.");
-                waitMillis(DELAY_AMOUNT*2);
-        }
-
-        return true;
-    }
-
-    /**
      * Wraps up the methods for displaying the high school menu screen and start
      * selecting from the high school menu in one call, and keeps running until the
      * user terminates it.
@@ -424,78 +278,6 @@ public class Project1 {
         System.out.println("[A] Statistical Information About an Array");
         System.out.println("[B] Distance Between Two Arrays");
         System.out.println("[C] Return to Main Menu");
-    }
-
-    /**
-     * Selects the options from the high school menu.
-     *
-     * @return A boolean value weather keeping the high school menu running or
-     *         terminating it.
-     * @author Emre Mekec
-     * @author Muhammed Izaan
-     */
-    public static boolean selectMenuHighSchool() {
-        System.out.print("Choice: ");
-        String choice = SC.nextLine().trim().toUpperCase();
-        String replay;
-        boolean showMessage = true;
-        switch (choice) {
-            case "A":
-                arrayStat();
-                while(showMessage) {
-                    System.out.printf("%nDo you want to play again or return to the high school menu?%n%n");
-                    System.out.printf("[A] = Play Again%n[B] = Return to the high school Menu%n");
-                    System.out.print("Choice: ");
-                    replay = SC.nextLine().trim().toUpperCase();
-                    switch (replay) {
-                        case "A":
-                            clearScreen();
-                            arrayStat();
-                            break;
-                        case "B":
-                            showMessage = false;
-                            System.out.println("Returning to high school menu...");
-                            waitMillis(DELAY_AMOUNT);
-                            break;
-                        default:
-                            System.out.println("Invalid option. Please select A or B.");
-                            waitMillis(DELAY_AMOUNT*2);
-                    }
-                }
-                break;
-            case "B":
-                arraysDistance();
-                while(showMessage) {
-                    System.out.printf("%nDo you want to play again or return to the high school menu?%n%n");
-                    System.out.printf("[A] = Play Again%n[B] = Return to the high school Menu%n");
-                    System.out.print("Choice: ");
-                    replay = SC.nextLine().trim().toUpperCase();
-                    switch (replay) {
-                        case "A":
-                            clearScreen();
-                            arraysDistance();
-                            break;
-                        case "B":
-                            showMessage = false;
-                            System.out.println("Returning to high school menu...");
-                            waitMillis(DELAY_AMOUNT);
-                            break;
-                        default:
-                            System.out.println("Invalid option. Please select A or B.");
-                            waitMillis(DELAY_AMOUNT*2);
-                    }
-                }
-                break;
-            case "C":
-                System.out.println("Returning to main menu...");
-                waitMillis(DELAY_AMOUNT);
-                return false;
-            default:
-                System.out.println("Invalid option. Please select A, B, or C.");
-                waitMillis(DELAY_AMOUNT*2);
-        }
-
-        return true;
     }
 
     /**
@@ -575,6 +357,13 @@ public class Project1 {
         return true;
     }
 
+    /**
+     * Selects the options from either primary school, or secondary school, or high school menu, depending on the menuType parameter.
+     *
+     * @param menuType A string value holding the value for the given menu type to run the method based on
+     * @return A boolean value weather keeping the selected menu running or terminating it.
+     * @author Emre Mekec
+     */
     public static boolean selectMenu(String menuType) {
         System.out.print("Choice: ");
         String choice = SC.nextLine().trim().toUpperCase();
