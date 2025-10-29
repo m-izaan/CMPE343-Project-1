@@ -198,6 +198,7 @@ public class Project1 {
                 return false;
             default:
                 System.out.println("Invalid option. Please select A, B, C, D or E.");
+                waitBeforeProceed();
         }
         return true;
     }
@@ -1579,7 +1580,7 @@ public class Project1 {
                 if (tokens.isEmpty())
                     unary = true;
                 else {
-                    String prev = tokens.getLast();
+                    String prev = tokens.get(tokens.size() - 1);
                     if ("(".equals(prev) || "+".equals(prev) || "-".equals(prev) || "x".equals(prev)
                             || ":".equals(prev)) {
                         unary = true;
