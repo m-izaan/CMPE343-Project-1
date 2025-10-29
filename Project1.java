@@ -1471,7 +1471,6 @@ public class Project1 {
                             return false;
                         }
                         // prevIsOp remains true until we see the number/paren content
-                        prevIsOp = true;
                         continue;
                     } else {
                         // binary minus
