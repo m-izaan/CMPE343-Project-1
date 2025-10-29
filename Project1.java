@@ -138,7 +138,7 @@ public class Project1 {
         System.out.println(ANSI_BLUE + "      \\      '._     \\  `'-._" + ANSI_RESET);
         System.out.println(ANSI_BLUE + "       '._      '-.   \\      '-._/)" + ANSI_RESET);
         System.out.println(ANSI_BLUE + "          `'- ,~- _.`  '.        '.--." + ANSI_RESET);
-        System.out.print(ANSI_YELLOW + "credit: jgs              " + ANSI_BLUE + "`-.,    / ..`\\" + ANSI_RESET);
+        System.out.print(ANSI_YELLOW + "                         " + ANSI_BLUE + "`-.,    / ..`\\" + ANSI_RESET);
         System.out.println(ANSI_GREEN + " Sena Berra Soydugan" + ANSI_RESET);
         System.out.println(ANSI_BLUE + "       .--.                 //'-.   o /" + ANSI_RESET);
         System.out.println(ANSI_BLUE + "      /..  \\               (/     '--'" + ANSI_RESET);
@@ -198,7 +198,7 @@ public class Project1 {
                 return false;
             default:
                 System.out.println("Invalid option. Please select A, B, C, D or E.");
-                waitBeforeProceed();
+                waitMillis(DELAY_AMOUNT*2);
         }
         return true;
     }
@@ -260,6 +260,7 @@ public class Project1 {
                 return false;
             default:
                 System.out.println("Invalid option. Please select A, B, or C.");
+                waitMillis(DELAY_AMOUNT*2);
         }
 
         return true;
@@ -320,6 +321,7 @@ public class Project1 {
                 return false;
             default:
                 System.out.println("Invalid option. Please select A, B, or C.");
+                waitMillis(DELAY_AMOUNT*2);
         }
 
         return true;
@@ -380,6 +382,7 @@ public class Project1 {
                 return false;
             default:
                 System.out.println("Invalid option. Please select A, B, or C.");
+                waitMillis(DELAY_AMOUNT*2);
         }
 
         return true;
@@ -435,7 +438,7 @@ public class Project1 {
                 return false;
             default:
                 System.out.println("Invalid option. Please select A or B.");
-                waitMillis(DELAY_AMOUNT);
+                waitMillis(DELAY_AMOUNT*2);
         }
 
         return true;
