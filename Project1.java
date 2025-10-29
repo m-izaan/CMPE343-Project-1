@@ -54,12 +54,6 @@ public class Project1 {
     public static final String ANSI_GREEN = "\u001B[32m";
 
     /**
-     * ANSI yellow code for the ASCII art.
-     *
-     */
-    public static final String ANSI_YELLOW = "\u001B[33m";
-
-    /**
      * ANSI blue code for the ASCII art.
      *
      */
@@ -125,9 +119,8 @@ public class Project1 {
         System.out.println(ANSI_BLUE + "                            .--." + ANSI_RESET);
         System.out.println(ANSI_BLUE + "                           /  ..\\" + ANSI_RESET);
         System.out.println(ANSI_BLUE + "                      ____.'  _o/" + ANSI_RESET);
-        System.out.println(ANSI_BLUE + "       .--.          '--.     |.__" + ANSI_RESET);
-        System.out.println(
-                ANSI_BLUE + "      /..  \\         _.-'     /--'" + ANSI_GREEN + " Abdul Hadi Khan" + ANSI_RESET);
+        System.out.println(ANSI_BLUE + "       .--.          '--.     |.__"  + ANSI_RESET);
+        System.out.println(ANSI_BLUE + "      /..  \\         _.-'     /--'" + ANSI_GREEN + " Abdul Hadi Khan" + ANSI_RESET);
         System.out.println(ANSI_BLUE + "      \\ o  /    _.--'        /" + ANSI_RESET);
         System.out.println(ANSI_BLUE + "      /    \\   ~'--....___.-'" + ANSI_RESET);
         System.out.println(ANSI_BLUE + "     /      \\" + ANSI_GREEN + " Muhammed Izaan Ul Haque" + ANSI_RESET);
@@ -136,8 +129,7 @@ public class Project1 {
         System.out.println(ANSI_BLUE + "      \\      '._     \\  `'-._" + ANSI_RESET);
         System.out.println(ANSI_BLUE + "       '._      '-.   \\      '-._/)" + ANSI_RESET);
         System.out.println(ANSI_BLUE + "          `'- ,~- _.`  '.        '.--." + ANSI_RESET);
-        System.out.println(ANSI_BLUE + "                         `-.,    / ..`\\" + ANSI_GREEN + " Sena Berra Soydugan"
-                + ANSI_RESET);
+        System.out.println(ANSI_BLUE + "                         `-.,    / ..`\\" + ANSI_GREEN + " Sena Berra Soydugan" + ANSI_RESET);
         System.out.println(ANSI_BLUE + "       .--.                 //'-.   o /" + ANSI_RESET);
         System.out.println(ANSI_BLUE + "      /..  \\               (/     '--'" + ANSI_RESET);
         System.out.println(ANSI_BLUE + "      \\o _ (____" + ANSI_RESET);
@@ -195,7 +187,7 @@ public class Project1 {
                 return false;
             default:
                 System.out.println("Invalid option. Please select A, B, C, D or E.");
-                waitBeforeProceed();
+                waitMillis(DELAY_AMOUNT*2);
         }
         return true;
     }
@@ -257,6 +249,7 @@ public class Project1 {
                 return false;
             default:
                 System.out.println("Invalid option. Please select A, B, or C.");
+                waitMillis(DELAY_AMOUNT*2);
         }
 
         return true;
@@ -317,6 +310,7 @@ public class Project1 {
                 return false;
             default:
                 System.out.println("Invalid option. Please select A, B, or C.");
+                waitMillis(DELAY_AMOUNT*2);
         }
 
         return true;
@@ -377,6 +371,7 @@ public class Project1 {
                 return false;
             default:
                 System.out.println("Invalid option. Please select A, B, or C.");
+                waitMillis(DELAY_AMOUNT*2);
         }
 
         return true;
@@ -432,7 +427,7 @@ public class Project1 {
                 return false;
             default:
                 System.out.println("Invalid option. Please select A or B.");
-                waitMillis(DELAY_AMOUNT);
+                waitMillis(DELAY_AMOUNT*2);
         }
 
         return true;
@@ -2122,7 +2117,6 @@ public class Project1 {
      * detects outliers based on the 1.5 * IQR rule. Finally, a small sorted preview
      * of the data is displayed for reference.
      */
-
     public static void arrayStat() {
         clearScreen();
         System.out.println("High School > Statistical Information About an Array");
@@ -2327,7 +2321,6 @@ public class Project1 {
      * within the specified inclusive range [min, max]. Continues asking until a
      * valid value is provided, then returns it.
      */
-
     public static int readIntInRange(String prompt, int min, int max) {
         while (true) {
             System.out.print(prompt);
@@ -2349,7 +2342,6 @@ public class Project1 {
      * as a double value. If parsing fails, the user is asked again until a valid
      * double is entered.
      */
-
     public static double readDouble(String prompt) {
         while (true) {
             System.out.print(prompt);
@@ -2384,7 +2376,6 @@ public class Project1 {
      * the inclusive range [min, max]. The array is filled element-by-element and
      * returned once complete.
      */
-
     public static int[] readIntArrayDigits(String head, int n, int min, int max) {
         System.out.println(head + " -> total " + n + " items.");
         int[] arr = new int[n];
