@@ -167,29 +167,39 @@ public class Project1 {
      * @author Muhammed Izaan
      */
     public static boolean selectMenuMain() {
+        boolean running = true;
         System.out.print("Choice: ");
         String choice = SC.nextLine().trim().toUpperCase();
-        switch (choice) {
-            case "A":
-                menuPrimarySchool();
-                break;
-            case "B":
-                menuSecondarySchool();
-                break;
-            case "C":
-                menuHighSchool();
-                break;
-            case "D":
-                menuUniversity();
-                break;
-            case "E":
-                System.out.println("Terminating... Goodbye!");
-                waitMillis(DELAY_AMOUNT);
-                return false;
-            default:
-                System.out.println("Invalid option. Please select A, B, C, D or E.");
-                waitMillis(DELAY_AMOUNT*2);
-        }
+        do {
+            switch (choice) {
+                case "A":
+                    menuPrimarySchool();
+                    running = false;
+                    break;
+                case "B":
+                    menuSecondarySchool();
+                    running = false;
+                    break;
+                case "C":
+                    menuHighSchool();
+                    running = false;
+                    break;
+                case "D":
+                    menuUniversity();
+                    running = false;
+                    break;
+                case "E":
+                    System.out.println("Terminating... Goodbye!");
+                    waitMillis(DELAY_AMOUNT);
+                    return false;
+                default:
+                    do {
+                        System.out.println("Invalid option. Please select A, B, C, D or E.");
+                        System.out.print("Choice: ");
+                        choice = SC.nextLine().trim().toUpperCase();
+                    } while(!choice.equals("A")&&!choice.equals("B")&&!choice.equals("C")&&!choice.equals("D")&&!choice.equals("E"));
+            }
+        } while (running);
         return true;
     }
 
