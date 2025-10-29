@@ -41,6 +41,36 @@ public class Project1 {
      */
     public static final long delayAmount = 500;
 
+    /**
+     * ANSI reset code for the ASCII art.
+     *
+     */
+    public static final String ANSI_RESET = "\u001B[0m";
+
+    /**
+     * ANSI green code for the ASCII art.
+     *
+     */
+    public static final String ANSI_GREEN = "\u001B[32m";
+
+    /**
+     * ANSI yellow code for the ASCII art.
+     *
+     */
+    public static final String ANSI_YELLOW = "\u001B[33m";
+
+    /**
+     * ANSI blue code for the ASCII art.
+     *
+     */
+    public static final String ANSI_BLUE = "\u001B[34m";
+
+    /**
+     * ANSI purple code for the ASCII art.
+     *
+     */
+    public static final String ANSI_PURPLE = "\u001B[35m";
+
     // -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
     /**
@@ -86,36 +116,41 @@ public class Project1 {
     }
 
     /**
-     * Shows the welcome message.
+     * Shows the colorized ASCII art as the welcome message.
      *
      * @author Emre Mekec
      * @author Abdul Hadi Khan
      */
     public static void showWelcome() {
-        System.out.println("                            .--.");
-        System.out.println("                           /  ..\\");
-        System.out.println("  Muhammed Izaan      ____.'  _o/");
-        System.out.println("       .--.          '--.     |.__");
-        System.out.print  ("      /..  \\         _.-'     /--'"); System.out.println(" Abdul Hadi Khan");
-        System.out.println("      \\ o  /    _.--'        /");
-        System.out.println("      /    \\   ~'--....___.-'");
-        System.out.println("     /      \\");
-        System.out.println("    (/      \\)      ,_");
-        System.out.println("     |      \\        |`\\");
-        System.out.println("      \\      '._     \\  `'-._");
-        System.out.println("       '._      '-.   \\      '-._/)");
-        System.out.println("          `'- ,~- _.`  '.        '.--.");
-        System.out.print  ("credit: jgs              `-.,    / ..`\\"); System.out.println(" Sena Berra Soydugan");
-        System.out.println("       .--.                 //'-.   o /");
-        System.out.println("      /..  \\               (/     '--'");
-        System.out.println("      \\o _ (____");
-        System.out.println("    __.|    .--'");
-        System.out.println("   '---\\    '.         ,");
-        System.out.println("        '.    '-.___.-'/");
-        System.out.print  ("          '-.__     _.'"); System.out.println(" Emre Mekec");
-        System.out.println("               `````");
+        System.out.println(ANSI_BLUE + "                            .--." + ANSI_RESET);
+        System.out.println(ANSI_BLUE + "                           /  ..\\" + ANSI_RESET);
+        System.out.print(ANSI_GREEN + "  Muhammed Izaan      " + ANSI_BLUE);
+        System.out.println("____.'  _o/" + ANSI_RESET);
+        System.out.print(ANSI_BLUE + "       .--.          '--." + ANSI_RESET);
+        System.out.println(ANSI_BLUE + "     |.__" + ANSI_RESET);
+        System.out.print(ANSI_BLUE + "      /..  \\         _.-'     /--'" + ANSI_RESET);
+        System.out.println(ANSI_GREEN + " Abdul Hadi Khan" + ANSI_RESET);
+        System.out.println(ANSI_BLUE + "      \\ o  /    _.--'        /" + ANSI_RESET);
+        System.out.println(ANSI_BLUE + "      /    \\   ~'--....___.-'" + ANSI_RESET);
+        System.out.println(ANSI_BLUE + "     /      \\" + ANSI_RESET);
+        System.out.println(ANSI_BLUE + "    (/      \\)      ,_" + ANSI_RESET);
+        System.out.println(ANSI_BLUE + "     |      \\        |`\\" + ANSI_RESET);
+        System.out.println(ANSI_BLUE + "      \\      '._     \\  `'-._" + ANSI_RESET);
+        System.out.println(ANSI_BLUE + "       '._      '-.   \\      '-._/)" + ANSI_RESET);
+        System.out.println(ANSI_BLUE + "          `'- ,~- _.`  '.        '.--." + ANSI_RESET);
+        System.out.print(ANSI_YELLOW + "credit: jgs              " + ANSI_BLUE + "`-.,    / ..`\\" + ANSI_RESET);
+        System.out.println(ANSI_GREEN + " Sena Berra Soydugan" + ANSI_RESET);
+        System.out.println(ANSI_BLUE + "       .--.                 //'-.   o /" + ANSI_RESET);
+        System.out.println(ANSI_BLUE + "      /..  \\               (/     '--'" + ANSI_RESET);
+        System.out.println(ANSI_BLUE + "      \\o _ (____" + ANSI_RESET);
+        System.out.println(ANSI_BLUE + "    __.|    .--'" + ANSI_RESET);
+        System.out.println(ANSI_BLUE + "   '---\\    '.         ," + ANSI_RESET);
+        System.out.println(ANSI_BLUE + "        '.    '-.___.-'/" + ANSI_RESET);
+        System.out.print(ANSI_BLUE + "          '-.__     _.'" + ANSI_RESET);
+        System.out.println(ANSI_GREEN + " Emre Mekec" + ANSI_RESET);
+        System.out.println(ANSI_BLUE + "               `````" + ANSI_RESET);
 
-        System.out.println("Welcome to the CMPE-343 Project 1!\n");
+        System.out.println(ANSI_PURPLE + "\nWelcome to the CMPE-343 Project 1!\n" + ANSI_RESET);
     }
 
     /**
@@ -909,7 +944,9 @@ public class Project1 {
     /**
      * The sieveSundaramArray() is the function made to find prime numbers using
      * the Sieve of Sundaram method
-     * 
+     *
+     * @param
+     * @return
      * @author Muhammad Izaan Ul Haque
      */
     public static int[] sieveSundaramArray(int n) {
@@ -977,7 +1014,9 @@ public class Project1 {
     /**
      * The sieveAtkinArray() is the function made to find prime numbers using the
      * Sieve of Atkin method
-     * 
+     *
+     * @param
+     * @return
      * @author Muhammad Izaan Ul Haque
      */
     public static int[] sieveAtkinArray(int n) {
@@ -2444,7 +2483,7 @@ public class Project1 {
             if (colSelected == -1) {
                 isConcluded = true;
                 System.out.println("Player " + currentPlayer + " has forfeited the game.");
-                continue; // Skip to the end
+                return;
             }
 
             insertMark(board, colSelected, currentPlayer); // Insert the mark on the board
