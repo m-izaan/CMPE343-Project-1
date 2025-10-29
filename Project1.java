@@ -446,7 +446,7 @@ public class Project1 {
 
     // -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
-    // Methods for the method selectMenuPrimarySchool()
+    // Methods for the selectMenu("primary school") call
 
     /**
      * Finds the zodiac sign of the user based on the day, month, and year input,
@@ -884,7 +884,7 @@ public class Project1 {
 
     // -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
-    // Methods for the method selectMenuSecondarySchool()
+    // Methods for the selectMenu("secondary school") call
 
     // Necessary Variables
 
@@ -2114,7 +2114,7 @@ public class Project1 {
 
     // -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
-    // Methods for the method selectMenuHighSchool()
+    // Methods for the selectMenu("high school") call
 
     /**
      * Method arrayStat(): Asks the user to enter the size and elements of an array
