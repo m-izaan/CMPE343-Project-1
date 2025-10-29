@@ -390,7 +390,7 @@ public class Project1 {
                     }
                     while(showMessage) {
                         System.out.printf("%nDo you want to play again or return to the %s menu?%n%n", menuType);
-                        System.out.printf("[A] = Play Again%n[B] = Return to the %s Menu%n", menuType);
+                        System.out.printf("[A] Play Again%n[B] Return to the %s Menu%n", menuType);
                         System.out.print("Choice: ");
                         replay = SC.nextLine().trim().toUpperCase();
                         switch (replay) {
@@ -422,7 +422,7 @@ public class Project1 {
                     }
                     while(showMessage) {
                         System.out.printf("%nDo you want to play again or return to the %s menu?%n%n", menuType);
-                        System.out.printf("[A] = Play Again%n[B] = Return to the %s Menu%n", menuType);
+                        System.out.printf("[A] Play Again%n[B] Return to the %s Menu%n", menuType);
                         System.out.print("Choice: ");
                         replay = SC.nextLine().trim().toUpperCase();
                         switch (replay) {
