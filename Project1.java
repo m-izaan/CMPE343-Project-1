@@ -330,7 +330,8 @@ public class Project1 {
         boolean running = true;
         System.out.print("Choice: ");
         String choice = SC.nextLine().trim().toUpperCase();
-        do {
+        do { /* this will run until the running flag is set to false because in case the input is invalid, new input should be handled separately to keep the invalid input warning on the screen.
+             the reason for that is the fact that the way this method works is screen is cleared after invalid input because program will turn back to where this method was called, unless we resolve it with something like this. */
             String replay;
             boolean showMessage = true;
             switch (choice) {
@@ -361,15 +362,15 @@ public class Project1 {
                 case "B":
                     System.out.println("Returning to main menu...");
                     waitMillis(DELAY_AMOUNT);
-                    return false;
+                    return false; // after the termination, false will be returned to the line that called this method for it to not be called again.
                 default:
                     do {
                         System.out.println("Invalid option. Please select A, or B.");
                         System.out.print("Choice: ");
                         choice = SC.nextLine().trim().toUpperCase();
-                    } while (!choice.equals("A") && !choice.equals("B"));
+                    } while (!choice.equals("A") && !choice.equals("B")); // valid input should be handled here until it's taken for the reasons explained on the first comment within this method.
             }
-        } while(running);
+        } while(running); //proper input was taken, game played, and now the next step is to return true to the line that called this method because the last selection was not a termination.
 
         return true;
     }
