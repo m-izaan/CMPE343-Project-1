@@ -138,7 +138,7 @@ public class Project1 {
         System.out.println(ANSI_BLUE + "      \\      '._     \\  `'-._" + ANSI_RESET);
         System.out.println(ANSI_BLUE + "       '._      '-.   \\      '-._/)" + ANSI_RESET);
         System.out.println(ANSI_BLUE + "          `'- ,~- _.`  '.        '.--." + ANSI_RESET);
-        System.out.print(ANSI_YELLOW + "credit: jgs              " + ANSI_BLUE + "`-.,    / ..`\\" + ANSI_RESET);
+        System.out.print(ANSI_YELLOW + "                         " + ANSI_BLUE + "`-.,    / ..`\\" + ANSI_RESET);
         System.out.println(ANSI_GREEN + " Sena Berra Soydugan" + ANSI_RESET);
         System.out.println(ANSI_BLUE + "       .--.                 //'-.   o /" + ANSI_RESET);
         System.out.println(ANSI_BLUE + "      /..  \\               (/     '--'" + ANSI_RESET);
@@ -2748,3 +2748,4 @@ public class Project1 {
         SC.nextLine();
     }
 }
+
