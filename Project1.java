@@ -205,7 +205,7 @@ public class Project1 {
         while (running) {
             clearScreen();
             showMenuPrimarySchool();
-            running = selectMenuPrimarySchool();
+            running = selectMenu("primary school");
         }
     }
 
@@ -308,7 +308,7 @@ public class Project1 {
         while (running) {
             clearScreen();
             showMenuSecondarySchool();
-            running = selectMenuSecondarySchool();
+            running = selectMenu("secondary school");
         }
     }
 
@@ -409,7 +409,7 @@ public class Project1 {
         while (running) {
             clearScreen();
             showMenuHighSchool();
-            running = selectMenuHighSchool();
+            running = selectMenu("high school");
         }
     }
 
@@ -569,6 +569,86 @@ public class Project1 {
                 return false;
             default:
                 System.out.println("Invalid option. Please select A or B.");
+                waitMillis(DELAY_AMOUNT*2);
+        }
+
+        return true;
+    }
+
+    public static boolean selectMenu(String menuType) {
+        System.out.print("Choice: ");
+        String choice = SC.nextLine().trim().toUpperCase();
+        String replay;
+        boolean showMessage = true;
+        switch (choice) {
+            case "A":
+                switch (menuType) {
+                    case "primary school" -> ageZodiac();
+                    case "secondary school" -> primeNumbers();
+                    case "high school" -> arrayStat();
+                }
+                while(showMessage) {
+                    System.out.printf("%nDo you want to play again or return to the %s menu?%n%n", menuType);
+                    System.out.printf("[A] = Play Again%n[B] = Return to the %s Menu%n", menuType);
+                    System.out.print("Choice: ");
+                    replay = SC.nextLine().trim().toUpperCase();
+                    switch (replay) {
+                        case "A":
+                            clearScreen();
+                            switch (menuType) {
+                                case "primary school" -> ageZodiac();
+                                case "secondary school" -> primeNumbers();
+                                case "high school" -> arrayStat();
+                            }
+                            break;
+                        case "B":
+                            showMessage = false;
+                            System.out.printf("Returning to %s menu...%n", menuType);
+                            waitMillis(DELAY_AMOUNT);
+                            break;
+                        default:
+                            System.out.println("Invalid option. Please select A or B.");
+                            waitMillis(DELAY_AMOUNT*2);
+                    }
+                }
+                break;
+            case "B":
+                switch (menuType) {
+                    case "primary school" -> reverseWords();
+                    case "secondary school" -> evalExpression();
+                    case "high school" -> arraysDistance();
+                }
+                while(showMessage) {
+                    System.out.printf("%nDo you want to play again or return to the %s menu?%n%n", menuType);
+                    System.out.printf("[A] = Play Again%n[B] = Return to the %s Menu%n", menuType);
+                    System.out.print("Choice: ");
+                    replay = SC.nextLine().trim().toUpperCase();
+                    switch (replay) {
+                        case "A":
+                            clearScreen();
+                            switch (menuType) {
+                                case "primary school" -> reverseWords();
+                                case "secondary school" -> evalExpression();
+                                case "high school" -> arraysDistance();
+                            }
+                            break;
+                        case "B":
+                            showMessage = false;
+                            System.out.printf("Returning to %s menu...%n", menuType);
+                            waitMillis(DELAY_AMOUNT);
+                            break;
+                        default:
+                            System.out.println("Invalid option. Please select A or B.");
+                            waitMillis(DELAY_AMOUNT*2);
+                    }
+                }
+                break;
+            case "C":
+                System.out.println("Returning to main menu...");
+                waitMillis(DELAY_AMOUNT);
+                return false;
+            default:
+                System.out.println("Invalid option. Please select A, B, or C.");
                 waitMillis(DELAY_AMOUNT*2);
         }
 
