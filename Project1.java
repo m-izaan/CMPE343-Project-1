@@ -2577,11 +2577,11 @@ public class Project1 {
 
         switch (choice) {
             case "A":
-                return "7x6";
+                return "5x4";
             case "B":
                 return "6x5";
             case "C":
-                return "5x4";
+                return "7x6";
             default:
                 System.out.println("Invalid choice. Please try again.");
                 waitMillis(DELAY_AMOUNT);
