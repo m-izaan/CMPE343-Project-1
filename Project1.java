@@ -39,7 +39,7 @@ public class Project1 {
      * used with waitBeforeProceed() or waitMillis() methods
      *
      */
-    public static final long delayAmount = 500;
+    public static final long DELAY_AMOUNT = 500;
 
     /**
      * ANSI reset code for the ASCII art.
@@ -194,7 +194,7 @@ public class Project1 {
                 break;
             case "E":
                 System.out.println("Terminating... Goodbye!");
-                waitMillis(delayAmount);
+                waitMillis(DELAY_AMOUNT);
                 return false;
             default:
                 System.out.println("Invalid option. Please select A, B, C, D or E.");
@@ -255,7 +255,7 @@ public class Project1 {
                 break;
             case "C":
                 System.out.println("Returning to main menu...");
-                waitMillis(delayAmount);
+                waitMillis(DELAY_AMOUNT);
                 return false;
             default:
                 System.out.println("Invalid option. Please select A, B, or C.");
@@ -315,7 +315,7 @@ public class Project1 {
                 break;
             case "C":
                 System.out.println("Returning to Main Menu");
-                waitMillis(delayAmount);
+                waitMillis(DELAY_AMOUNT);
                 return false;
             default:
                 System.out.println("Invalid option. Please select A, B, or C.");
@@ -375,7 +375,7 @@ public class Project1 {
                 break;
             case "C":
                 System.out.println("Returning to main menu...");
-                waitMillis(delayAmount);
+                waitMillis(DELAY_AMOUNT);
                 return false;
             default:
                 System.out.println("Invalid option. Please select A, B, or C.");
@@ -430,11 +430,11 @@ public class Project1 {
                 break;
             case "B":
                 System.out.println("Returning to main menu...");
-                waitMillis(delayAmount);
+                waitMillis(DELAY_AMOUNT);
                 return false;
             default:
                 System.out.println("Invalid option. Please select A or B.");
-                waitMillis(delayAmount);
+                waitMillis(DELAY_AMOUNT);
         }
 
         return true;
@@ -2407,7 +2407,7 @@ public class Project1 {
                 return "5x4";
             default:
                 System.out.println("Invalid choice. Please try again.");
-                waitMillis(delayAmount);
+                waitMillis(DELAY_AMOUNT);
         }
 
         return " ";
@@ -2442,7 +2442,7 @@ public class Project1 {
                 return "multiplayer";
             default:
                 System.out.println("Invalid choice. Please try again.");
-                waitMillis(delayAmount);
+                waitMillis(DELAY_AMOUNT);
         }
 
         return " ";
@@ -2474,9 +2474,9 @@ public class Project1 {
                     colSelected = getPlayerMove(board, currentPlayer);
                 } else {
                     colSelected = getComputerMove(board);
-                    waitMillis(delayAmount / 2); // The bot is thinking.
+                    waitMillis(DELAY_AMOUNT / 2); // The bot is thinking.
                     System.out.println("Computer (Y) chose column " + (colSelected + 1));
-                    waitMillis(delayAmount);
+                    waitMillis(DELAY_AMOUNT);
                 }
             }
 
