@@ -893,7 +893,7 @@ public class Project1 {
      * Note: this is reused by the different sieve methods; the returned array
      * reference from each method points to a newly sized array assigned here.
      */
-    static int Primes[];
+    static int[] Primes;
 
     /**
      * Number of primes stored in {@code Primes} after the last generation call.
