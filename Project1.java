@@ -909,7 +909,7 @@ public class Project1 {
      * @author Muhammad Izaan Ul Haque
      */
     public static int[] eratosthenesFormula(int n) {
-        boolean isPrime[] = new boolean[n + 1];
+        boolean[] isPrime = new boolean[n + 1];
         Arrays.fill(isPrime, true);
         if (n >= 2) {
             for (int x = 2; x * x <= n; x++) {
