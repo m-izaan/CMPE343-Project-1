@@ -1471,12 +1471,11 @@ public class Project1 {
                             return false;
                         }
                         // prevIsOp remains true until we see the number/paren content
-                        continue;
                     } else {
                         // binary minus
                         prevIsOp = true;
-                        continue;
                     }
+                    continue;
                 } else if (c == '+') {
                     // unary '+' is not allowed per sample, and we disallow leading '+'
                     if (prevIsOp) {
