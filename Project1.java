@@ -198,7 +198,7 @@ public class Project1 {
                 return false;
             default:
                 System.out.println("Invalid option. Please select A, B, C, D or E.");
-                waitBeforeProceed();
+                waitMillis(DELAY_AMOUNT*2);
         }
         return true;
     }
@@ -260,6 +260,7 @@ public class Project1 {
                 return false;
             default:
                 System.out.println("Invalid option. Please select A, B, or C.");
+                waitMillis(DELAY_AMOUNT*2);
         }
 
         return true;
@@ -320,6 +321,7 @@ public class Project1 {
                 return false;
             default:
                 System.out.println("Invalid option. Please select A, B, or C.");
+                waitMillis(DELAY_AMOUNT*2);
         }
 
         return true;
@@ -380,6 +382,7 @@ public class Project1 {
                 return false;
             default:
                 System.out.println("Invalid option. Please select A, B, or C.");
+                waitMillis(DELAY_AMOUNT*2);
         }
 
         return true;
@@ -435,7 +438,7 @@ public class Project1 {
                 return false;
             default:
                 System.out.println("Invalid option. Please select A or B.");
-                waitMillis(DELAY_AMOUNT);
+                waitMillis(DELAY_AMOUNT*2);
         }
 
         return true;
