@@ -124,15 +124,14 @@ public class Project1 {
     public static void showWelcome() {
         System.out.println(ANSI_BLUE + "                            .--." + ANSI_RESET);
         System.out.println(ANSI_BLUE + "                           /  ..\\" + ANSI_RESET);
-        System.out.print(ANSI_GREEN + "  Muhammed Izaan Ul Haque      " + ANSI_BLUE);
-        System.out.println("____.'  _o/" + ANSI_RESET);
+        System.out.println(ANSI_BLUE + "                      ____.'  _o/" + ANSI_RESET);
         System.out.print(ANSI_BLUE + "       .--.          '--." + ANSI_RESET);
         System.out.println(ANSI_BLUE + "     |.__" + ANSI_RESET);
         System.out.print(ANSI_BLUE + "      /..  \\         _.-'     /--'" + ANSI_RESET);
         System.out.println(ANSI_GREEN + " Abdul Hadi Khan" + ANSI_RESET);
         System.out.println(ANSI_BLUE + "      \\ o  /    _.--'        /" + ANSI_RESET);
         System.out.println(ANSI_BLUE + "      /    \\   ~'--....___.-'" + ANSI_RESET);
-        System.out.println(ANSI_BLUE + "     /      \\" + ANSI_RESET);
+        System.out.print  (ANSI_BLUE + "     /      \\" + ANSI_RESET); System.out.println(ANSI_GREEN + "  Muhammed Izaan Ul Haque      " + ANSI_RESET);
         System.out.println(ANSI_BLUE + "    (/      \\)      ,_" + ANSI_RESET);
         System.out.println(ANSI_BLUE + "     |      \\        |`\\" + ANSI_RESET);
         System.out.println(ANSI_BLUE + "      \\      '._     \\  `'-._" + ANSI_RESET);
