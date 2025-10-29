@@ -125,29 +125,26 @@ public class Project1 {
         System.out.println(ANSI_BLUE + "                            .--." + ANSI_RESET);
         System.out.println(ANSI_BLUE + "                           /  ..\\" + ANSI_RESET);
         System.out.println(ANSI_BLUE + "                      ____.'  _o/" + ANSI_RESET);
-        System.out.print(ANSI_BLUE + "       .--.          '--." + ANSI_RESET);
-        System.out.println(ANSI_BLUE + "     |.__" + ANSI_RESET);
-        System.out.print(ANSI_BLUE + "      /..  \\         _.-'     /--'" + ANSI_RESET);
-        System.out.println(ANSI_GREEN + " Abdul Hadi Khan" + ANSI_RESET);
+        System.out.println(ANSI_BLUE + "       .--.          '--.     |.__" + ANSI_RESET);
+        System.out.println(
+                ANSI_BLUE + "      /..  \\         _.-'     /--'" + ANSI_GREEN + " Abdul Hadi Khan" + ANSI_RESET);
         System.out.println(ANSI_BLUE + "      \\ o  /    _.--'        /" + ANSI_RESET);
         System.out.println(ANSI_BLUE + "      /    \\   ~'--....___.-'" + ANSI_RESET);
-        System.out.print(ANSI_BLUE + "     /      \\" + ANSI_RESET);
-        System.out.println(ANSI_GREEN + "  Muhammed Izaan Ul Haque      " + ANSI_RESET);
+        System.out.println(ANSI_BLUE + "     /      \\" + ANSI_GREEN + " Muhammed Izaan Ul Haque" + ANSI_RESET);
         System.out.println(ANSI_BLUE + "    (/      \\)      ,_" + ANSI_RESET);
         System.out.println(ANSI_BLUE + "     |      \\        |`\\" + ANSI_RESET);
         System.out.println(ANSI_BLUE + "      \\      '._     \\  `'-._" + ANSI_RESET);
         System.out.println(ANSI_BLUE + "       '._      '-.   \\      '-._/)" + ANSI_RESET);
         System.out.println(ANSI_BLUE + "          `'- ,~- _.`  '.        '.--." + ANSI_RESET);
-        System.out.print(ANSI_YELLOW + "                         " + ANSI_BLUE + "`-.,    / ..`\\" + ANSI_RESET);
-        System.out.println(ANSI_GREEN + " Sena Berra Soydugan" + ANSI_RESET);
+        System.out.println(ANSI_BLUE + "                         `-.,    / ..`\\" + ANSI_GREEN + " Sena Berra Soydugan"
+                + ANSI_RESET);
         System.out.println(ANSI_BLUE + "       .--.                 //'-.   o /" + ANSI_RESET);
         System.out.println(ANSI_BLUE + "      /..  \\               (/     '--'" + ANSI_RESET);
         System.out.println(ANSI_BLUE + "      \\o _ (____" + ANSI_RESET);
         System.out.println(ANSI_BLUE + "    __.|    .--'" + ANSI_RESET);
         System.out.println(ANSI_BLUE + "   '---\\    '.         ," + ANSI_RESET);
         System.out.println(ANSI_BLUE + "        '.    '-.___.-'/" + ANSI_RESET);
-        System.out.print(ANSI_BLUE + "          '-.__     _.'" + ANSI_RESET);
-        System.out.println(ANSI_GREEN + " Emre Mekec" + ANSI_RESET);
+        System.out.println(ANSI_BLUE + "          '-.__     _.'" + ANSI_GREEN + " Emre Mekec" + ANSI_RESET);
         System.out.println(ANSI_BLUE + "               `````" + ANSI_RESET);
 
         System.out.println(ANSI_PURPLE + "\nWelcome to the CMPE-343 Project 1!\n" + ANSI_RESET);
