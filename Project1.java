@@ -327,42 +327,49 @@ public class Project1 {
      * @author Muhammed Izaan
      */
     public static boolean selectMenuUniversity() {
+        boolean running = true;
         System.out.print("Choice: ");
         String choice = SC.nextLine().trim().toUpperCase();
-        String replay;
-        boolean showMessage = true;
-        switch (choice) {
-            case "A":
-                connectFour();
-                while(showMessage) {
-                    System.out.printf("%nDo you want to play again or return to the university menu?%n%n");
-                    System.out.printf("[A] = Play Again%n[B] = Return to the university Menu%n");
-                    System.out.print("Choice: ");
-                    replay = SC.nextLine().trim().toUpperCase();
-                    switch (replay) {
-                        case "A":
-                            clearScreen();
-                            connectFour();
-                            break;
-                        case "B":
-                            showMessage = false;
-                            System.out.println("Returning to university menu...");
-                            waitMillis(DELAY_AMOUNT);
-                            break;
-                        default:
-                            System.out.println("Invalid option. Please select A or B.");
-                            waitMillis(DELAY_AMOUNT*2);
+        do {
+            String replay;
+            boolean showMessage = true;
+            switch (choice) {
+                case "A":
+                    connectFour();
+                    while(showMessage) {
+                        System.out.printf("%nDo you want to play again or return to the university menu?%n%n");
+                        System.out.printf("[A] Play Again%n[B] Return to the university Menu%n");
+                        System.out.print("Choice: ");
+                        replay = SC.nextLine().trim().toUpperCase();
+                        switch (replay) {
+                            case "A":
+                                clearScreen();
+                                connectFour();
+                                break;
+                            case "B":
+                                showMessage = false;
+                                System.out.printf("Returning to university menu...%n");
+                                waitMillis(DELAY_AMOUNT);
+                                break;
+                            default:
+                                System.out.println("Invalid option. Please select A or B.");
+                                waitMillis(DELAY_AMOUNT*2);
+                        }
                     }
-                }
-                break;
-            case "B":
-                System.out.println("Returning to main menu...");
-                waitMillis(DELAY_AMOUNT);
-                return false;
-            default:
-                System.out.println("Invalid option. Please select A or B.");
-                waitMillis(DELAY_AMOUNT*2);
-        }
+                    running = false;
+                    break;
+                case "B":
+                    System.out.println("Returning to main menu...");
+                    waitMillis(DELAY_AMOUNT);
+                    return false;
+                default:
+                    do {
+                        System.out.println("Invalid option. Please select A, or B.");
+                        System.out.print("Choice: ");
+                        choice = SC.nextLine().trim().toUpperCase();
+                    } while (!choice.equals("A") && !choice.equals("B"));
+            }
+        } while(running);
 
         return true;
     }
