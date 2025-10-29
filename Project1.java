@@ -902,7 +902,7 @@ public class Project1 {
 
     /**
      * The EratosthenesFormula() is the function made to find prime numbers using
-     * the Eratosthenes method
+     * the Eratosthenes method.
      * 
      * @param n The maximum value up to which the method should search for and identify prime numbers
      * @author Muhammad Izaan Ul Haque
@@ -943,10 +943,10 @@ public class Project1 {
 
     /**
      * The sieveSundaramArray() is the function made to find prime numbers using
-     * the Sieve of Sundaram method
+     * the Sieve of Sundaram method.
      *
-     * @param
-     * @return
+     * @param n The upper limit (inclusive) for finding prime numbers
+     * @return A new int[] array containing all prime numbers found up to and including n, sorted in ascending order
      * @author Muhammad Izaan Ul Haque
      */
     public static int[] sieveSundaramArray(int n) {
@@ -1013,10 +1013,10 @@ public class Project1 {
 
     /**
      * The sieveAtkinArray() is the function made to find prime numbers using the
-     * Sieve of Atkin method
+     * Sieve of Atkin method.
      *
-     * @param
-     * @return
+     * @param n The upper limit (inclusive) for finding prime numbers
+     * @return A new int[] array containing all prime numbers found up to and including n, sorted in ascending order
      * @author Muhammad Izaan Ul Haque
      */
     public static int[] sieveAtkinArray(int n) {
