@@ -2014,7 +2014,15 @@ public class Project1 {
     // -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
     // Methods for the method selectMenuHighSchool()
-
+/**
+ * Method arrayStat(): Asks the user to enter the size and elements of an array and then calculates
+ * detailed statistical properties of that array. These include minimum, maximum,
+ * sum, mean, median, quartiles (Q1 and Q3), interquartile range (IQR), population
+ * and sample variances and standard deviations. It also attempts to compute
+ * geometric and harmonic means when permitted by mathematical constraints and
+ * detects outliers based on the 1.5 * IQR rule. Finally, a small sorted preview 
+ * of the data is displayed for reference.
+ */
     public static void arrayStat() {
         clearScreen();
         System.out.println("High School > Statistical Information About an Array");
@@ -2108,7 +2116,14 @@ public class Project1 {
         }
         System.out.println();
     }
-
+/**
+ * METHOD arrayDistance(): Reads two integer arrays of equal length from the user (each element limited
+ * to digits between 0 and 9). Then computes several distance and similarity
+ * measures between the arrays: Manhattan distance, Euclidean distance,
+ * Chebyshev distance, Hamming distance, Cosine similarity (and its derived
+ * cosine distance), and Minkowski distance based on a user-entered parameter p.
+ * The results are printed in a clear formatted report.
+ */
     public static void arraysDistance() {
         clearScreen();
         System.out.println("High School > Distance Between Two Arrays");
@@ -2182,6 +2197,11 @@ public class Project1 {
     }
 
     // Robust input helpers (for Sena's Part)
+    /**
+ * methodReadPositiveInt(): Continuously prompts the user with the given message until a valid integer
+ * greater than or equal to 1 is entered. Returns that integer once the input
+ * is valid.
+ */
     public static int readPositiveInt(String prompt) {
         while (true) {
             System.out.print(prompt);
@@ -2197,6 +2217,11 @@ public class Project1 {
         }
     }
 
+/**
+ * method readIntRange: Prompts the user for an integer and ensures that the entered value falls
+ * within the specified inclusive range [min, max]. Continues asking until a
+ * valid value is provided, then returns it.
+ */
     public static int readIntInRange(String prompt, int min, int max) {
         while (true) {
             System.out.print(prompt);
@@ -2211,7 +2236,11 @@ public class Project1 {
             }
         }
     }
-
+/**
+ * method readDouble(): Prompts the user with the given message and attempts to parse the input
+ * as a double value. If parsing fails, the user is asked again until a valid
+ * double is entered.
+ */
     public static double readDouble(String prompt) {
         while (true) {
             System.out.print(prompt);
@@ -2223,7 +2252,11 @@ public class Project1 {
             }
         }
     }
-
+/**
+ * method readDoubleInRange(): Reads a double value from the user, ensuring that it is within the range
+ * [min, maxInclOrInf]. If the value is out of range, the user is prompted again
+ * until a valid value is entered.
+ */
     public static double readDoubleInRange(String prompt, double min, double maxInclOrInf) {
         while (true) {
             double v = readDouble(prompt);
@@ -2233,7 +2266,11 @@ public class Project1 {
                     + (Double.isInfinite(maxInclOrInf) ? "" : (" and <= " + maxInclOrInf)));
         }
     }
-
+/**
+ * method readIntArrayDigits(): Reads an array of integers from the user, enforcing that each value lies in
+ * the inclusive range [min, max]. The array is filled element-by-element and
+ * returned once complete.
+ */
     public static int[] readIntArrayDigits(String head, int n, int min, int max) {
         System.out.println(head + " -> total " + n + " items.");
         int[] arr = new int[n];
@@ -2242,17 +2279,27 @@ public class Project1 {
         }
         return arr;
     }
-
+/**
+ * method fmt6():Formats a double value to exactly six decimal places and returns the formatted
+ * string representation.
+ */
     // Statistics internals (for Sena's Part)
     public static String fmt6(double v) {
         return String.format("%.6f", v);
     }
-
+/**
+ * method medianSorted():Computes the median of a sorted array. If the length is odd, the middle element
+ * is returned; if even, the average of the two center elements is returned.
+ */
     public static double medianSorted(double[] sorted) {
         int n = sorted.length;
         return (n % 2 == 1) ? sorted[n / 2] : (sorted[n / 2 - 1] + sorted[n / 2]) / 2.0;
     }
-
+/**
+ * method: quantileSorted():Computes a quantile of a sorted array using linear interpolation. The parameter
+ * q should be between 0 and 1, where q = 0.5 corresponds to the median, 0.25 to Q1,
+ * and 0.75 to Q3.
+ */
     public static double quantileSorted(double[] sorted, double q) {
         int n = sorted.length;
         if (n == 1)
@@ -2264,7 +2311,10 @@ public class Project1 {
             return sorted[n - 1];
         return sorted[idx] * (1 - frac) + sorted[idx + 1] * frac;
     }
-
+/**
+ * method variance(): Calculates the variance of the array using either population or sample formula.
+ * If sample is true, divides by (n - 1); otherwise divides by n.
+ */
     public static double variance(double[] a, double mean, boolean sample) {
         if (a.length <= (sample ? 1 : 0))
             return 0.0;
@@ -2275,7 +2325,10 @@ public class Project1 {
         }
         return ss / (sample ? (a.length - 1) : a.length);
     }
-
+/**
+ * method geometricMean():Computes the geometric mean of the elements of the array. Returns null if any
+ * element is non-positive, since the geometric mean is defined only for values > 0.
+ */
     public static Double geometricMean(double[] a) {
         double logSum = 0.0;
         for (double v : a) {
@@ -2285,7 +2338,11 @@ public class Project1 {
         }
         return Math.exp(logSum / a.length);
     }
-
+/**
+ * method harmonicMeanRecursive(): Computes the harmonic mean of the array using a recursive helper function to
+ * sum reciprocals. Returns null if any element is zero, because division by zero
+ * would make the harmonic mean undefined.
+ */
     public static Double harmonicMeanRecursive(double[] a) {
         for (double v : a)
             if (v == 0.0)
@@ -2293,7 +2350,10 @@ public class Project1 {
         double recSum = reciprocalSum(a, 0);
         return a.length / recSum;
     }
-
+/**
+ * method reciprocalSum(): A recursive helper method that returns the sum of reciprocals of array elements,
+ * starting from index i and proceeding to the end of the array.
+ */
     public static double reciprocalSum(double[] a, int i) {
         if (i == a.length)
             return 0.0;
@@ -2748,3 +2808,4 @@ public class Project1 {
         SC.nextLine();
     }
 }
+
