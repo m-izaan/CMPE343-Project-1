@@ -131,7 +131,8 @@ public class Project1 {
         System.out.println(ANSI_GREEN + " Abdul Hadi Khan" + ANSI_RESET);
         System.out.println(ANSI_BLUE + "      \\ o  /    _.--'        /" + ANSI_RESET);
         System.out.println(ANSI_BLUE + "      /    \\   ~'--....___.-'" + ANSI_RESET);
-        System.out.print  (ANSI_BLUE + "     /      \\" + ANSI_RESET); System.out.println(ANSI_GREEN + "  Muhammed Izaan Ul Haque      " + ANSI_RESET);
+        System.out.print(ANSI_BLUE + "     /      \\" + ANSI_RESET);
+        System.out.println(ANSI_GREEN + "  Muhammed Izaan Ul Haque      " + ANSI_RESET);
         System.out.println(ANSI_BLUE + "    (/      \\)      ,_" + ANSI_RESET);
         System.out.println(ANSI_BLUE + "     |      \\        |`\\" + ANSI_RESET);
         System.out.println(ANSI_BLUE + "      \\      '._     \\  `'-._" + ANSI_RESET);
@@ -197,7 +198,7 @@ public class Project1 {
                 return false;
             default:
                 System.out.println("Invalid option. Please select A, B, C, D or E.");
-                waitMillis(DELAY_AMOUNT*2);
+                waitBeforeProceed();
         }
         return true;
     }
@@ -259,7 +260,6 @@ public class Project1 {
                 return false;
             default:
                 System.out.println("Invalid option. Please select A, B, or C.");
-                waitMillis(DELAY_AMOUNT*2);
         }
 
         return true;
@@ -320,7 +320,6 @@ public class Project1 {
                 return false;
             default:
                 System.out.println("Invalid option. Please select A, B, or C.");
-                waitMillis(DELAY_AMOUNT*2);
         }
 
         return true;
@@ -381,7 +380,6 @@ public class Project1 {
                 return false;
             default:
                 System.out.println("Invalid option. Please select A, B, or C.");
-                waitMillis(DELAY_AMOUNT*2);
         }
 
         return true;
@@ -437,7 +435,7 @@ public class Project1 {
                 return false;
             default:
                 System.out.println("Invalid option. Please select A or B.");
-                waitMillis(DELAY_AMOUNT*2);
+                waitMillis(DELAY_AMOUNT);
         }
 
         return true;
@@ -1520,6 +1518,35 @@ public class Project1 {
         return true;
     }
 
+    // helper to detect numeric tokens (including signed numbers like "-12")
+    private static boolean isNumberToken(String t) {
+        return t != null && t.matches("-?\\d+");
+    }
+
+    // insert explicit 'x' tokens where implicit multiplication is intended
+    private static List<String> insertImplicitMultiplication(List<String> tokens) {
+        List<String> out = new ArrayList<>();
+        for (int i = 0; i < tokens.size(); i++) {
+            String cur = tokens.get(i);
+
+            if (!out.isEmpty()) {
+                String prev = out.get(out.size() - 1);
+
+                // If previous token is a number or ')' and current is a number or '(',
+                // this is implicit multiplication: insert 'x' between them.
+                boolean prevNumOrClose = isNumberToken(prev) || ")".equals(prev);
+                boolean curNumOrOpen = isNumberToken(cur) || "(".equals(cur);
+
+                if (prevNumOrClose && curNumOrOpen) {
+                    out.add("x");
+                }
+            }
+
+            out.add(cur);
+        }
+        return out;
+    }
+
     /**
      * Convert an expression string into a list of canonical tokens.
      *
@@ -1622,7 +1649,8 @@ public class Project1 {
             tokens.add(String.valueOf(c));
             i++;
         }
-        return tokens;
+        // handle implicit multiplication such as: 2(3+4), (2+3)(4+5), 3(4) or )(
+        return insertImplicitMultiplication(tokens);
     }
 
     // Simplify the expression exactly once (one step). Returns the new expression
@@ -1717,27 +1745,43 @@ public class Project1 {
         for (int i = 0; i < tokens.size(); i++) {
 
             String t = tokens.get(i);
-            if ("x".equals(t) || ":".equals(t)) {
-                // tokens i-1 (lhs) should exist and i+1 (rhs) should exist
-                if (i - 1 < 0 || i + 1 >= tokens.size()) {
-                    continue; // shouldn't happen due validation
-                }
-
-                String lhs = tokens.get(i - 1);
-                String rhs = tokens.get(i + 1);
-                String result = computeBinary(lhs, t, rhs);
-                // replace i-1..i+1 by result
-                List<String> newTokens = new ArrayList<>();
-
-                for (int j = 0; j < i - 1; j++) {
-                    newTokens.add(tokens.get(j));
+            // Prefer multiplication ('x') over division (':') when choosing which operation
+            // to
+            // perform in this single simplification step.
+            // This finds the leftmost 'x' first; if none exist, it finds the leftmost ':'.
+            int idx = -1;
+            // find leftmost multiplication 'x'
+            for (int x = 0; x < tokens.size(); x++) {
+                if ("x".equals(tokens.get(x))) {
+                    idx = x;
+                    break;
                 }
                 newTokens.add(result);
                 for (int j = i + 2; j < tokens.size(); j++) {
                     newTokens.add(tokens.get(j));
+                        idx = k;
+                        break;
+                    }
                 }
+            }
 
-                return joinTokens(newTokens);
+            if (idx != -1) {
+                // tokens idx-1 (lhs) and idx+1 (rhs) should exist (validation should guarantee
+                // this)
+                if (idx - 1 >= 0 && idx + 1 < tokens.size()) {
+                    String lhs = tokens.get(idx - 1);
+                    String rhs = tokens.get(idx + 1);
+                    String result = computeBinary(lhs, tokens.get(idx), rhs);
+                    List<String> newTokens = new ArrayList<>();
+                    for (int j = 0; j < idx - 1; j++) {
+                        newTokens.add(tokens.get(j));
+                    }
+                    newTokens.add(result);
+                    for (int j = idx + 2; j < tokens.size(); j++) {
+                        newTokens.add(tokens.get(j));
+                    }
+                    return joinTokens(newTokens);
+                }
             }
         }
 
@@ -1836,26 +1880,60 @@ public class Project1 {
             tokens = newT;
         }
 
-        // Now perform mult/div left->right
-        for (int i = 0; i < tokens.size();) {
-            String t = tokens.get(i);
-            if ("x".equals(t) || ":".equals(t)) {
-                String lhs = tokens.get(i - 1);
-                String rhs = tokens.get(i + 1);
-                String res = computeBinary(lhs, t, rhs);
-                List<String> newTokens = new ArrayList<>();
-                for (int j = 0; j < i - 1; j++) {
-                    newTokens.add(tokens.get(j));
+        // Evaluate multiplications first (leftmost 'x' repeatedly), then divisions.
+        // We loop: as long as there is any 'x', do the leftmost one; when no 'x'
+        // remains,
+        // perform leftmost ':' operations until none remain.
+        while (true) {
+            // find leftmost multiplication 'x'
+            int idxX = -1;
+            for (int i = 0; i < tokens.size(); i++) {
+                if ("x".equals(tokens.get(i))) {
+                    idxX = i;
+                    break;
                 }
-                newTokens.add(res);
-                for (int j = i + 2; j < tokens.size(); j++) {
-                    newTokens.add(tokens.get(j));
-                }
-                tokens = newTokens;
-                i = 0; // restart scan from beginning
-            } else {
-                i++;
             }
+            if (idxX != -1) {
+                // perform the multiplication
+                String lhs = tokens.get(idxX - 1);
+                String rhs = tokens.get(idxX + 1);
+                String res = computeBinary(lhs, "x", rhs);
+                List<String> newTokens = new ArrayList<>();
+                for (int j = 0; j < idxX - 1; j++)
+                    newTokens.add(tokens.get(j));
+                newTokens.add(res);
+                for (int j = idxX + 2; j < tokens.size(); j++)
+                    newTokens.add(tokens.get(j));
+                tokens = newTokens;
+                // continue loop to prefer more multiplications
+                continue;
+            }
+
+            // no multiplication left; find leftmost division ':'
+            int idxDiv = -1;
+            for (int i = 0; i < tokens.size(); i++) {
+                if (":".equals(tokens.get(i))) {
+                    idxDiv = i;
+                    break;
+                }
+            }
+            if (idxDiv != -1) {
+                String lhs = tokens.get(idxDiv - 1);
+                String rhs = tokens.get(idxDiv + 1);
+                String res = computeBinary(lhs, ":", rhs);
+                List<String> newTokens = new ArrayList<>();
+                for (int j = 0; j < idxDiv - 1; j++)
+                    newTokens.add(tokens.get(j));
+                newTokens.add(res);
+                for (int j = idxDiv + 2; j < tokens.size(); j++)
+                    newTokens.add(tokens.get(j));
+                tokens = newTokens;
+                // after division, loop again to check for any remaining multiplications
+                continue;
+            }
+
+            // no multiplications or divisions left
+            break;
         }
 
         // Then addition/subtraction left->right
@@ -2014,15 +2092,7 @@ public class Project1 {
     // -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
     // Methods for the method selectMenuHighSchool()
-/**
- * Method arrayStat(): Asks the user to enter the size and elements of an array and then calculates
- * detailed statistical properties of that array. These include minimum, maximum,
- * sum, mean, median, quartiles (Q1 and Q3), interquartile range (IQR), population
- * and sample variances and standard deviations. It also attempts to compute
- * geometric and harmonic means when permitted by mathematical constraints and
- * detects outliers based on the 1.5 * IQR rule. Finally, a small sorted preview 
- * of the data is displayed for reference.
- */
+
     public static void arrayStat() {
         clearScreen();
         System.out.println("High School > Statistical Information About an Array");
@@ -2116,14 +2186,7 @@ public class Project1 {
         }
         System.out.println();
     }
-/**
- * METHOD arrayDistance(): Reads two integer arrays of equal length from the user (each element limited
- * to digits between 0 and 9). Then computes several distance and similarity
- * measures between the arrays: Manhattan distance, Euclidean distance,
- * Chebyshev distance, Hamming distance, Cosine similarity (and its derived
- * cosine distance), and Minkowski distance based on a user-entered parameter p.
- * The results are printed in a clear formatted report.
- */
+
     public static void arraysDistance() {
         clearScreen();
         System.out.println("High School > Distance Between Two Arrays");
@@ -2197,11 +2260,6 @@ public class Project1 {
     }
 
     // Robust input helpers (for Sena's Part)
-    /**
- * methodReadPositiveInt(): Continuously prompts the user with the given message until a valid integer
- * greater than or equal to 1 is entered. Returns that integer once the input
- * is valid.
- */
     public static int readPositiveInt(String prompt) {
         while (true) {
             System.out.print(prompt);
@@ -2217,11 +2275,6 @@ public class Project1 {
         }
     }
 
-/**
- * method readIntRange: Prompts the user for an integer and ensures that the entered value falls
- * within the specified inclusive range [min, max]. Continues asking until a
- * valid value is provided, then returns it.
- */
     public static int readIntInRange(String prompt, int min, int max) {
         while (true) {
             System.out.print(prompt);
@@ -2236,11 +2289,7 @@ public class Project1 {
             }
         }
     }
-/**
- * method readDouble(): Prompts the user with the given message and attempts to parse the input
- * as a double value. If parsing fails, the user is asked again until a valid
- * double is entered.
- */
+
     public static double readDouble(String prompt) {
         while (true) {
             System.out.print(prompt);
@@ -2252,11 +2301,7 @@ public class Project1 {
             }
         }
     }
-/**
- * method readDoubleInRange(): Reads a double value from the user, ensuring that it is within the range
- * [min, maxInclOrInf]. If the value is out of range, the user is prompted again
- * until a valid value is entered.
- */
+
     public static double readDoubleInRange(String prompt, double min, double maxInclOrInf) {
         while (true) {
             double v = readDouble(prompt);
@@ -2266,11 +2311,7 @@ public class Project1 {
                     + (Double.isInfinite(maxInclOrInf) ? "" : (" and <= " + maxInclOrInf)));
         }
     }
-/**
- * method readIntArrayDigits(): Reads an array of integers from the user, enforcing that each value lies in
- * the inclusive range [min, max]. The array is filled element-by-element and
- * returned once complete.
- */
+
     public static int[] readIntArrayDigits(String head, int n, int min, int max) {
         System.out.println(head + " -> total " + n + " items.");
         int[] arr = new int[n];
@@ -2279,27 +2320,17 @@ public class Project1 {
         }
         return arr;
     }
-/**
- * method fmt6():Formats a double value to exactly six decimal places and returns the formatted
- * string representation.
- */
+
     // Statistics internals (for Sena's Part)
     public static String fmt6(double v) {
         return String.format("%.6f", v);
     }
-/**
- * method medianSorted():Computes the median of a sorted array. If the length is odd, the middle element
- * is returned; if even, the average of the two center elements is returned.
- */
+
     public static double medianSorted(double[] sorted) {
         int n = sorted.length;
         return (n % 2 == 1) ? sorted[n / 2] : (sorted[n / 2 - 1] + sorted[n / 2]) / 2.0;
     }
-/**
- * method: quantileSorted():Computes a quantile of a sorted array using linear interpolation. The parameter
- * q should be between 0 and 1, where q = 0.5 corresponds to the median, 0.25 to Q1,
- * and 0.75 to Q3.
- */
+
     public static double quantileSorted(double[] sorted, double q) {
         int n = sorted.length;
         if (n == 1)
@@ -2311,10 +2342,7 @@ public class Project1 {
             return sorted[n - 1];
         return sorted[idx] * (1 - frac) + sorted[idx + 1] * frac;
     }
-/**
- * method variance(): Calculates the variance of the array using either population or sample formula.
- * If sample is true, divides by (n - 1); otherwise divides by n.
- */
+
     public static double variance(double[] a, double mean, boolean sample) {
         if (a.length <= (sample ? 1 : 0))
             return 0.0;
@@ -2325,10 +2353,7 @@ public class Project1 {
         }
         return ss / (sample ? (a.length - 1) : a.length);
     }
-/**
- * method geometricMean():Computes the geometric mean of the elements of the array. Returns null if any
- * element is non-positive, since the geometric mean is defined only for values > 0.
- */
+
     public static Double geometricMean(double[] a) {
         double logSum = 0.0;
         for (double v : a) {
@@ -2338,11 +2363,7 @@ public class Project1 {
         }
         return Math.exp(logSum / a.length);
     }
-/**
- * method harmonicMeanRecursive(): Computes the harmonic mean of the array using a recursive helper function to
- * sum reciprocals. Returns null if any element is zero, because division by zero
- * would make the harmonic mean undefined.
- */
+
     public static Double harmonicMeanRecursive(double[] a) {
         for (double v : a)
             if (v == 0.0)
@@ -2350,10 +2371,7 @@ public class Project1 {
         double recSum = reciprocalSum(a, 0);
         return a.length / recSum;
     }
-/**
- * method reciprocalSum(): A recursive helper method that returns the sum of reciprocals of array elements,
- * starting from index i and proceeding to the end of the array.
- */
+
     public static double reciprocalSum(double[] a, int i) {
         if (i == a.length)
             return 0.0;
@@ -2808,4 +2826,3 @@ public class Project1 {
         SC.nextLine();
     }
 }
-
