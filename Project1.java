@@ -124,7 +124,7 @@ public class Project1 {
     public static void showWelcome() {
         System.out.println(ANSI_BLUE + "                            .--." + ANSI_RESET);
         System.out.println(ANSI_BLUE + "                           /  ..\\" + ANSI_RESET);
-        System.out.print(ANSI_GREEN + "  Muhammed Izaan      " + ANSI_BLUE);
+        System.out.print(ANSI_GREEN + "  Muhammed Izaan Ul Haque      " + ANSI_BLUE);
         System.out.println("____.'  _o/" + ANSI_RESET);
         System.out.print(ANSI_BLUE + "       .--.          '--." + ANSI_RESET);
         System.out.println(ANSI_BLUE + "     |.__" + ANSI_RESET);
@@ -883,8 +883,6 @@ public class Project1 {
 
     // Methods for the method selectMenuSecondarySchool()
 
-    // All 3 Algorithm for Finding Prime Numbers
-
     // Necessary Variables
 
     /**
@@ -1200,11 +1198,11 @@ public class Project1 {
         int num = 0;
 
         while (true) {
-            System.out.print("Enter an integer n (n >= 12): ");
+            System.out.print("Enter an integer n (n >= 12 and n <= 1000): ");
             String line = SC.nextLine().trim();
             try {
                 num = Integer.parseInt(line);
-                if (num >= 12) {
+                if (num >= 12 && num <= 1000) {
                     break;
                 } else {
                     System.out.println("Value out of range. Try again!");
@@ -1250,8 +1248,6 @@ public class Project1 {
                 + " time_ms =" + fmtMs(runtimeAtkin_ms));
 
     }
-
-    // Replace the existing empty evalExpression() with the following methods:
 
     /**
      * Interactive, step-by-step evaluator for arithmetic expressions.
@@ -1521,11 +1517,6 @@ public class Project1 {
 
         return true;
     }
-
-    // Convert expression string to canonical tokens (numbers, operators,
-    // parentheses).
-    // Returns list of tokens in order. Numbers are signed integers as full token
-    // strings.
 
     /**
      * Convert an expression string into a list of canonical tokens.
