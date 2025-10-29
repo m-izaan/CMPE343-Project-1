@@ -1,6 +1,4 @@
 import java.nio.charset.StandardCharsets;
-import java.text.Format;
-//needed to scan for strings.
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -41,7 +39,37 @@ public class Project1 {
      * used with waitBeforeProceed() or waitMillis() methods
      *
      */
-    public static final long delayAmount = 500;
+    public static final long DELAY_AMOUNT = 500;
+
+    /**
+     * ANSI reset code for the ASCII art.
+     *
+     */
+    public static final String ANSI_RESET = "\u001B[0m";
+
+    /**
+     * ANSI green code for the ASCII art.
+     *
+     */
+    public static final String ANSI_GREEN = "\u001B[32m";
+
+    /**
+     * ANSI yellow code for the ASCII art.
+     *
+     */
+    public static final String ANSI_YELLOW = "\u001B[33m";
+
+    /**
+     * ANSI blue code for the ASCII art.
+     *
+     */
+    public static final String ANSI_BLUE = "\u001B[34m";
+
+    /**
+     * ANSI purple code for the ASCII art.
+     *
+     */
+    public static final String ANSI_PURPLE = "\u001B[35m";
 
     // -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
@@ -88,39 +116,41 @@ public class Project1 {
     }
 
     /**
-     * Shows the welcome message.
+     * Shows the colorized ASCII art as the welcome message.
      *
      * @author Emre Mekec
      * @author Abdul Hadi Khan
      */
     public static void showWelcome() {
-        System.out.println("                            .--.");
-        System.out.println("                           /  ..\\");
-        System.out.println("  Muhammed Izaan      ____.'  _o/");
-        System.out.println("       .--.          '--.     |.__");
-        System.out.print("      /..  \\         _.-'     /--'");
-        System.out.println(" Abdul Hadi Khan");
-        System.out.println("      \\ o  /    _.--'        /");
-        System.out.println("      /    \\   ~'--....___.-'");
-        System.out.println("     /      \\");
-        System.out.println("    (/      \\)      ,_");
-        System.out.println("     |      \\        |`\\");
-        System.out.println("      \\      '._     \\  `'-._");
-        System.out.println("       '._      '-.   \\      '-._/)");
-        System.out.println("          `'- ,~- _.`  '.        '.--.");
-        System.out.print("credit: jgs              `-.,    / ..`\\");
-        System.out.println(" Sena Berra Soydugan");
-        System.out.println("       .--.                 //'-.   o /");
-        System.out.println("      /..  \\               (/     '--'");
-        System.out.println("      \\o _ (____");
-        System.out.println("    __.|    .--'");
-        System.out.println("   '---\\    '.         ,");
-        System.out.println("        '.    '-.___.-'/");
-        System.out.print("          '-.__     _.'");
-        System.out.println(" Emre Mekec");
-        System.out.println("               `````");
+        System.out.println(ANSI_BLUE + "                            .--." + ANSI_RESET);
+        System.out.println(ANSI_BLUE + "                           /  ..\\" + ANSI_RESET);
+        System.out.print(ANSI_GREEN + "  Muhammed Izaan      " + ANSI_BLUE);
+        System.out.println("____.'  _o/" + ANSI_RESET);
+        System.out.print(ANSI_BLUE + "       .--.          '--." + ANSI_RESET);
+        System.out.println(ANSI_BLUE + "     |.__" + ANSI_RESET);
+        System.out.print(ANSI_BLUE + "      /..  \\         _.-'     /--'" + ANSI_RESET);
+        System.out.println(ANSI_GREEN + " Abdul Hadi Khan" + ANSI_RESET);
+        System.out.println(ANSI_BLUE + "      \\ o  /    _.--'        /" + ANSI_RESET);
+        System.out.println(ANSI_BLUE + "      /    \\   ~'--....___.-'" + ANSI_RESET);
+        System.out.println(ANSI_BLUE + "     /      \\" + ANSI_RESET);
+        System.out.println(ANSI_BLUE + "    (/      \\)      ,_" + ANSI_RESET);
+        System.out.println(ANSI_BLUE + "     |      \\        |`\\" + ANSI_RESET);
+        System.out.println(ANSI_BLUE + "      \\      '._     \\  `'-._" + ANSI_RESET);
+        System.out.println(ANSI_BLUE + "       '._      '-.   \\      '-._/)" + ANSI_RESET);
+        System.out.println(ANSI_BLUE + "          `'- ,~- _.`  '.        '.--." + ANSI_RESET);
+        System.out.print(ANSI_YELLOW + "                         " + ANSI_BLUE + "`-.,    / ..`\\" + ANSI_RESET);
+        System.out.println(ANSI_GREEN + " Sena Berra Soydugan" + ANSI_RESET);
+        System.out.println(ANSI_BLUE + "       .--.                 //'-.   o /" + ANSI_RESET);
+        System.out.println(ANSI_BLUE + "      /..  \\               (/     '--'" + ANSI_RESET);
+        System.out.println(ANSI_BLUE + "      \\o _ (____" + ANSI_RESET);
+        System.out.println(ANSI_BLUE + "    __.|    .--'" + ANSI_RESET);
+        System.out.println(ANSI_BLUE + "   '---\\    '.         ," + ANSI_RESET);
+        System.out.println(ANSI_BLUE + "        '.    '-.___.-'/" + ANSI_RESET);
+        System.out.print(ANSI_BLUE + "          '-.__     _.'" + ANSI_RESET);
+        System.out.println(ANSI_GREEN + " Emre Mekec" + ANSI_RESET);
+        System.out.println(ANSI_BLUE + "               `````" + ANSI_RESET);
 
-        System.out.println("Welcome to the CMPE-343 Project 1!\n");
+        System.out.println(ANSI_PURPLE + "\nWelcome to the CMPE-343 Project 1!\n" + ANSI_RESET);
     }
 
     /**
@@ -164,7 +194,7 @@ public class Project1 {
                 break;
             case "E":
                 System.out.println("Terminating... Goodbye!");
-                waitMillis(delayAmount);
+                waitMillis(DELAY_AMOUNT);
                 return false;
             default:
                 System.out.println("Invalid option. Please select A, B, C, D or E.");
@@ -225,7 +255,7 @@ public class Project1 {
                 break;
             case "C":
                 System.out.println("Returning to main menu...");
-                waitMillis(delayAmount);
+                waitMillis(DELAY_AMOUNT);
                 return false;
             default:
                 System.out.println("Invalid option. Please select A, B, or C.");
@@ -285,7 +315,7 @@ public class Project1 {
                 break;
             case "C":
                 System.out.println("Returning to Main Menu");
-                waitMillis(delayAmount);
+                waitMillis(DELAY_AMOUNT);
                 return false;
             default:
                 System.out.println("Invalid option. Please select A, B, or C.");
@@ -345,7 +375,7 @@ public class Project1 {
                 break;
             case "C":
                 System.out.println("Returning to main menu...");
-                waitMillis(delayAmount);
+                waitMillis(DELAY_AMOUNT);
                 return false;
             default:
                 System.out.println("Invalid option. Please select A, B, or C.");
@@ -400,11 +430,11 @@ public class Project1 {
                 break;
             case "B":
                 System.out.println("Returning to main menu...");
-                waitMillis(delayAmount);
+                waitMillis(DELAY_AMOUNT);
                 return false;
             default:
                 System.out.println("Invalid option. Please select A or B.");
-                waitMillis(delayAmount);
+                waitMillis(DELAY_AMOUNT);
         }
 
         return true;
@@ -863,7 +893,8 @@ public class Project1 {
      * Note: this is reused by the different sieve methods; the returned array
      * reference from each method points to a newly sized array assigned here.
      */
-    static int Primes[];
+    static int[] Primes;
+
     /**
      * Number of primes stored in {@code Primes} after the last generation call.
      */
@@ -871,14 +902,16 @@ public class Project1 {
 
     /**
      * The EratosthenesFormula() is the function made to find prime numbers using
-     * the Eratosthene method
+     * the Eratosthenes method.
      * 
-     * @param
+     * @param n The maximum value up to which the method should search for and
+     *          identify prime numbers
+     * @return A new int[] array containing all prime numbers found up to and
+     *         including the maximum value n, sorted in ascending order.
      * @author Muhammad Izaan Ul Haque
      */
-
     public static int[] eratosthenesFormula(int n) {
-        boolean isPrime[] = new boolean[n + 1];
+        boolean[] isPrime = new boolean[n + 1];
         Arrays.fill(isPrime, true);
         if (n >= 2) {
             for (int x = 2; x * x <= n; x++) {
@@ -912,12 +945,14 @@ public class Project1 {
     }
 
     /**
-     * The EsieveSundaramArray() is the function made to find prime numbers using
-     * the Sieve of Sundaram method
-     * 
+     * The sieveSundaramArray() is the function made to find prime numbers using
+     * the Sieve of Sundaram method.
+     *
+     * @param n The upper limit (inclusive) for finding prime numbers
+     * @return A new int[] array containing all prime numbers found up to and
+     *         including n, sorted in ascending order
      * @author Muhammad Izaan Ul Haque
      */
-
     public static int[] sieveSundaramArray(int n) {
 
         if (n < 2) {
@@ -982,11 +1017,13 @@ public class Project1 {
 
     /**
      * The sieveAtkinArray() is the function made to find prime numbers using the
-     * Sieve of Atkin method
-     * 
+     * Sieve of Atkin method.
+     *
+     * @param n The upper limit (inclusive) for finding prime numbers
+     * @return A new int[] array containing all prime numbers found up to and
+     *         including n, sorted in ascending order
      * @author Muhammad Izaan Ul Haque
      */
-
     public static int[] sieveAtkinArray(int n) {
         if (n < 2) {
             return new int[0];
@@ -1073,15 +1110,15 @@ public class Project1 {
      * of an integer array.
      *
      * <p>
-     * Used for compact display: prints "[a, b, c]" when length <= k, otherwise
+     * Used for compact display: prints "[a, b, c]" when length &le; k, otherwise
      * prints "[a, b, c, ...]". Returns "[]" for null or empty arrays.
+     * </p>
      *
-     * @param arr the array to inspect (may be null)
+     * @param arr the array to inspect (could be null)
      * @param k   maximum number of elements to include from the start
      * @return a compact string representing the first up to {@code k} elements
      *         of {@code arr}
      */
-
     public static String firstK(int[] arr, int k) {
         if (arr == null || arr.length == 0)
             return "[]";
@@ -1106,12 +1143,11 @@ public class Project1 {
      * Used for compact display: prints "[..., x, y]" when array is longer
      * than {@code k}. Returns "[]" for null or empty arrays.
      *
-     * @param arr the array to inspect (may be null)
+     * @param arr the array to inspect (could be null)
      * @param k   maximum number of elements to include from the end
      * @return a compact string representing the last up to {@code k} elements
      *         of {@code arr}
      */
-
     public static String lastK(int[] arr, int k) {
         if (arr == null || arr.length == 0)
             return "[]";
@@ -1134,7 +1170,6 @@ public class Project1 {
      * @param ms duration in milliseconds
      * @return formatted string like "12.345"
      */
-
     public static String fmtMs(double ms) {
         return String.format("%.3f", ms);
     }
@@ -1150,7 +1185,7 @@ public class Project1 {
      *
      * <p>
      * Uses {@code SC} (a Scanner) to read console input and writes results to
-     * standard output. The method loops until a valid integer >= 12 is entered.
+     * standard output. The method loops until a valid integer >= 12 is entered.<br>
      *
      * <strong>Side effects:</strong> reads from input, prints to output, and
      * measures system time with {@code System.nanoTime()}.
@@ -1231,7 +1266,7 @@ public class Project1 {
      *
      * <p>
      * Unary minus is supported. Leading '+' is considered invalid per spec.
-     * Uses helper routines for validation, tokenization and evaluation.
+     * Uses helper routines for validation, tokenization and evaluation.<br>
      *
      * <strong>Side effects:</strong> reads from input via {@code SC} and prints
      * steps.
@@ -1240,7 +1275,6 @@ public class Project1 {
      * @see #normalizeOperators(String)
      * @see #simplifyOnce(String)
      */
-
     public static void evalExpression() {
         clearScreen();
         System.out.println("Step-by-step Evaluation of Expression");
@@ -1251,7 +1285,7 @@ public class Project1 {
         while (true) {
             System.out.print("Enter expression: ");
             expr = SC.nextLine().trim();
-            if (expr.length() == 0) {
+            if (expr.isEmpty()) {
                 System.out.println("Empty input. re-enter a valid expression.");
                 continue;
             }
@@ -1350,7 +1384,7 @@ public class Project1 {
     public static boolean isValidExpression(String s) {
         // Allowed chars: digits, spaces, + - x X * × : / ( )
         // Normalize for checks
-        if (s.trim().length() == 0)
+        if (s.trim().isEmpty())
             return false;
 
         String t = s;
@@ -1441,13 +1475,11 @@ public class Project1 {
                             return false;
                         }
                         // prevIsOp remains true until we see the number/paren content
-                        prevIsOp = true;
-                        continue;
                     } else {
                         // binary minus
                         prevIsOp = true;
-                        continue;
                     }
+                    continue;
                 } else if (c == '+') {
                     // unary '+' is not allowed per sample, and we disallow leading '+'
                     if (prevIsOp) {
@@ -1547,7 +1579,7 @@ public class Project1 {
                 if (tokens.isEmpty())
                     unary = true;
                 else {
-                    String prev = tokens.get(tokens.size() - 1);
+                    String prev = tokens.getLast();
                     if ("(".equals(prev) || "+".equals(prev) || "-".equals(prev) || "x".equals(prev)
                             || ":".equals(prev)) {
                         unary = true;
@@ -1572,18 +1604,16 @@ public class Project1 {
                         }
                         tokens.add(num.toString());
                         i = k;
-                        continue;
                     } else {
                         // treat '-' as operator token (will allow e.g., (-3) where '-' + '(' handled)
                         tokens.add("-");
                         i++;
-                        continue;
                     }
                 } else {
                     tokens.add("-");
                     i++;
-                    continue;
                 }
+                continue;
             }
             if (Character.isDigit(c)) {
                 StringBuilder num = new StringBuilder();
@@ -1759,7 +1789,7 @@ public class Project1 {
      *
      * <p>
      * All arithmetic is integer arithmetic using {@code long}; division is integer
-     * division. The returned string represents the final integer value (may be
+     * division. The returned string represents the final integer value (could be
      * negative).
      *
      * @param tokensIn list of tokens representing a (sub)expression without
@@ -1896,9 +1926,9 @@ public class Project1 {
      * <li>"-" -> subtraction</li>
      * </ul>
      *
-     * @param lhsStr left-hand side numeric token (may be signed)
+     * @param lhsStr left-hand side numeric token (could be signed)
      * @param op     operator token ("x", ":", "+", or "-")
-     * @param rhsStr right-hand side numeric token (may be signed)
+     * @param rhsStr right-hand side numeric token (could be signed)
      * @return numeric result as a string
      * @throws ArithmeticException   for division by zero
      * @throws NumberFormatException if inputs are not valid integers
@@ -1951,7 +1981,6 @@ public class Project1 {
      * @param tokens list of token strings
      * @return single string expression with tokens separated by one space
      */
-
     public static String joinTokens(List<String> tokens) {
         StringBuilder sb = new StringBuilder();
         for (int i = 0; i < tokens.size(); i++) {
@@ -1976,7 +2005,6 @@ public class Project1 {
      * @return expression string with normalized spacing (single spaces between
      *         tokens)
      */
-
     public static String normalizeSpacing(String expr) {
         // Normalize spaces around operators and parentheses for nicer output
         List<String> tokens = tokenize(expr);
@@ -2379,7 +2407,7 @@ public class Project1 {
                 return "5x4";
             default:
                 System.out.println("Invalid choice. Please try again.");
-                waitMillis(delayAmount);
+                waitMillis(DELAY_AMOUNT);
         }
 
         return " ";
@@ -2400,7 +2428,8 @@ public class Project1 {
      * Selects the game mode for connect four.
      *
      * @return A String value representing the game mode selection, if successfully
-     *         made. Defaults to empty string, representing the need to try again.
+     *         made.
+     *         Defaults to empty string, representing the need to try again.
      * @author Emre Mekec
      */
     public static String selectModeConnectFour() {
@@ -2414,7 +2443,7 @@ public class Project1 {
                 return "multiplayer";
             default:
                 System.out.println("Invalid choice. Please try again.");
-                waitMillis(delayAmount);
+                waitMillis(DELAY_AMOUNT);
         }
 
         return " ";
@@ -2446,17 +2475,16 @@ public class Project1 {
                     colSelected = getPlayerMove(board, currentPlayer);
                 } else {
                     colSelected = getComputerMove(board);
-                    waitMillis(delayAmount / 2); // The bot is thinking.
+                    waitMillis(DELAY_AMOUNT / 2); // The bot is thinking.
                     System.out.println("Computer (Y) chose column " + (colSelected + 1));
-                    waitMillis(delayAmount);
+                    waitMillis(DELAY_AMOUNT);
                 }
             }
 
             // Check for forfeit
             if (colSelected == -1) {
-                isConcluded = true;
                 System.out.println("Player " + currentPlayer + " has forfeited the game.");
-                continue; // Skip to the end
+                return;
             }
 
             insertMark(board, colSelected, currentPlayer); // Insert the mark on the board
