@@ -1756,9 +1756,11 @@ public class Project1 {
                     idx = x;
                     break;
                 }
-                newTokens.add(result);
-                for (int j = i + 2; j < tokens.size(); j++) {
-                    newTokens.add(tokens.get(j));
+            }
+            // if no 'x' found, find leftmost division ':'
+            if (idx == -1) {
+                for (int k = 0; k < tokens.size(); k++) {
+                    if (":".equals(tokens.get(k))) {
                         idx = k;
                         break;
                     }
