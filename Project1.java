@@ -75,6 +75,8 @@ public class Project1 {
      * @author Emre Mekec
      */
     public static void main(String[] args) {
+        clearScreen();
+        showWelcome();
         mainLoop();
         clearScreen();
     }
@@ -102,10 +104,9 @@ public class Project1 {
     public static void menuMain() {
         boolean running = true;
         while (running) {
-            clearScreen();
-            showWelcome();
             showMenuMain();
             running = selectMenuMain();
+            clearScreen();
         }
     }
 
