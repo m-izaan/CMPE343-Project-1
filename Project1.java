@@ -1281,7 +1281,7 @@ public class Project1 {
         while (true) {
             System.out.print("Enter expression: ");
             expr = SC.nextLine().trim();
-            if (expr.length() == 0) {
+            if (expr.isEmpty()) {
                 System.out.println("Empty input. re-enter a valid expression.");
                 continue;
             }
