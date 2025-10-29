@@ -1602,18 +1602,16 @@ public class Project1 {
                         }
                         tokens.add(num.toString());
                         i = k;
-                        continue;
                     } else {
                         // treat '-' as operator token (will allow e.g., (-3) where '-' + '(' handled)
                         tokens.add("-");
                         i++;
-                        continue;
                     }
                 } else {
                     tokens.add("-");
                     i++;
-                    continue;
                 }
+                continue;
             }
             if (Character.isDigit(c)) {
                 StringBuilder num = new StringBuilder();
