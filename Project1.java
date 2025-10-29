@@ -1380,7 +1380,7 @@ public class Project1 {
     public static boolean isValidExpression(String s) {
         // Allowed chars: digits, spaces, + - x X * × : / ( )
         // Normalize for checks
-        if (s.trim().length() == 0)
+        if (s.trim().isEmpty())
             return false;
 
         String t = s;
