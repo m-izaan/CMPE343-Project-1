@@ -1749,7 +1749,7 @@ public class Project1 {
      *
      * <p>
      * All arithmetic is integer arithmetic using {@code long}; division is integer
-     * division. The returned string represents the final integer value (may be
+     * division. The returned string represents the final integer value (could be
      * negative).
      *
      * @param tokensIn list of tokens representing a (sub)expression without
@@ -2596,8 +2596,10 @@ public class Project1 {
         int rows = board.length;
 
         for (int i = rows - 1; i >= 0; i--) {
-            if (board[i][col] == EMPTY_CELL)
+            if (board[i][col] == EMPTY_CELL) {
                 board[i][col] = playerMark;
+                return;
+            }
         }
     }
 
