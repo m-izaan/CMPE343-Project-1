@@ -1577,7 +1577,7 @@ public class Project1 {
                 if (tokens.isEmpty())
                     unary = true;
                 else {
-                    String prev = tokens.get(tokens.size() - 1);
+                    String prev = tokens.getLast();
                     if ("(".equals(prev) || "+".equals(prev) || "-".equals(prev) || "x".equals(prev)
                             || ":".equals(prev)) {
                         unary = true;
