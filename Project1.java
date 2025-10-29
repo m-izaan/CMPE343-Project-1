@@ -905,6 +905,7 @@ public class Project1 {
      * the Eratosthenes method.
      * 
      * @param n The maximum value up to which the method should search for and identify prime numbers
+     * @return A new int[] array containing all prime numbers found up to and including the maximum value n, sorted in ascending order.
      * @author Muhammad Izaan Ul Haque
      */
     public static int[] eratosthenesFormula(int n) {
