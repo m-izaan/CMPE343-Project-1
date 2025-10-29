@@ -1181,7 +1181,7 @@ public class Project1 {
      *
      * <p>
      * Uses {@code SC} (a Scanner) to read console input and writes results to
-     * standard output. The method loops until a valid integer >= 12 is entered.
+     * standard output. The method loops until a valid integer >= 12 is entered.<br>
      *
      * <strong>Side effects:</strong> reads from input, prints to output, and
      * measures system time with {@code System.nanoTime()}.
@@ -1262,7 +1262,8 @@ public class Project1 {
      *
      * <p>
      * Unary minus is supported. Leading '+' is considered invalid per spec.
-     * Uses helper routines for validation, tokenization and evaluation.
+     * Uses helper routines for validation, tokenization and evaluation.<br>
+     *
      * <strong>Side effects:</strong> reads from input via {@code SC} and prints
      * steps.
      *
