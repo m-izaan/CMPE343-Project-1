@@ -303,7 +303,7 @@ public class Project1 {
         while (running) {
             clearScreen();
             showMenuUniversity();
-            running = selectMenuUniversity();
+            running = selectMenu("university");
         }
     }
 
@@ -320,64 +320,7 @@ public class Project1 {
     }
 
     /**
-     * Selects the options from the university menu.
-     *
-     * @return A boolean value weather keeping the university menu running or
-     *         terminating it.
-     * @author Emre Mekec
-     * @author Muhammed Izaan
-     */
-    public static boolean selectMenuUniversity() {
-        boolean running = true;
-        System.out.print("Choice: ");
-        String choice = SC.nextLine().trim().toUpperCase();
-        do { /* this will run until the running flag is set to false because in case the input is invalid, new input should be handled separately to keep the invalid input warning on the screen.
-             the reason for that is the fact that the way this method works is screen is cleared after invalid input because program will turn back to where this method was called, unless we resolve it with something like this. */
-            String replay;
-            boolean showMessage = true;
-            switch (choice) {
-                case "A":
-                    connectFour();
-                    while(showMessage) {
-                        System.out.printf("%nDo you want to play again or return to the university menu?%n%n");
-                        System.out.printf("[A] Play Again%n[B] Return to the university Menu%n");
-                        System.out.print("Choice: ");
-                        replay = SC.nextLine().trim().toUpperCase();
-                        switch (replay) {
-                            case "A":
-                                clearScreen();
-                                connectFour();
-                                break;
-                            case "B":
-                                showMessage = false;
-                                System.out.printf("Returning to university menu...%n");
-                                waitMillis(DELAY_AMOUNT);
-                                break;
-                            default:
-                                System.out.println("Invalid option. Please select A or B.");
-                                waitMillis(DELAY_AMOUNT*2);
-                        }
-                    }
-                    running = false;
-                    break;
-                case "B":
-                    System.out.println("Returning to main menu...");
-                    waitMillis(DELAY_AMOUNT);
-                    return false; // after the termination, false will be returned to the line that called this method for it to not be called again.
-                default:
-                    do {
-                        System.out.println("Invalid option. Please select A, or B.");
-                        System.out.print("Choice: ");
-                        choice = SC.nextLine().trim().toUpperCase();
-                    } while (!choice.equals("A") && !choice.equals("B")); // valid input should be handled here until it's taken for the reasons explained on the first comment within this method.
-            }
-        } while(running); //proper input was taken, game played, and now the next step is to return true to the line that called this method because the last selection was not a termination.
-
-        return true;
-    }
-
-    /**
-     * Selects the options from either primary school, or secondary school, or high school menu, depending on the menuType parameter.
+     * Selects the options from either primary school, or secondary school, or high school menu, or university menu, depending on the menuType parameter.
      *
      * @param menuType A string value holding the value for the given menu type to run the method based on
      * @return A boolean value weather keeping the selected menu running or terminating it.
@@ -387,39 +330,64 @@ public class Project1 {
         boolean running =  true;
         System.out.print("Choice: ");
         String choice = SC.nextLine().trim().toUpperCase();
-        do {
-            boolean showMessage = true;
-            switch (choice) {
-                case "A":
-                    switch (menuType) {
-                        case "primary school" -> ageZodiac();
-                        case "secondary school" -> primeNumbers();
-                        case "high school" -> arrayStat();
-                    }
-                    playAgain(menuType, showMessage, "A");
-                    running = false;
-                    break;
-                case "B":
-                    switch (menuType) {
-                        case "primary school" -> reverseWords();
-                        case "secondary school" -> evalExpression();
-                        case "high school" -> arraysDistance();
-                    }
-                    playAgain(menuType, showMessage, "B");
-                    running = false;
-                    break;
-                case "C":
-                    System.out.println("Returning to main menu...");
-                    waitMillis(DELAY_AMOUNT);
-                    return false;
-                default:
-                    do {
-                        System.out.println("Invalid option. Please select A, B, or C.");
-                        System.out.print("Choice: ");
-                        choice = SC.nextLine().trim().toUpperCase();
-                    } while (!choice.equals("A") && !choice.equals("B") && !choice.equals("C"));
-            }
-        } while(running);
+
+        if (menuType.equals("university")) {
+            do {
+                boolean showMessage = true;
+                switch (choice) {
+                    case "A":
+                        connectFour();
+                        playAgain(menuType, showMessage, "A");
+                        running = false;
+                        break;
+                    case "B":
+                        System.out.println("Returning to main menu...");
+                        waitMillis(DELAY_AMOUNT);
+                        return false;
+                    default:
+                        do {
+                            System.out.println("Invalid option. Please select A or B.");
+                            System.out.print("Choice: ");
+                            choice = SC.nextLine().trim().toUpperCase();
+                        } while (!choice.equals("A") && !choice.equals("B"));
+                }
+            } while(running);
+        }
+
+        else
+            do {
+                boolean showMessage = true;
+                switch (choice) {
+                    case "A":
+                        switch (menuType) {
+                            case "primary school" -> ageZodiac();
+                            case "secondary school" -> primeNumbers();
+                            case "high school" -> arrayStat();
+                        }
+                        playAgain(menuType, showMessage, "A");
+                        running = false;
+                        break;
+                    case "B":
+                        switch (menuType) {
+                            case "primary school" -> reverseWords();
+                            case "secondary school" -> evalExpression();
+                            case "high school" -> arraysDistance();
+                        }
+                        playAgain(menuType, showMessage, "B");
+                        running = false;
+                        break;
+                    case "C":
+                        System.out.println("Returning to main menu...");
+                        waitMillis(DELAY_AMOUNT);
+                        return false;
+                    default:
+                        do {
+                            System.out.println("Invalid option. Please select A, B, or C.");
+                            System.out.print("Choice: ");
+                            choice = SC.nextLine().trim().toUpperCase();
+                        } while (!choice.equals("A") && !choice.equals("B") && !choice.equals("C"));
+                }
+            } while(running);
 
         return true;
     }
@@ -451,20 +419,27 @@ public class Project1 {
             switch (replay) {
                 case "A":
                     clearScreen();
-                    switch (menuSelection) {
-                        case "A":
-                            switch(menuType) {
-                                case "primary school" -> ageZodiac();
-                                case "secondary school" -> primeNumbers();
-                                case "high school" -> arrayStat();
+                    switch (menuType) {
+                        case "primary school":
+                            switch (menuSelection) {
+                                case "A" -> ageZodiac();
+                                case "B" -> reverseWords();
                             }
                             break;
-                        case "B":
-                            switch(menuType) {
-                                case "primary school" -> reverseWords();
-                                case "secondary school" -> evalExpression();
-                                case "high school" -> arraysDistance();
+                        case "secondary school":
+                            switch (menuSelection) {
+                                case "A" -> primeNumbers();
+                                case "B" -> evalExpression();
                             }
+                            break;
+                        case "high school":
+                            switch (menuSelection) {
+                                case "A" -> arrayStat();
+                                case "B" -> arraysDistance();
+                            }
+                            break;
+                        case "university":
+                            connectFour();
                             break;
                     }
                     break;
