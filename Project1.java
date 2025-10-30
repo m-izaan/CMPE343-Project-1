@@ -434,11 +434,20 @@ public class Project1 {
      * @author Emre Mekec
      */
     public static void playAgain(String menuType, boolean showMessage, String menuSelection) {
+        String replay;
+
         while(showMessage) {
-            System.out.printf("%nDo you want to play again or return to the %s menu?%n%n", menuType);
-            System.out.printf("[A] Play Again%n[B] Return to the %s Menu%n", menuType);
-            System.out.print("Choice: ");
-            String replay = SC.nextLine().trim().toUpperCase();
+            do {
+                System.out.printf("%nDo you want to play again or return to the %s menu?%n%n", menuType);
+                System.out.printf("[A] Play Again%n[B] Return to the %s Menu%n", menuType);
+                System.out.print("Choice: ");
+                replay = SC.nextLine().trim().toUpperCase();
+
+                if (!replay.equals("A") && !replay.equals("B")) {
+                    System.out.println("Invalid option. Please select A or B.");
+                }
+            } while (!replay.equals("A") && !replay.equals("B"));
+
             switch (replay) {
                 case "A":
                     clearScreen();
@@ -465,8 +474,11 @@ public class Project1 {
                     waitMillis(DELAY_AMOUNT);
                     break;
                 default:
-                    System.out.println("Invalid option. Please select A or B.");
-                    waitMillis(DELAY_AMOUNT*2);
+                    do {
+                        System.out.println("Invalid option. Please select A or B.");
+                        System.out.print("Choice: ");
+                        replay = SC.nextLine().trim().toUpperCase();
+                    } while (!replay.equals("A") && !replay.equals("B"));
             }
         }
     }
