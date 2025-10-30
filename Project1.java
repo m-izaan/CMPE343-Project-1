@@ -2195,7 +2195,7 @@ public class HighSchoolMenu {
      *  - Geometric mean (defined only if all elements > 0)
      *  - Harmonic mean (computed recursively; undefined if any element == 0)
      * Clears the console on entry.
-     * @return void (prints results to console) 
+     * @return void (prints results to console)
      * @author Sena Berra Soydugan
      */
     public static void arrayStat() {
@@ -2264,7 +2264,7 @@ public class HighSchoolMenu {
      * Computes the geometric mean of array a.
      * Returns null if any element <= 0 (undefined).
      * @param a input array of doubles
-     * @return geometric mean as Double, or null if undefined (any a[i] <= 0) 
+     * @return geometric mean as Double, or null if undefined (any a[i] <= 0)
      * @author Sena Berra Soydugan
      */
     public static Double geometricMean(double[] a) {
@@ -2280,7 +2280,7 @@ public class HighSchoolMenu {
      * Computes the harmonic mean of array a using recursion to sum reciprocals.
      * Returns null if any element equals zero.
      * @param a input array of doubles
-     * @return harmonic mean as Double, or null if undefined (any a[i] == 0) 
+     * @return harmonic mean as Double, or null if undefined (any a[i] == 0)
      * @author Sena Berra Soydugan
      */
     public static Double harmonicMeanRecursive(double[] a) {
@@ -2311,7 +2311,7 @@ public class HighSchoolMenu {
      *  - Euclidean distance
      *  - Cosine similarity and Cosine distance (= 1 - similarity)
      * Clears the console on entry.
-     * @return void (prints results to console) 
+     * @return void (prints results to console)
      * @author Sena Berra Soydugan
      */
     public static void arraysDistance() {
@@ -2368,7 +2368,7 @@ public class HighSchoolMenu {
 
     /**
      * Attempts to clear the console (best-effort, ANSI escape).
-     * @return void (visual side-effect only) 
+     * @return void (visual side-effect only)
      * @author Sena Berra Soydugan
      */
     public static void clearScreen() {
@@ -2422,7 +2422,7 @@ public class HighSchoolMenu {
     /**
      * Prompts for a double; retries until a valid double is entered.
      * @param prompt message shown to the user
-     * @return the parsed double value (e.g., 3.14, -2.0) 
+     * @return the parsed double value (e.g., 3.14, -2.0)
      * @author Sena Berra Soydugan
      */
     public static double readDouble(String prompt) {
@@ -2904,5 +2904,4 @@ public class HighSchoolMenu {
         SC.nextLine();
     }
 }
-
 
