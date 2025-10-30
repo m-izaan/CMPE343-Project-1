@@ -2141,17 +2141,7 @@ public class Project1 {
 
     // -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
-
-/**
- * High School (Option C) submenu:
- * 1) Statistical Information about an Array
- * 2) Distance between Two Arrays
- * 0) Return to Main Menu
- * Clears the console on entry.
- * @author Sena Berra Soydugan
- */
-public class HighSchoolMenu {
-    private static final Scanner SC = new Scanner(System.in);
+    // Methods for the selectMenu("secondary school") call
 
     // ---------------------- MENU (Option C) ----------------------
 
@@ -2162,7 +2152,6 @@ public class HighSchoolMenu {
      *  - Distance between Two Arrays
      *  - Return to Main Menu
      * Clears the console on entry.
-     * @return void (returns to caller when user selects '0')
      * @author Sena Berra Soydugan
      */
     public static void selectMenuHighSchool() {
@@ -2195,7 +2184,6 @@ public class HighSchoolMenu {
      *  - Geometric mean (defined only if all elements > 0)
      *  - Harmonic mean (computed recursively; undefined if any element == 0)
      * Clears the console on entry.
-     * @return void (prints results to console)
      * @author Sena Berra Soydugan
      */
     public static void arrayStat() {
@@ -2262,9 +2250,9 @@ public class HighSchoolMenu {
 
     /**
      * Computes the geometric mean of array a.
-     * Returns null if any element <= 0 (undefined).
+     * Returns null if any element &le; 0 (undefined).
      * @param a input array of doubles
-     * @return geometric mean as Double, or null if undefined (any a[i] <= 0)
+     * @return geometric mean as Double, or null if undefined (any a[i] &le; 0)
      * @author Sena Berra Soydugan
      */
     public static Double geometricMean(double[] a) {
@@ -2292,7 +2280,7 @@ public class HighSchoolMenu {
     /**
      * Recursive helper that returns the sum of reciprocals of a[i..end].
      * @param a input array of doubles
-     * @param i starting index (0 <= i <= a.length)
+     * @param i starting index (0 &le; i &le; a.length)
      * @return sum_{k=i}^{n-1} (1 / a[k]); returns 0 when i == a.length
      * @author Sena Berra Soydugan
      */
@@ -2311,7 +2299,6 @@ public class HighSchoolMenu {
      *  - Euclidean distance
      *  - Cosine similarity and Cosine distance (= 1 - similarity)
      * Clears the console on entry.
-     * @return void (prints results to console)
      * @author Sena Berra Soydugan
      */
     public static void arraysDistance() {
@@ -2367,16 +2354,6 @@ public class HighSchoolMenu {
     // ---------------------- INPUT HELPERS ------------------------
 
     /**
-     * Attempts to clear the console (best-effort, ANSI escape).
-     * @return void (visual side-effect only)
-     * @author Sena Berra Soydugan
-     */
-    public static void clearScreen() {
-        System.out.print("\033[H\033[2J");
-        System.out.flush();
-    }
-
-    /**
      * Prompts the user until a valid integer >= 1 is entered.
      * @param prompt message shown to the user
      * @return an integer value v such that v >= 1
@@ -2402,7 +2379,7 @@ public class HighSchoolMenu {
      * @param prompt message shown to the user
      * @param min minimum allowed integer (inclusive)
      * @param max maximum allowed integer (inclusive)
-     * @return an integer v such that min <= v <= max
+     * @return an integer v such that min &le; v &le; max
      * @author Sena Berra Soydugan
      */
     public static int readIntInRange(String prompt, int min, int max) {
@@ -2455,8 +2432,8 @@ public class HighSchoolMenu {
         }
         return arr;
     }
-}
-    // end of senas part-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+    // -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
     // Methods for the method selectMenuUniversity()
 
