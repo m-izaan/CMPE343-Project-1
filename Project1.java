@@ -2153,6 +2153,7 @@ public class Project1 {
      * geometric and harmonic means when permitted by mathematical constraints and
      * detects outliers based on the 1.5 * IQR rule. Finally, a small sorted preview
      * of the data is displayed for reference.
+     * @author Sena Berra Soydugan
      */
     public static void arrayStat() {
         clearScreen();
@@ -2256,6 +2257,7 @@ public class Project1 {
      * Chebyshev distance, Hamming distance, Cosine similarity (and its derived
      * cosine distance), and Minkowski distance based on a user-entered parameter p.
      * The results are printed in a clear formatted report.
+     * @author Sena Berra Soydugan
      */
     public static void arraysDistance() {
         clearScreen();
@@ -2336,6 +2338,10 @@ public class Project1 {
      * until a valid integer
      * greater than or equal to 1 is entered. Returns that integer once the input
      * is valid.
+      *
+  * @param prompt The instructional message shown to the user.
+    * @return A validated integer value >= 1.
+    * @author Sena Berra Soydugan
      */
     public static int readPositiveInt(String prompt) {
         while (true) {
@@ -2357,6 +2363,11 @@ public class Project1 {
      * entered value falls
      * within the specified inclusive range [min, max]. Continues asking until a
      * valid value is provided, then returns it.
+      * @param prompt Message shown to the user.
+      * @param min The minimum allowed integer.
+     * @param max The maximum allowed integer.
+     * @return A validated integer within the specified range.
+     * @author Sena Berra Soydugan
      */
     public static int readIntInRange(String prompt, int min, int max) {
         while (true) {
@@ -2378,6 +2389,9 @@ public class Project1 {
      * parse the input
      * as a double value. If parsing fails, the user is asked again until a valid
      * double is entered.
+     * @param prompt Message shown to the user.
+     * @return A valid double value entered by the user.
+     * @author Sena Berra Soydugan
      */
     public static double readDouble(String prompt) {
         while (true) {
@@ -2396,6 +2410,11 @@ public class Project1 {
      * it is within the range
      * [min, maxInclOrInf]. If the value is out of range, the user is prompted again
      * until a valid value is entered.
+     * @param prompt Message shown to the user.
+     * @param min Minimum allowed value.
+     * @param maxInclOrInf Maximum allowed value (or +∞).
+     * @return A validated double within the given range.
+     * @author Sena Berra Soydugan
      */
     public static double readDoubleInRange(String prompt, double min, double maxInclOrInf) {
         while (true) {
@@ -2412,6 +2431,12 @@ public class Project1 {
      * enforcing that each value lies in
      * the inclusive range [min, max]. The array is filled element-by-element and
      * returned once complete.
+    * @param head Title/info message displayed to the user.
+    * @param n Number of array elements.
+    * @param min Minimum allowed value for each element.
+    * @param max Maximum allowed value for each element.
+    * @return The validated integer array entered by the user.
+    * @author Sena Berra Soydugan
      */
     public static int[] readIntArrayDigits(String head, int n, int min, int max) {
         System.out.println(head + " -> total " + n + " items.");
@@ -2428,6 +2453,9 @@ public class Project1 {
      * method fmt6():Formats a double value to exactly six decimal places and
      * returns the formatted
      * string representation.
+     * @param v The value to be formatted.
+     * @return A string representation of v with exactly 6 decimal places.
+     * @author Sena Berra Soydugan
      */
     public static String fmt6(double v) {
         return String.format("%.6f", v);
@@ -2437,6 +2465,9 @@ public class Project1 {
      * method medianSorted():Computes the median of a sorted array. If the length is
      * odd, the middle element
      * is returned; if even, the average of the two center elements is returned.
+    * @param sorted An already sorted array of doubles.
+      * @return The median value of the array.
+      * @author Sena Berra Soydugan
      */
     public static double medianSorted(double[] sorted) {
         int n = sorted.length;
@@ -2449,6 +2480,10 @@ public class Project1 {
      * q should be between 0 and 1, where q = 0.5 corresponds to the median, 0.25 to
      * Q1,
      * and 0.75 to Q3.
+      * @param sorted An already sorted array
+      * @param q A quantile value between 0 and 1.
+      * @return The computed quantile value.
+      * @author Sena Berra Soydugan
      */
     public static double quantileSorted(double[] sorted, double q) {
         int n = sorted.length;
@@ -2466,6 +2501,11 @@ public class Project1 {
      * method variance(): Calculates the variance of the array using either
      * population or sample formula.
      * If sample is true, divides by (n - 1); otherwise divides by n.
+      * @param a Input array.
+      * @param mean The arithmetic mean of the array.
+      * @param sample True to compute sample variance (n-1), false for population variance (n).
+      * @return The computed variance.
+      * @author Sena Berra Soydugan
      */
     public static double variance(double[] a, double mean, boolean sample) {
         if (a.length <= (sample ? 1 : 0))
@@ -2483,6 +2523,9 @@ public class Project1 {
      * array. Returns null if any
      * element is non-positive, since the geometric mean is defined only for values
      * > 0.
+      * @param a Input array.
+      * @return The geometric mean, or null if undefined.
+      * @author Sena Berra Soydugan
      */
     public static Double geometricMean(double[] a) {
         double logSum = 0.0;
@@ -2500,6 +2543,9 @@ public class Project1 {
      * sum reciprocals. Returns null if any element is zero, because division by
      * zero
      * would make the harmonic mean undefined.
+     * @param a Input array.
+     * @return The harmonic mean, or null if undefined.
+     * @author Sena Berra Soydugan
      */
     public static Double harmonicMeanRecursive(double[] a) {
         for (double v : a)
@@ -2513,6 +2559,10 @@ public class Project1 {
      * method reciprocalSum(): A recursive helper method that returns the sum of
      * reciprocals of array elements,
      * starting from index i and proceeding to the end of the array.
+      * @param a Input array.
+      * @param i Starting index for recursion.
+      * @return The sum of reciprocals from index i to end.
+      * @author Sena Berra Soydugan
      */
     public static double reciprocalSum(double[] a, int i) {
         if (i == a.length)
@@ -2968,3 +3018,4 @@ public class Project1 {
         SC.nextLine();
     }
 }
+
