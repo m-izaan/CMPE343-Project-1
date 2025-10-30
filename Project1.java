@@ -388,7 +388,6 @@ public class Project1 {
         System.out.print("Choice: ");
         String choice = SC.nextLine().trim().toUpperCase();
         do {
-            String replay;
             boolean showMessage = true;
             switch (choice) {
                 case "A":
@@ -397,30 +396,7 @@ public class Project1 {
                         case "secondary school" -> primeNumbers();
                         case "high school" -> arrayStat();
                     }
-                    while(showMessage) {
-                        System.out.printf("%nDo you want to play again or return to the %s menu?%n%n", menuType);
-                        System.out.printf("[A] Play Again%n[B] Return to the %s Menu%n", menuType);
-                        System.out.print("Choice: ");
-                        replay = SC.nextLine().trim().toUpperCase();
-                        switch (replay) {
-                            case "A":
-                                clearScreen();
-                                switch (menuType) {
-                                    case "primary school" -> ageZodiac();
-                                    case "secondary school" -> primeNumbers();
-                                    case "high school" -> arrayStat();
-                                }
-                                break;
-                            case "B":
-                                showMessage = false;
-                                System.out.printf("Returning to %s menu...%n", menuType);
-                                waitMillis(DELAY_AMOUNT);
-                                break;
-                            default:
-                                System.out.println("Invalid option. Please select A or B.");
-                                waitMillis(DELAY_AMOUNT*2);
-                        }
-                    }
+                    playAgain(menuType, showMessage, "A");
                     running = false;
                     break;
                 case "B":
@@ -429,30 +405,7 @@ public class Project1 {
                         case "secondary school" -> evalExpression();
                         case "high school" -> arraysDistance();
                     }
-                    while(showMessage) {
-                        System.out.printf("%nDo you want to play again or return to the %s menu?%n%n", menuType);
-                        System.out.printf("[A] Play Again%n[B] Return to the %s Menu%n", menuType);
-                        System.out.print("Choice: ");
-                        replay = SC.nextLine().trim().toUpperCase();
-                        switch (replay) {
-                            case "A":
-                                clearScreen();
-                                switch (menuType) {
-                                    case "primary school" -> reverseWords();
-                                    case "secondary school" -> evalExpression();
-                                    case "high school" -> arraysDistance();
-                                }
-                                break;
-                            case "B":
-                                showMessage = false;
-                                System.out.printf("Returning to %s menu...%n", menuType);
-                                waitMillis(DELAY_AMOUNT);
-                                break;
-                            default:
-                                System.out.println("Invalid option. Please select A or B.");
-                                waitMillis(DELAY_AMOUNT*2);
-                        }
-                    }
+                    playAgain(menuType, showMessage, "B");
                     running = false;
                     break;
                 case "C":
@@ -469,6 +422,53 @@ public class Project1 {
         } while(running);
 
         return true;
+    }
+
+    /**
+     * Asks the user whether they want to make the same selection within the selected sub menu or return to that sub menu.
+     *
+     * @param menuType A string value holding the value for the given menu type to run the method based on
+     * @param showMessage A boolean value deciding whether to show to message to ask user to play again or not
+     * @param menuSelection A string value holding the value for the selection between A and B within the selected
+     *                      sub menu that the string menuType holds the value for
+     * @author Emre Mekec
+     */
+    public static void playAgain(String menuType, boolean showMessage, String menuSelection) {
+        while(showMessage) {
+            System.out.printf("%nDo you want to play again or return to the %s menu?%n%n", menuType);
+            System.out.printf("[A] Play Again%n[B] Return to the %s Menu%n", menuType);
+            System.out.print("Choice: ");
+            String replay = SC.nextLine().trim().toUpperCase();
+            switch (replay) {
+                case "A":
+                    clearScreen();
+                    switch (menuSelection) {
+                        case "A":
+                            switch(menuType) {
+                                case "primary school" -> ageZodiac();
+                                case "secondary school" -> primeNumbers();
+                                case "high school" -> arrayStat();
+                            }
+                            break;
+                        case "B":
+                            switch(menuType) {
+                                case "primary school" -> reverseWords();
+                                case "secondary school" -> evalExpression();
+                                case "high school" -> arraysDistance();
+                            }
+                            break;
+                    }
+                    break;
+                case "B":
+                    showMessage = false;
+                    System.out.printf("Returning to %s menu...%n", menuType);
+                    waitMillis(DELAY_AMOUNT);
+                    break;
+                default:
+                    System.out.println("Invalid option. Please select A or B.");
+                    waitMillis(DELAY_AMOUNT*2);
+            }
+        }
     }
 
     // -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
