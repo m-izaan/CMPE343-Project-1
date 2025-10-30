@@ -5,6 +5,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Random;
 import java.util.Scanner;
+import java.util.*;
 
 /**
  * A console project with Java showcasing programming fundamentals through an
@@ -2140,19 +2141,61 @@ public class Project1 {
 
     // -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
-    // Methods for the selectMenu("high school") call
+
+/**
+ * High School (Option C) submenu:
+ * 1) Statistical Information about an Array
+ * 2) Distance between Two Arrays
+ * 0) Return to Main Menu
+ * Clears the console on entry.
+ * @author Sena Berra Soydugan
+ */
+public class HighSchoolMenu {
+    private static final Scanner SC = new Scanner(System.in);
+
+    // ---------------------- MENU (Option C) ----------------------
 
     /**
-     * Method arrayStat(): Asks the user to enter the size and elements of an array
-     * and then calculates
-     * detailed statistical properties of that array. These include minimum,
-     * maximum,
-     * sum, mean, median, quartiles (Q1 and Q3), interquartile range (IQR),
-     * population
-     * and sample variances and standard deviations. It also attempts to compute
-     * geometric and harmonic means when permitted by mathematical constraints and
-     * detects outliers based on the 1.5 * IQR rule. Finally, a small sorted preview
-     * of the data is displayed for reference.
+     * Presents the High School submenu for Option C.
+     * Lists:
+     *  - Statistical Information about an Array
+     *  - Distance between Two Arrays
+     *  - Return to Main Menu
+     * Clears the console on entry.
+     * @return void (returns to caller when user selects '0')
+     * @author Sena Berra Soydugan
+     */
+    public static void selectMenuHighSchool() {
+        clearScreen();
+        while (true) {
+            System.out.println("High School Menu (Option C)");
+            System.out.println("---------------------------");
+            System.out.println("1) Statistical Information about an Array");
+            System.out.println("2) Distance between Two Arrays");
+            System.out.println("0) Return to Main Menu");
+            int choice = readIntInRange("Select: ", 0, 2);
+            switch (choice) {
+                case 1 -> arrayStat();
+                case 2 -> arraysDistance();
+                case 0 -> {
+                    clearScreen();
+                    return; // Return to Main Menu
+                }
+            }
+            System.out.println();
+        }
+    }
+
+    // ------------------ 1) ARRAY STATISTICS ---------------------
+
+    /**
+     * Asks the user for array size and elements (double), then computes:
+     *  - Median (for even n: average of the two middle values)
+     *  - Arithmetic mean
+     *  - Geometric mean (defined only if all elements > 0)
+     *  - Harmonic mean (computed recursively; undefined if any element == 0)
+     * Clears the console on entry.
+     * @return void (prints results to console) 
      * @author Sena Berra Soydugan
      */
     public static void arrayStat() {
@@ -2167,96 +2210,108 @@ public class Project1 {
             a[i] = readDouble("Enter element #" + (i + 1) + " (double): ");
         }
 
-        double[] s = java.util.Arrays.copyOf(a, n);
-        java.util.Arrays.sort(s);
+        // Sort copy for median
+        double[] s = Arrays.copyOf(a, n);
+        Arrays.sort(s);
 
-        double sum = 0.0, min = s[0], max = s[n - 1];
-        boolean allPositive = s[0] > 0.0;
-        boolean hasZero = false;
-
-        for (double v : a) {
-            sum += v;
-            if (v <= 0.0)
-                allPositive = false;
-            if (v == 0.0)
-                hasZero = true;
-        }
-
+        // Arithmetic mean
+        double sum = 0.0;
+        for (double v : a) sum += v;
         double mean = sum / n;
 
-        // Median, Q1, Q3, IQR
+        // Median
         double median = medianSorted(s);
-        double q1 = quantileSorted(s, 0.25);
-        double q3 = quantileSorted(s, 0.75);
-        double iqr = q3 - q1;
 
-        // Variance & Std (Population & Sample)
-        double varPop = variance(a, mean, false);
-        double varSmp = variance(a, mean, true);
-        double stdPop = Math.sqrt(varPop);
-        double stdSmp = Math.sqrt(varSmp);
+        // Geometric mean (only if all > 0)
+        Double gMean = geometricMean(a);
 
-        // Geometric & Harmonic
-        Double gMean = allPositive ? geometricMean(a) : null;
-        Double hMean = hasZero ? null : harmonicMeanRecursive(a);
-
-        // Outliers by 1.5*IQR
-        int outliers = 0;
-        double lowFence = q1 - 1.5 * iqr, highFence = q3 + 1.5 * iqr;
-        for (double v : a)
-            if (v < lowFence || v > highFence)
-                outliers++;
+        // Harmonic mean via recursion (undefined if any == 0)
+        Double hMean = harmonicMeanRecursive(a);
 
         // Output
         System.out.println();
-        System.out.println("Summary");
+        System.out.println("Results");
         System.out.println("-------");
-        System.out.printf("Count (n)            : %d%n", n);
-        System.out.printf("Min / Max            : %.6f / %.6f%n", min, max);
-        System.out.printf("Sum                  : %.6f%n", sum);
-        System.out.printf("Mean (Arithmetic)    : %.6f%n", mean);
-        System.out.printf("Median               : %.6f%n", median);
-        System.out.printf("Q1 / Q3              : %.6f / %.6f%n", q1, q3);
-        System.out.printf("IQR                  : %.6f%n", iqr);
-        System.out.printf("Variance (Population): %.6f%n", varPop);
-        System.out.printf("Std Dev (Population) : %.6f%n", stdPop);
-        System.out.printf("Variance (Sample)    : %.6f%n", varSmp);
-        System.out.printf("Std Dev (Sample)     : %.6f%n", stdSmp);
-
-        if (gMean == null)
-            System.out.println("Geometric Mean       : undefined (all elements must be > 0)");
-        else
-            System.out.printf("Geometric Mean       : %.6f%n", gMean);
-
-        if (hMean == null)
-            System.out.println("Harmonic Mean        : undefined (no element may be zero)");
-        else
-            System.out.printf("Harmonic Mean        : %.6f%n", hMean);
-
-        System.out.printf("Outliers (1.5*IQR)   : %d%n", outliers);
-
-        // A Small Overview
-        int k = Math.min(5, s.length);
-        System.out.print("Sorted preview       : ");
-        for (int i = 0; i < k; i++)
-            System.out.print(fmt6(s[i]) + (i < k - 1 ? ", " : ""));
-        if (s.length > 10)
-            System.out.print(", ..., ");
-        int startTail = Math.max(k, s.length - k);
-        for (int i = startTail; i < s.length; i++) {
-            System.out.print(fmt6(s[i]) + (i < s.length - 1 ? ", " : ""));
+        System.out.printf("Count (n)         : %d%n", n);
+        System.out.printf("Mean (Arithmetic) : %.6f%n", mean);
+        System.out.printf("Median            : %.6f%n", median);
+        if (gMean == null) {
+            System.out.println("Geometric Mean    : undefined (all elements must be > 0)");
+        } else {
+            System.out.printf("Geometric Mean    : %.6f%n", gMean);
         }
-        System.out.println();
+        if (hMean == null) {
+            System.out.println("Harmonic Mean     : undefined (no element may be zero)");
+        } else {
+            System.out.printf("Harmonic Mean     : %.6f%n", hMean);
+        }
     }
 
     /**
-     * METHOD arrayDistance(): Reads two integer arrays of equal length from the
-     * user (each element limited
-     * to digits between 0 and 9). Then computes several distance and similarity
-     * measures between the arrays: Manhattan distance, Euclidean distance,
-     * Chebyshev distance, Hamming distance, Cosine similarity (and its derived
-     * cosine distance), and Minkowski distance based on a user-entered parameter p.
-     * The results are printed in a clear formatted report.
+     * Computes the median of a sorted array.
+     * For even n, returns the average of the two middle values.
+     * @param sorted an already sorted double[] (ascending)
+     * @return the median value of the array as double
+     * @author Sena Berra Soydugan
+     */
+    public static double medianSorted(double[] sorted) {
+        int n = sorted.length;
+        return (n % 2 == 1) ? sorted[n / 2]
+                            : (sorted[n / 2 - 1] + sorted[n / 2]) / 2.0;
+    }
+
+    /**
+     * Computes the geometric mean of array a.
+     * Returns null if any element <= 0 (undefined).
+     * @param a input array of doubles
+     * @return geometric mean as Double, or null if undefined (any a[i] <= 0) 
+     * @author Sena Berra Soydugan
+     */
+    public static Double geometricMean(double[] a) {
+        double logSum = 0.0;
+        for (double v : a) {
+            if (v <= 0.0) return null;
+            logSum += Math.log(v);
+        }
+        return Math.exp(logSum / a.length);
+    }
+
+    /**
+     * Computes the harmonic mean of array a using recursion to sum reciprocals.
+     * Returns null if any element equals zero.
+     * @param a input array of doubles
+     * @return harmonic mean as Double, or null if undefined (any a[i] == 0) 
+     * @author Sena Berra Soydugan
+     */
+    public static Double harmonicMeanRecursive(double[] a) {
+        for (double v : a) if (v == 0.0) return null;
+        double recSum = reciprocalSum(a, 0);
+        return a.length / recSum;
+    }
+
+    /**
+     * Recursive helper that returns the sum of reciprocals of a[i..end].
+     * @param a input array of doubles
+     * @param i starting index (0 <= i <= a.length)
+     * @return sum_{k=i}^{n-1} (1 / a[k]); returns 0 when i == a.length
+     * @author Sena Berra Soydugan
+     */
+    public static double reciprocalSum(double[] a, int i) {
+        if (i == a.length) return 0.0;
+        return (1.0 / a[i]) + reciprocalSum(a, i + 1);
+    }
+
+    // -------------- 2) DISTANCE BETWEEN TWO ARRAYS ---------------
+
+    /**
+     * Reads dimension n, then two integer arrays A and B (each entry in [0..9]).
+     * Invalid entries trigger a warning and a retry.
+     * Computes and prints:
+     *  - Manhattan distance
+     *  - Euclidean distance
+     *  - Cosine similarity and Cosine distance (= 1 - similarity)
+     * Clears the console on entry.
+     * @return void (prints results to console) 
      * @author Sena Berra Soydugan
      */
     public static void arraysDistance() {
@@ -2271,8 +2326,7 @@ public class Project1 {
 
         // Manhattan
         long manhattan = 0;
-        for (int i = 0; i < n; i++)
-            manhattan += Math.abs(A[i] - B[i]);
+        for (int i = 0; i < n; i++) manhattan += Math.abs(A[i] - B[i]);
 
         // Euclidean
         long sq = 0;
@@ -2282,66 +2336,51 @@ public class Project1 {
         }
         double euclidean = Math.sqrt(sq);
 
-        // Chebyshev
-        int chebyshev = 0;
-        for (int i = 0; i < n; i++)
-            chebyshev = Math.max(chebyshev, Math.abs(A[i] - B[i]));
-
-        // Hamming
-        int hamming = 0;
-        for (int i = 0; i < n; i++)
-            if (A[i] != B[i])
-                hamming++;
-
-        // Cosine
+        // Cosine similarity
         long dot = 0, normA2 = 0, normB2 = 0;
         for (int i = 0; i < n; i++) {
-            dot += (long) A[i] * B[i];
+            dot    += (long) A[i] * B[i];
             normA2 += (long) A[i] * A[i];
             normB2 += (long) B[i] * B[i];
         }
         Double cosSim = null, cosDist = null;
         if (normA2 != 0 && normB2 != 0) {
-            cosSim = dot / (Math.sqrt(normA2) * Math.sqrt(normB2));
+            cosSim  = dot / (Math.sqrt(normA2) * Math.sqrt(normB2));
             cosDist = 1.0 - cosSim;
         }
-
-        // Minkowski
-        double p = readDoubleInRange("Enter Minkowski order p (>= 1, e.g., 3): ", 1.0, Double.POSITIVE_INFINITY);
-        double mkSum = 0.0;
-        for (int i = 0; i < n; i++)
-            mkSum += Math.pow(Math.abs(A[i] - B[i]), p);
-        double minkowski = Math.pow(mkSum, 1.0 / p);
 
         // Output
         System.out.println();
         System.out.println("Results");
         System.out.println("-------");
-        System.out.println("Manhattan (L1)      : " + manhattan);
-        System.out.printf("Euclidean (L2)      : %.6f%n", euclidean);
-        System.out.println("Chebyshev (L∞)      : " + chebyshev);
-        System.out.println("Hamming (positions) : " + hamming);
+        System.out.println("Manhattan (L1)    : " + manhattan);
+        System.out.printf("Euclidean (L2)    : %.6f%n", euclidean);
         if (cosSim == null) {
-            System.out.println("Cosine Similarity   : undefined (a zero vector encountered)");
-            System.out.println("Cosine Distance     : undefined");
+            System.out.println("Cosine Similarity : undefined (a zero vector encountered)");
+            System.out.println("Cosine Distance   : undefined");
         } else {
-            System.out.printf("Cosine Similarity   : %.6f%n", cosSim);
-            System.out.printf("Cosine Distance     : %.6f%n", cosDist);
+            System.out.printf("Cosine Similarity : %.6f%n", cosSim);
+            System.out.printf("Cosine Distance   : %.6f%n", cosDist);
         }
-        System.out.printf("Minkowski (p=%.3f)  : %.6f%n", p, minkowski);
     }
 
-    // Robust input helpers (for Sena's Part)
+    // ---------------------- INPUT HELPERS ------------------------
 
     /**
-     * methodReadPositiveInt(): Continuously prompts the user with the given message
-     * until a valid integer
-     * greater than or equal to 1 is entered. Returns that integer once the input
-     * is valid.
-      *
-  * @param prompt The instructional message shown to the user.
-    * @return A validated integer value >= 1.
-    * @author Sena Berra Soydugan
+     * Attempts to clear the console (best-effort, ANSI escape).
+     * @return void (visual side-effect only) 
+     * @author Sena Berra Soydugan
+     */
+    public static void clearScreen() {
+        System.out.print("\033[H\033[2J");
+        System.out.flush();
+    }
+
+    /**
+     * Prompts the user until a valid integer >= 1 is entered.
+     * @param prompt message shown to the user
+     * @return an integer value v such that v >= 1
+     * @author Sena Berra Soydugan
      */
     public static int readPositiveInt(String prompt) {
         while (true) {
@@ -2349,8 +2388,7 @@ public class Project1 {
             String s = SC.nextLine().trim();
             try {
                 int v = Integer.parseInt(s);
-                if (v >= 1)
-                    return v;
+                if (v >= 1) return v;
                 System.out.println("Invalid input. Please enter an integer >= 1.");
             } catch (NumberFormatException e) {
                 System.out.println("Invalid integer. Try again.");
@@ -2359,14 +2397,12 @@ public class Project1 {
     }
 
     /**
-     * method readIntRange: Prompts the user for an integer and ensures that the
-     * entered value falls
-     * within the specified inclusive range [min, max]. Continues asking until a
-     * valid value is provided, then returns it.
-      * @param prompt Message shown to the user.
-      * @param min The minimum allowed integer.
-     * @param max The maximum allowed integer.
-     * @return A validated integer within the specified range.
+     * Prompts for an integer in the inclusive range [min, max].
+     * Retries until valid.
+     * @param prompt message shown to the user
+     * @param min minimum allowed integer (inclusive)
+     * @param max maximum allowed integer (inclusive)
+     * @return an integer v such that min <= v <= max
      * @author Sena Berra Soydugan
      */
     public static int readIntInRange(String prompt, int min, int max) {
@@ -2375,8 +2411,7 @@ public class Project1 {
             String s = SC.nextLine().trim();
             try {
                 int v = Integer.parseInt(s);
-                if (v >= min && v <= max)
-                    return v;
+                if (v >= min && v <= max) return v;
                 System.out.println("Invalid input. Enter an integer in [" + min + "," + max + "].");
             } catch (NumberFormatException e) {
                 System.out.println("Invalid integer. Try again.");
@@ -2385,12 +2420,9 @@ public class Project1 {
     }
 
     /**
-     * method readDouble(): Prompts the user with the given message and attempts to
-     * parse the input
-     * as a double value. If parsing fails, the user is asked again until a valid
-     * double is entered.
-     * @param prompt Message shown to the user.
-     * @return A valid double value entered by the user.
+     * Prompts for a double; retries until a valid double is entered.
+     * @param prompt message shown to the user
+     * @return the parsed double value (e.g., 3.14, -2.0) 
      * @author Sena Berra Soydugan
      */
     public static double readDouble(String prompt) {
@@ -2406,37 +2438,14 @@ public class Project1 {
     }
 
     /**
-     * method readDoubleInRange(): Reads a double value from the user, ensuring that
-     * it is within the range
-     * [min, maxInclOrInf]. If the value is out of range, the user is prompted again
-     * until a valid value is entered.
-     * @param prompt Message shown to the user.
-     * @param min Minimum allowed value.
-     * @param maxInclOrInf Maximum allowed value (or +∞).
-     * @return A validated double within the given range.
+     * Reads an integer array of length n; each element must lie in [min, max].
+     * Invalid entries trigger a warning and a retry.
+     * @param head title/info message displayed to the user
+     * @param n number of array elements to read (n >= 1)
+     * @param min inclusive minimum allowed value per element
+     * @param max inclusive maximum allowed value per element
+     * @return an int[] of length n with each entry in [min, max]
      * @author Sena Berra Soydugan
-     */
-    public static double readDoubleInRange(String prompt, double min, double maxInclOrInf) {
-        while (true) {
-            double v = readDouble(prompt);
-            if (v >= min && v <= maxInclOrInf)
-                return v;
-            System.out.println("Out of range. Value must be >= " + min
-                    + (Double.isInfinite(maxInclOrInf) ? "" : (" and <= " + maxInclOrInf)));
-        }
-    }
-
-    /**
-     * method readIntArrayDigits(): Reads an array of integers from the user,
-     * enforcing that each value lies in
-     * the inclusive range [min, max]. The array is filled element-by-element and
-     * returned once complete.
-    * @param head Title/info message displayed to the user.
-    * @param n Number of array elements.
-    * @param min Minimum allowed value for each element.
-    * @param max Maximum allowed value for each element.
-    * @return The validated integer array entered by the user.
-    * @author Sena Berra Soydugan
      */
     public static int[] readIntArrayDigits(String head, int n, int min, int max) {
         System.out.println(head + " -> total " + n + " items.");
@@ -2446,131 +2455,8 @@ public class Project1 {
         }
         return arr;
     }
-
-    // Statistics internals (for Sena's Part)
-
-    /**
-     * method fmt6():Formats a double value to exactly six decimal places and
-     * returns the formatted
-     * string representation.
-     * @param v The value to be formatted.
-     * @return A string representation of v with exactly 6 decimal places.
-     * @author Sena Berra Soydugan
-     */
-    public static String fmt6(double v) {
-        return String.format("%.6f", v);
-    }
-
-    /**
-     * method medianSorted():Computes the median of a sorted array. If the length is
-     * odd, the middle element
-     * is returned; if even, the average of the two center elements is returned.
-    * @param sorted An already sorted array of doubles.
-      * @return The median value of the array.
-      * @author Sena Berra Soydugan
-     */
-    public static double medianSorted(double[] sorted) {
-        int n = sorted.length;
-        return (n % 2 == 1) ? sorted[n / 2] : (sorted[n / 2 - 1] + sorted[n / 2]) / 2.0;
-    }
-
-    /**
-     * method: quantileSorted():Computes a quantile of a sorted array using linear
-     * interpolation. The parameter
-     * q should be between 0 and 1, where q = 0.5 corresponds to the median, 0.25 to
-     * Q1,
-     * and 0.75 to Q3.
-      * @param sorted An already sorted array
-      * @param q A quantile value between 0 and 1.
-      * @return The computed quantile value.
-      * @author Sena Berra Soydugan
-     */
-    public static double quantileSorted(double[] sorted, double q) {
-        int n = sorted.length;
-        if (n == 1)
-            return sorted[0];
-        double pos = q * (n - 1);
-        int idx = (int) Math.floor(pos);
-        double frac = pos - idx;
-        if (idx >= n - 1)
-            return sorted[n - 1];
-        return sorted[idx] * (1 - frac) + sorted[idx + 1] * frac;
-    }
-
-    /**
-     * method variance(): Calculates the variance of the array using either
-     * population or sample formula.
-     * If sample is true, divides by (n - 1); otherwise divides by n.
-      * @param a Input array.
-      * @param mean The arithmetic mean of the array.
-      * @param sample True to compute sample variance (n-1), false for population variance (n).
-      * @return The computed variance.
-      * @author Sena Berra Soydugan
-     */
-    public static double variance(double[] a, double mean, boolean sample) {
-        if (a.length <= (sample ? 1 : 0))
-            return 0.0;
-        double ss = 0.0;
-        for (double v : a) {
-            double d = v - mean;
-            ss += d * d;
-        }
-        return ss / (sample ? (a.length - 1) : a.length);
-    }
-
-    /**
-     * method geometricMean():Computes the geometric mean of the elements of the
-     * array. Returns null if any
-     * element is non-positive, since the geometric mean is defined only for values
-     * > 0.
-      * @param a Input array.
-      * @return The geometric mean, or null if undefined.
-      * @author Sena Berra Soydugan
-     */
-    public static Double geometricMean(double[] a) {
-        double logSum = 0.0;
-        for (double v : a) {
-            if (v <= 0.0)
-                return null;
-            logSum += Math.log(v);
-        }
-        return Math.exp(logSum / a.length);
-    }
-
-    /**
-     * method harmonicMeanRecursive(): Computes the harmonic mean of the array using
-     * a recursive helper function to
-     * sum reciprocals. Returns null if any element is zero, because division by
-     * zero
-     * would make the harmonic mean undefined.
-     * @param a Input array.
-     * @return The harmonic mean, or null if undefined.
-     * @author Sena Berra Soydugan
-     */
-    public static Double harmonicMeanRecursive(double[] a) {
-        for (double v : a)
-            if (v == 0.0)
-                return null;
-        double recSum = reciprocalSum(a, 0);
-        return a.length / recSum;
-    }
-
-    /**
-     * method reciprocalSum(): A recursive helper method that returns the sum of
-     * reciprocals of array elements,
-     * starting from index i and proceeding to the end of the array.
-      * @param a Input array.
-      * @param i Starting index for recursion.
-      * @return The sum of reciprocals from index i to end.
-      * @author Sena Berra Soydugan
-     */
-    public static double reciprocalSum(double[] a, int i) {
-        if (i == a.length)
-            return 0.0;
-        return (1.0 / a[i]) + reciprocalSum(a, i + 1);
-    }
-
-    // -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+}
+    // end of senas part-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
     // Methods for the method selectMenuUniversity()
 
@@ -3018,4 +2904,5 @@ public class Project1 {
         SC.nextLine();
     }
 }
+
 
